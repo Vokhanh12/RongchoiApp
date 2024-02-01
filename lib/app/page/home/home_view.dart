@@ -44,7 +44,7 @@ class HomePageState extends clean_architecture.ViewState<HomePage, HomeControlle
                 builder: (context, controller) {
                   return Text(
                     controller.user == null ? '' : '${controller.user}',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   );
                 },
               ),

@@ -1,11 +1,14 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart' as clean_architecture;
-import 'package:rongchoi_app/app/page/login/home_view.dart';
+import 'package:rongchoi_app/app/page/home/home_view.dart';
 
 import 'package:flutter/material.dart';
+import 'package:rongchoi_app/app/page/login/login_view.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(key: ValueKey('unique_key'),title: 'Flutter Clean Demo Page'),
+      home: const LoginPage(key: ValueKey('unique_key'),title: 'Flutter Clean Demo Page'),
     );
   }
 }

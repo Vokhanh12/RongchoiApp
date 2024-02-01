@@ -12,7 +12,7 @@ class HomePresenter extends clean_architecture.Presenter {
   void getUser(String uid) {
     // execute getUseruserCase
     getUserUseCase.execute(
-        _GetUserUseCaseObserver(this), GetUserUseCaseParams(uid));
+        _GetUserUseCaseObserver(this), GetUserUseCaseParams(uid),);
   }
 
   @override
@@ -26,19 +26,16 @@ class _GetUserUseCaseObserver extends clean_architecture.Observer<GetUserUseCase
   _GetUserUseCaseObserver(this.presenter);
   @override
   void onComplete() {
-    assert(presenter.getUserOnComplete != null);
     presenter.getUserOnComplete();
   }
 
   @override
   void onError(e) {
-    assert(presenter.getUserOnError != null);
     presenter.getUserOnError(e);
   }
 
   @override
   void onNext(response) {
-    assert(presenter.getUserOnNext != null);
     presenter.getUserOnNext(response!.user);
   }
 }

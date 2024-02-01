@@ -9,7 +9,7 @@ class DataUsersRepository extends UsersRepository {
     users = <User>[];
     users.addAll([
       User('test-uid', 'John Smith', 18),
-      User('test-uid2', 'John Doe', 22)
+      User('test-uid2', 'John Doe', 22),
     ]);
   }
   factory DataUsersRepository() => _instance;

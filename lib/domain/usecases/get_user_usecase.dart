@@ -11,7 +11,7 @@ class GetUserUseCase
 
   @override
   Future<Stream<GetUserUseCaseResponse?>> buildUseCaseStream(
-      GetUserUseCaseParams? params) async {
+      GetUserUseCaseParams? params,) async {
     final controller = StreamController<GetUserUseCaseResponse>();
     try {
       // get user
