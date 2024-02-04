@@ -1,7 +1,8 @@
 import './home_presenter.dart';
 import '../../../domain/entities/user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart' as clean_architecture;
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
+    as clean_architecture;
 
 class HomeController extends clean_architecture.Controller {
   int _counter;

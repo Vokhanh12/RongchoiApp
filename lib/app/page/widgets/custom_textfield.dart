@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 
-class LoginTextField extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final String text;
 
-  const LoginTextField({Key? key, required this.text}) : super(key: key);
+  const CustomTextField({Key? key, required this.text}) : super(key: key);
 
   @override
   _LoginTextFieldState createState() => _LoginTextFieldState();
 }
-class _LoginTextFieldState extends State<LoginTextField> {
+class _LoginTextFieldState extends State<CustomTextField> {
   bool _isTextColorChange = false;
   bool _isInputEmpty = true;
   FocusNode _focusNode = FocusNode();
@@ -37,7 +37,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
   Widget build(BuildContext context) {
     return Container(
     constraints: BoxConstraints(
-      maxHeight: 80, // Set the maximum height
+      maxHeight: 60, // Set the maximum height
     ),
 
       child: TextField(
@@ -56,6 +56,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
       labelStyle: _getLabelStyle(),
       focusedBorder: _getFocusedInputBorder(),
       enabledBorder: _getEnabledInputBorder(),
+      contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 17.0), // Set padding for text
     );
   }
 
@@ -64,7 +65,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
       color: _isTextColorChange || !_isInputEmpty
           ? Colors.orange
           : Color(0xFFA3A9AC),
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       fontSize: 16.0,
       letterSpacing: 1.0,
     );
@@ -73,7 +74,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
   OutlineInputBorder _getFocusedInputBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.0),
-      borderSide: BorderSide(color: Color(0xFFFFBD3F), width: 3.0),
+      borderSide: BorderSide(color: Color(0xFFFFBD3F), width: 2.2),
     );
   }
 
@@ -81,8 +82,8 @@ class _LoginTextFieldState extends State<LoginTextField> {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(13.0),
       borderSide: _isInputEmpty
-          ? BorderSide(color: Color(0xFFD2D9DD), width: 3.0)
-          : BorderSide(color: Color(0xFFFFBD3F), width: 3.0),
+          ? BorderSide(color: Color(0xFFD2D9DD), width: 2.2)
+          : BorderSide(color: Color(0xFFFFBD3F), width: 2.2),
     );
   }
 
