@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "appName": "Rongchoi App",
+  "forgotPasswordLabel": "Forgot Password?",
+  "loginTitle": "Login",
+  "orLabel": "Or",
+  "passwordLabel": "Password",
+  "usernameLabel": "Username",
+  "loginButtonLabel": "Login",
+  "registerButtonLabel": "Register"
+}

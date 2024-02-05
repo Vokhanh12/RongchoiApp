@@ -1,9 +1,11 @@
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart' as clean_architecture;
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
+    as clean_architecture;
 import 'package:rongchoi_app/app/page/home/home_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:rongchoi_app/infrastructure/screen_size_provider_impl.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(const MyApp());
 
@@ -16,6 +18,16 @@ class MyApp extends StatelessWidget {
     clean_architecture.FlutterCleanArchitecture.debugModeOn();
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // Tieng Viet
+        // Locate('en'),
+      ],
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,8 +40,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(key: ValueKey('unique_key'),title: 'Flutter Clean Demo Page',
-      screenSizeProviderInstance: MediaQueryScreenSizeProvider(),),
+      home: LoginPage(
+        key: const ValueKey('unique_key'),
+        title: 'Flutter Clean Demo Page',
+        screenSizeProviderInstance: MediaQueryScreenSizeProvider(),
+      ),
     );
   }
 }

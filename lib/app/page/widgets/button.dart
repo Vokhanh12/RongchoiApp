@@ -15,6 +15,9 @@ class HomePageButton extends StatelessWidget {
     return GestureDetector(
       onTap: controller.buttonPressed,
       child: Container(
+        constraints: BoxConstraints(
+          maxWidth: 200 
+        ),
         height: 50.0,
         alignment: FractionalOffset.center,
         decoration: BoxDecoration(

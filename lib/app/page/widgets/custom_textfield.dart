@@ -12,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   @override
   _LoginTextFieldState createState() => _LoginTextFieldState();
 }
+
 class _LoginTextFieldState extends State<CustomTextField> {
   bool _isTextColorChange = false;
   bool _isInputEmpty = true;
@@ -36,10 +37,9 @@ class _LoginTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-    constraints: BoxConstraints(
-      maxHeight: 60, // Set the maximum height
-    ),
-
+      constraints: BoxConstraints(
+        maxHeight: 65, // Set the maximum height
+      ),
       child: TextField(
         controller: _textEditingController,
         focusNode: _focusNode,
@@ -56,7 +56,8 @@ class _LoginTextFieldState extends State<CustomTextField> {
       labelStyle: _getLabelStyle(),
       focusedBorder: _getFocusedInputBorder(),
       enabledBorder: _getEnabledInputBorder(),
-      contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 17.0), // Set padding for text
+      contentPadding: EdgeInsets.symmetric(
+          vertical: 0.0, horizontal: 17.0), // Set padding for text
     );
   }
 

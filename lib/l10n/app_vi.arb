@@ -1,0 +1,13 @@
+{
+ 
+  "@@locale": "vi",
+  "appName": "Ứng dụng Rongchoi",
+  "forgotPasswordLabel": "Quên mật khẩu",
+  "loginTitle": "Đăng nhập",
+  "orLabel": "Hoặc",
+  "passwordLabel": "Mật khẩu",
+  "usernameLabel": "Tên tài khoản",
+  "loginButtonLabel": "Đăng nhập",
+  "registerButtonLabel": "Đăng ký"
+
+}

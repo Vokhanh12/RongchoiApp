@@ -19,7 +19,7 @@ class CustomClickableText extends StatelessWidget {
           color: Color(0xFF808080), // Set color to #808080
           fontWeight: FontWeight.bold, // Set text to be bold
           fontSize: 14.0, // Set text size to 12
-          decoration: TextDecoration.underline,
+          decoration: TextDecoration.none,
         ),
       ),
     );
