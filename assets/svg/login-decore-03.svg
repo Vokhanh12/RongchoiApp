@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 146.7 130.38">
+  <defs>
+    <clipPath id="clippath">
+      <path d="M74.63,51.23S91.66-.09,149.36-4.43c0,0-26.78,54.45-74.73,55.66Z" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <path d="M110.81,105.62S111.99,15.85,176.17,0c0,0-6.64,78.81-65.36,105.62Z" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+    </clipPath>
+  </defs>
+  <path d="M2.55,0s19.91,32.85,62.04,34.89,51.87,6.89,82.11,36.26V0H2.55Z" fill="#c32e27"/>
+  <path d="M21.28,0s44.09,44.77,73.7,0H21.28Z" fill="#d9582c"/>
+  <g>
+    <g clip-path="url(#clippath)">
+      <path d="M74.63,51.23C84.32,32.89,116.55,7.96,150-4.43" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+      <path d="M74.63,51.23S130.34,19.9,149.36-4.43" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+    </g>
+    <path d="M74.63,51.23S91.66-.09,149.36-4.43c0,0-26.78,54.45-74.73,55.66Z" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+  </g>
+  <g>
+    <g clip-path="url(#clippath-1)">
+      <path d="M107.91,108.94S164.61,45.01,178.04-7.49" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+      <path d="M107.91,108.94S147.66,9.95,186.64-6.47" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+    </g>
+    <path d="M110.81,105.62S111.99,15.85,176.17,0c0,0-6.64,78.81-65.36,105.62Z" fill="none" stroke="#f7b538" stroke-miterlimit="10"/>
+  </g>
+</svg>

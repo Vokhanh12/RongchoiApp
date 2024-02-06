@@ -6,6 +6,8 @@ import 'package:rongchoi_app/app/page/widgets/custom_button_01.dart';
 import 'package:rongchoi_app/app/page/widgets/custom_button_02.dart';
 import 'package:rongchoi_app/app/page/widgets/custom_circle_image.dart';
 import 'package:rongchoi_app/app/page/widgets/custom_clickable_text.dart';
+import 'package:rongchoi_app/app/page/widgets/custom_image.dart';
+import 'package:rongchoi_app/app/page/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/page/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/page/widgets/custom_textfield.dart';
 
@@ -20,7 +22,7 @@ class UsernameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-        constraints: BoxConstraints(maxWidth: 600),
+        constraints: const BoxConstraints(maxWidth: 600),
         child: CustomTextField(text: text));
   }
 }
@@ -34,7 +36,7 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-        constraints: BoxConstraints(maxWidth: 600),
+        constraints: const BoxConstraints(maxWidth: 600),
         child: CustomTextField(text: text));
   }
 }
@@ -52,7 +54,7 @@ class LoginButton extends StatelessWidget {
         FlutterCleanArchitecture.getController<LoginController>(context);
 
     return Container(
-      constraints: BoxConstraints(maxWidth: 600),
+      constraints: const BoxConstraints(maxWidth: 600),
       child: CustomButton_01(
           text: text, onTap: () => {print("Clicked Button 01 Login")}),
     );
@@ -70,7 +72,7 @@ class RegisterButton extends StatelessWidget {
         FlutterCleanArchitecture.getController<LoginController>(context);
 
     return Container(
-      constraints: BoxConstraints(maxWidth: 600),
+      constraints: const BoxConstraints(maxWidth: 600),
       child: CustomButton_02(
           text: text, onTap: () => {print("Clicked Button 02 Register")}),
     );
@@ -90,7 +92,7 @@ class ForgotPasswordText extends StatelessWidget {
         FlutterCleanArchitecture.getController<LoginController>(context);
 
     return Container(
-      constraints: BoxConstraints(maxWidth: 600),
+      constraints: const BoxConstraints(maxWidth: 600),
       child: Align(
         alignment: Alignment.centerRight,
         child: CustomClickableText(
@@ -130,7 +132,10 @@ class CircleGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomCircleImage(url: 'assets/svg/icon-google.svg');
+    return CustomCircleImage(
+      url: 'assets/svg/icon-google.svg',
+      onTap: () => {print("Google clicked")},
+    );
   }
 }
 
@@ -139,6 +144,89 @@ class CircleFacebook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomCircleImage(url: 'assets/svg/icon-facebook.svg');
+    return CustomCircleImage(
+      url: 'assets/svg/icon-facebook.svg',
+      onTap: () => {print("Facebook clicked")},
+    );
+  }
+}
+
+class LogoRongchoi extends StatelessWidget {
+  final double width;
+  final double height;
+
+  const LogoRongchoi({super.key, required this.width, required this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.all(20.0),
+        child: CustomSvgPicture(
+            width: this.width / 3,
+            height: this.height / 3,
+            url: 'assets/svg/logo-rongchoi-01.svg'));
+  }
+}
+
+class DecorLeft extends StatelessWidget {
+  final double width;
+  final double height;
+  const DecorLeft({super.key, required this.width, required this.height});
+
+  @override
+  Widget build(BuildContext contex) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Container(
+          child: CustomSvgPicture(
+              width: this.width / 5,
+              height: this.height / 5,
+              url: 'assets/svg/login-decore-01.svg')),
+    );
+  }
+}
+
+class DecorRight01 extends StatelessWidget {
+  final double width;
+  final double height;
+  const DecorRight01({super.key, required this.width, required this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: CustomSvgPicture(
+          width: this.width / 4,
+          height: this.height / 4,
+          url: 'assets/svg/login-decore-03.svg'),
+    );
+  }
+}
+
+class DecorRight02 extends StatelessWidget {
+  final double width;
+  final double height;
+  const DecorRight02({super.key, required this.width, required this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: CustomSvgPicture(
+          width: this.width / 6,
+          height: this.height / 6,
+          url: 'assets/svg/login-decore-02.svg'),
+    );
+  }
+}
+
+class DecorBottom extends StatelessWidget {
+  final double width;
+  final double height;
+  const DecorBottom({super.key, required this.width, required this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

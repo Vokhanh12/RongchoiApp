@@ -6,12 +6,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomCircleImage extends StatelessWidget {
   final String url;
-  const CustomCircleImage({super.key, required this.url});
+  final Function() onTap;
+  const CustomCircleImage({super.key, required this.url, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     // use a common controller assuming HomePageButton is always a child of Home
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         width: 80,
         height: 80,

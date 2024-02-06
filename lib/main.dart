@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en'), // Tieng Viet
+        Locale('vi'), // Tieng Viet
         // Locate('en'),
       ],
       theme: ThemeData(
