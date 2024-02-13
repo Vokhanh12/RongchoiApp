@@ -2,14 +2,14 @@ import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_button_01.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_button_02.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_circle_image.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_clickable_text.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_image.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_svg_picture.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_text.dart';
-import 'package:rongchoi_app/app/page/widgets/custom_textfield.dart';
+import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
+import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
+import 'package:rongchoi_app/app/widgets/custom_circle_image.dart';
+import 'package:rongchoi_app/app/widgets/custom_clickable_text.dart';
+
+import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
+import 'package:rongchoi_app/app/widgets/custom_text.dart';
+import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 
 // TextField
 
@@ -128,11 +128,16 @@ class LoginText extends StatelessWidget {
 // Image Click
 
 class CircleGoogle extends StatelessWidget {
-  const CircleGoogle({super.key});
+  final double width;
+  final double height;
+
+  const CircleGoogle({super.key, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
     return CustomCircleImage(
+      width: width / 10,
+      height: height / 10,
       url: 'assets/svg/icon-google.svg',
       onTap: () => {print("Google clicked")},
     );
@@ -140,11 +145,16 @@ class CircleGoogle extends StatelessWidget {
 }
 
 class CircleFacebook extends StatelessWidget {
-  const CircleFacebook({super.key});
+  final double width;
+  final double height;
+
+  const CircleFacebook({super.key, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
     return CustomCircleImage(
+      width: width / 10,
+      height: height / 10,
       url: 'assets/svg/icon-facebook.svg',
       onTap: () => {print("Facebook clicked")},
     );
