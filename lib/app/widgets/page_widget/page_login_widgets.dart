@@ -12,32 +12,43 @@ import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 
 // TextField
-
 class UsernameTextField extends StatelessWidget {
   final String text;
 
-  const UsernameTextField({super.key, required this.text});
+  const UsernameTextField({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+  TextEditingController emailController = new TextEditingController();
+
+    // Add listener to update email in LoginController
+
     return Container(
-        constraints: const BoxConstraints(maxWidth: 600),
-        child: CustomTextField(text: text));
+      constraints: const BoxConstraints(maxWidth: 600),
+      child: CustomTextField(
+        text: text,
+      ),
+    );
   }
 }
 
 class PasswordTextField extends StatelessWidget {
   final String text;
-
   const PasswordTextField({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    final passwordController = TextEditingController();
+
+
+  
+
     return Container(
         constraints: const BoxConstraints(maxWidth: 600),
-        child: CustomTextField(text: text));
+        child: CustomTextField(
+          text: this.text,
+        ));
   }
 }
 
@@ -56,7 +67,8 @@ class LoginButton extends StatelessWidget {
     return Container(
       constraints: const BoxConstraints(maxWidth: 600),
       child: CustomButton_01(
-          text: text, onTap: () => {print("Clicked Button 01 Login")}),
+          text: text,
+          onTap: () => {print("Clicked Button 01 Login"), controller.login()}),
     );
   }
 }

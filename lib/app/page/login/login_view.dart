@@ -3,8 +3,10 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/widgets/page_widget/page_login_widgets.dart';
+import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/domain/interface/screen_size_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 
 class LoginPage extends clean_architecture.View {
   const LoginPage({
@@ -17,6 +19,7 @@ class LoginPage extends clean_architecture.View {
   final ScreenSizeProvider screenSizeProviderInstance;
 
   @override
+  // ignore: no_logic_in_create_state
   LoginPageState createState() => LoginPageState(screenSizeProviderInstance);
 }
 
@@ -25,7 +28,10 @@ class LoginPageState
     extends clean_architecture.ResponsiveViewState<LoginPage, LoginController> {
   final ScreenSizeProvider screenSizeProvider;
 
-  LoginPageState(this.screenSizeProvider) : super(LoginController());
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  LoginPageState(this.screenSizeProvider) : super(LoginController(email: '', password: '', authenticationRepo: DataAuthenticationRepository() ));
 
   Widget loginScaffold({Widget? child}) {
     return MaterialApp(
@@ -48,6 +54,8 @@ class LoginPageState
     double screenHeight = screenSizeProvider.getScreenHeight(context);
 
     AppLocalizations app = AppLocalizations.of(context)!;
+
+
 
     return Scaffold(
       body: Scaffold(

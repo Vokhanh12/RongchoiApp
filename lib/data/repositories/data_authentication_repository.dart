@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class DataAuthenticationRepository extends AuthenticationRepository{
 
   @override
-  Future<void> authenticate({required String email, required String password}) {
+  Future<void> authenticate({required String email, required String password}) async {
     // TODO: implement authenticate
-    throw UnimplementedError();
+    print("hello world");
   }
 
   @override
