@@ -23,7 +23,6 @@ class LoginPage extends clean_architecture.View {
   LoginPageState createState() => LoginPageState(screenSizeProviderInstance);
 }
 
-
 class LoginPageState
     extends clean_architecture.ResponsiveViewState<LoginPage, LoginController> {
   final ScreenSizeProvider screenSizeProvider;
@@ -31,7 +30,11 @@ class LoginPageState
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginPageState(this.screenSizeProvider) : super(LoginController(email: '', password: '', authenticationRepo: DataAuthenticationRepository() ));
+  LoginPageState(this.screenSizeProvider)
+      : super(LoginController(
+            email: '',
+            password: '',
+            authenticationRepo: DataAuthenticationRepository()));
 
   Widget loginScaffold({Widget? child}) {
     return MaterialApp(
@@ -54,8 +57,6 @@ class LoginPageState
     double screenHeight = screenSizeProvider.getScreenHeight(context);
 
     AppLocalizations app = AppLocalizations.of(context)!;
-
-
 
     return Scaffold(
       body: Scaffold(
@@ -110,28 +111,54 @@ class LoginPageState
                           ),
                         ),
                         const SizedBox(height: 17),
-                        ForgotPasswordText(text: app.forgotPasswordLabel),
+                        clean_architecture.ControlledWidgetBuilder<
+                            LoginController>(builder: (context, controller) {
+                          return ForgotPasswordText(
+                              text: app.forgotPasswordLabel,
+                              onTap: () => controller.login());
+                        }),
                         const SizedBox(height: 17),
-                        LoginButton(text: app.loginButtonLabel),
+                        clean_architecture.ControlledWidgetBuilder<
+                            LoginController>(builder: (context, controller) {
+                          return LoginButton(
+                            text: app.loginButtonLabel,
+                            onTap: () => controller.login(),
+                          );
+                        }),
                         const SizedBox(height: 16),
-                        RegisterButton(text: app.registerButtonLabel),
+                        clean_architecture.ControlledWidgetBuilder<
+                            LoginController>(builder: (context, controller) {
+                          return RegisterButton(
+                              text: app.registerButtonLabel,
+                              onTap: () => controller.login());
+                        }),
                         const SizedBox(height: 19),
                         OrText(text: app.orLabel),
                         const SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircleGoogle(
-                              width: screenWidth,
-                              height: screenHeight,
-                            ),
+                            clean_architecture.ControlledWidgetBuilder<
+                                    LoginController>(
+                                builder: (context, controller) {
+                              return CircleGoogle(
+                                width: screenWidth,
+                                height: screenHeight,
+                                onTap: () => controller.login(),
+                              );
+                            }),
                             SizedBox(
                               width: screenWidth / 10,
                             ),
-                            CircleFacebook(
-                              width: screenWidth,
-                              height: screenHeight,
-                            ),
+                            clean_architecture.ControlledWidgetBuilder<
+                                    LoginController>(
+                                builder: (context, controller) {
+                              return CircleFacebook(
+                                width: screenWidth,
+                                height: screenHeight,
+                                onTap: () => controller.login(),
+                              );
+                            }),
                           ],
                         ),
                       ],
@@ -153,7 +180,4 @@ class LoginPageState
   @override
   // TODO: implement watchView
   Widget get watchView => Container();
-
-
-
 }

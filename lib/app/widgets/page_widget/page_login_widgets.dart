@@ -19,7 +19,7 @@ class UsernameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  TextEditingController emailController = new TextEditingController();
+    TextEditingController emailController = new TextEditingController();
 
     // Add listener to update email in LoginController
 
@@ -41,9 +41,6 @@ class PasswordTextField extends StatelessWidget {
     // TODO: implement build
     final passwordController = TextEditingController();
 
-
-  
-
     return Container(
         constraints: const BoxConstraints(maxWidth: 600),
         child: CustomTextField(
@@ -56,37 +53,32 @@ class PasswordTextField extends StatelessWidget {
 
 class LoginButton extends StatelessWidget {
   final String text;
+  final Function() onTap;
 
-  const LoginButton({super.key, required this.text});
+  const LoginButton({super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final controller =
-        FlutterCleanArchitecture.getController<LoginController>(context);
-
     return Container(
-      constraints: const BoxConstraints(maxWidth: 600),
-      child: CustomButton_01(
-          text: text,
-          onTap: () => {print("Clicked Button 01 Login"), controller.login()}),
-    );
+        constraints: const BoxConstraints(maxWidth: 600),
+        child: CustomButton_01(
+          text: this.text,
+          onTap: this.onTap,
+        ));
   }
 }
 
 class RegisterButton extends StatelessWidget {
   final String text;
+  final Function() onTap;
 
-  const RegisterButton({super.key, required this.text});
+  const RegisterButton({super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final controller =
-        FlutterCleanArchitecture.getController<LoginController>(context);
-
     return Container(
       constraints: const BoxConstraints(maxWidth: 600),
-      child: CustomButton_02(
-          text: text, onTap: () => {print("Clicked Button 02 Register")}),
+      child: CustomButton_02(text: this.text, onTap: this.onTap),
     );
   }
 }
@@ -95,20 +87,18 @@ class RegisterButton extends StatelessWidget {
 
 class ForgotPasswordText extends StatelessWidget {
   final String text;
+  final Function() onTap;
 
-  const ForgotPasswordText({super.key, required this.text});
+  const ForgotPasswordText(
+      {super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final controller =
-        FlutterCleanArchitecture.getController<LoginController>(context);
-
     return Container(
       constraints: const BoxConstraints(maxWidth: 600),
       child: Align(
         alignment: Alignment.centerRight,
-        child: CustomClickableText(
-            text: text, onTap: () => {print("Clicked Text Forget password")}),
+        child: CustomClickableText(text: this.text, onTap: this.onTap),
       ),
     );
   }
@@ -143,7 +133,9 @@ class CircleGoogle extends StatelessWidget {
   final double width;
   final double height;
 
-  const CircleGoogle({super.key, required this.width, required this.height});
+  final Function() onTap;
+
+  const CircleGoogle({super.key, required this.width, required this.height, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +143,7 @@ class CircleGoogle extends StatelessWidget {
       width: width / 10,
       height: height / 10,
       url: 'assets/svg/icon-google.svg',
-      onTap: () => {print("Google clicked")},
+      onTap: onTap,
     );
   }
 }
@@ -160,7 +152,9 @@ class CircleFacebook extends StatelessWidget {
   final double width;
   final double height;
 
-  const CircleFacebook({super.key, required this.width, required this.height});
+  final Function() onTap;
+
+  const CircleFacebook({super.key, required this.width, required this.height, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +162,7 @@ class CircleFacebook extends StatelessWidget {
       width: width / 10,
       height: height / 10,
       url: 'assets/svg/icon-facebook.svg',
-      onTap: () => {print("Facebook clicked")},
+      onTap: this.onTap,
     );
   }
 }

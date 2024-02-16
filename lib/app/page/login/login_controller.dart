@@ -28,9 +28,38 @@ class LoginController extends clean_architecture.Controller {
 
     print(email);
     print(password);
-
     // pass appropriate credentials here
     // assuming you have text fields to retrieve them and whatnot
     presenter.login(email, password);
   }
+
+  void goToRegister(){
+    
+  }
+
+
+  void forgotPassaword(){
+
+    print("Clicked forgot password");
+
+  }
+
+
+  void loginWithGoogle(){
+
+    print("Clicked login with google");
+
+  }
+
+  void loginWithFacebook(){
+
+     print("Clicked login with facebook");
+
+  }
+
+
+
+
+
+
 }

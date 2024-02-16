@@ -1,6 +1,7 @@
 import './home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart' as clean_architecture;
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
+    as clean_architecture;
 import '../../../data/repositories/data_users_repository.dart';
 
 class HomePage extends clean_architecture.View {
@@ -14,7 +15,8 @@ class HomePage extends clean_architecture.View {
       HomePageState();
 }
 
-class HomePageState extends clean_architecture.ViewState<HomePage, HomeController> {
+class HomePageState
+    extends clean_architecture.ViewState<HomePage, HomeController> {
   HomePageState() : super(HomeController(DataUsersRepository()));
 
   @override
@@ -74,7 +76,8 @@ class HomePageState extends clean_architecture.ViewState<HomePage, HomeControlle
           ),
         ),
       ),
-      floatingActionButton: clean_architecture.ControlledWidgetBuilder<HomeController>(
+      floatingActionButton:
+          clean_architecture.ControlledWidgetBuilder<HomeController>(
         builder: (context, controller) {
           return FloatingActionButton(
             onPressed: () => controller.buttonPressed(),

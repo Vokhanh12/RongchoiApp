@@ -16,6 +16,7 @@ class LoginPresenter{
     loginUseCase.execute(_LoginUseCaseObserver(this), LoginUseCaseParams(email, password));
   }
 
+
    /// Disposes of the [LoginUseCase] and unsubscribes
    @override
    void dispose() {
