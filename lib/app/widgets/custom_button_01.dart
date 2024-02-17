@@ -20,10 +20,13 @@ class _CustomButton_01State extends State<CustomButton_01> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
-         onTap: () {
+        onTap: () {
           widget.onTap(); // Call the onTap function if needed
         },
         onTapDown: (details) {
@@ -38,12 +41,13 @@ class _CustomButton_01State extends State<CustomButton_01> {
         },
         borderRadius: BorderRadius.circular(12.0),
         child: Container(
+          height: screenHeight / 18,
           constraints: BoxConstraints(
             maxHeight: 45, // Set the maximum height
           ),
           alignment: FractionalOffset.center,
           decoration: BoxDecoration(
-            color: isButtonClicked ?     Color(0xFFFFCE00) : Color(0xFFFF8C00),
+            color: isButtonClicked ? Color(0xFFFFCE00) : Color(0xFFFF8C00),
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Text(

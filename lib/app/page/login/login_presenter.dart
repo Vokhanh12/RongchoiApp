@@ -1,5 +1,5 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:rongchoi_app/domain/usecases/login_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/auth/login_usecase.dart';
 
 class LoginPresenter{
 

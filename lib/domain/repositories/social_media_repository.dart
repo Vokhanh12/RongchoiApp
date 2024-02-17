@@ -6,8 +6,8 @@ abstract class SocialMediaRepository{
 
   Future<void> addPost();
   Future<void> deletePost();
-
   Future<void> likePost();
+  
   Future<void> addComment();
   Future<void> deleteComment();
   Future<void> updateComment();

@@ -18,8 +18,14 @@ class CustomButton_02 extends StatefulWidget {
 class _CustomButton_02State extends State<CustomButton_02> {
   bool isButtonClicked = false;
 
+
   @override
   Widget build(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final screenHeight = MediaQuery.of(context).size.height;
+
+
+
     return Material(
       color: const Color.fromARGB(0, 82, 58, 58),
       child: InkWell(
@@ -38,6 +44,7 @@ class _CustomButton_02State extends State<CustomButton_02> {
         },
         borderRadius: BorderRadius.circular(12.0),
         child: Container(
+          height: screenHeight / 18,
           constraints: BoxConstraints(
             maxHeight: 45, // Set the maximum height
           ),

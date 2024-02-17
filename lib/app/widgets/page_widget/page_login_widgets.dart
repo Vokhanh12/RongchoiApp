@@ -10,6 +10,7 @@ import 'package:rongchoi_app/app/widgets/custom_clickable_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
+import 'package:rongchoi_app/app/widgets/screen_config.dart';
 
 // TextField
 class UsernameTextField extends StatelessWidget {
@@ -19,6 +20,11 @@ class UsernameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
     TextEditingController emailController = new TextEditingController();
 
     // Add listener to update email in LoginController
@@ -27,6 +33,7 @@ class UsernameTextField extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 600),
       child: CustomTextField(
         text: text,
+        fontSize: ScreenConfig.sizeUsernameLabel,
       ),
     );
   }
@@ -38,6 +45,11 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
     // TODO: implement build
     final passwordController = TextEditingController();
 
@@ -45,6 +57,7 @@ class PasswordTextField extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 600),
         child: CustomTextField(
           text: this.text,
+          fontSize: ScreenConfig.sizePasswordLabel,
         ));
   }
 }
@@ -59,6 +72,11 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
     return Container(
         constraints: const BoxConstraints(maxWidth: 600),
         child: CustomButton_01(
@@ -76,6 +94,11 @@ class RegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 600),
       child: CustomButton_02(text: this.text, onTap: this.onTap),
@@ -94,6 +117,11 @@ class ForgotPasswordText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 600),
       child: Align(
@@ -110,9 +138,14 @@ class OrText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
     return CustomText(
       text: text,
-      fontSize: 14,
+      fontSize: ScreenConfig.sizeOrLabel,
     );
   }
 }
@@ -123,7 +156,15 @@ class LoginText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomText(text: text, fontSize: 25);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
+    return CustomText(
+      text: text,
+      fontSize: ScreenConfig.sizeLoginTitle,
+    );
   }
 }
 
@@ -135,13 +176,22 @@ class CircleGoogle extends StatelessWidget {
 
   final Function() onTap;
 
-  const CircleGoogle({super.key, required this.width, required this.height, required this.onTap});
+  const CircleGoogle(
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return CustomCircleImage(
-      width: width / 10,
-      height: height / 10,
+      widthPicture: width / 10 * 0.8,
+      heightPicture: height / 10 * 0.8,
+      color: Colors.white,
       url: 'assets/svg/icon-google.svg',
       onTap: onTap,
     );
@@ -154,13 +204,22 @@ class CircleFacebook extends StatelessWidget {
 
   final Function() onTap;
 
-  const CircleFacebook({super.key, required this.width, required this.height, required this.onTap});
+  const CircleFacebook(
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return CustomCircleImage(
-      width: width / 10,
-      height: height / 10,
+      widthPicture: width / 10 * 0.9,
+      heightPicture: height / 10 * 0.9,
+      color: Colors.transparent,
       url: 'assets/svg/icon-facebook.svg',
       onTap: this.onTap,
     );
@@ -175,6 +234,10 @@ class LogoRongchoi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return Container(
         margin: const EdgeInsets.all(20.0),
         child: CustomSvgPicture(
@@ -184,13 +247,18 @@ class LogoRongchoi extends StatelessWidget {
   }
 }
 
-class DecorLeft extends StatelessWidget {
+class DecorLeft01 extends StatelessWidget {
   final double width;
   final double height;
-  const DecorLeft({super.key, required this.width, required this.height});
+  const DecorLeft01({super.key, required this.width, required this.height});
 
   @override
-  Widget build(BuildContext contex) {
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
@@ -202,13 +270,17 @@ class DecorLeft extends StatelessWidget {
   }
 }
 
-class DecorRight01 extends StatelessWidget {
+class DecorRight03 extends StatelessWidget {
   final double width;
   final double height;
-  const DecorRight01({super.key, required this.width, required this.height});
+  const DecorRight03({super.key, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return Align(
       alignment: Alignment.topRight,
       child: CustomSvgPicture(
@@ -226,6 +298,10 @@ class DecorRight02 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return Align(
       alignment: Alignment.topRight,
       child: CustomSvgPicture(
@@ -236,13 +312,26 @@ class DecorRight02 extends StatelessWidget {
   }
 }
 
-class DecorBottom extends StatelessWidget {
+class DecorBottomLeft04 extends StatelessWidget {
   final double width;
   final double height;
-  const DecorBottom({super.key, required this.width, required this.height});
+  const DecorBottomLeft04(
+      {super.key, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final screenConfig = ScreenConfig(screenWidth, screenHeight);
+    return Positioned(
+      bottom: 0, // Đặt bottom thành 0 để nằm ở phía dưới cùng của màn hình
+      left: 0, // Đặt left thành 0 để nằm ở bên trái của màn hình
+      child: CustomSvgPicture(
+        width: this.width / 5.4,
+        height: this.height / 5.4,
+        url: 'assets/svg/login-decore-04.svg',
+      ),
+    );
   }
 }

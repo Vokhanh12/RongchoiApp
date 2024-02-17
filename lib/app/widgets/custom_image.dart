@@ -9,6 +9,10 @@ class CustomImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+  final screenWidth = MediaQuery.of(context).size.width;
+  final screenHeight = MediaQuery.of(context).size..height;
+
     // use a common controller assuming HomePageButton is always a child of Home
     return Image.asset(url, fit: BoxFit.contain);
   }

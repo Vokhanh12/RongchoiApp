@@ -6,8 +6,10 @@ import 'package:rongchoi_app/app/page/login/login_controller.dart';
 
 class CustomTextField extends StatefulWidget {
   final String text;
+  final double fontSize;
 
-  const CustomTextField({Key? key, required this.text}) : super(key: key);
+
+  const CustomTextField({Key? key, required this.text, required this.fontSize}) : super(key: key);
 
   @override
   _LoginTextFieldState createState() => _LoginTextFieldState();
@@ -36,7 +38,18 @@ class _LoginTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+
+
+
     return Container(
+
+      height: screenHeight / 18,
+
+
       constraints: BoxConstraints(
         maxHeight: 65, // Set the maximum height
       ),
@@ -67,7 +80,7 @@ class _LoginTextFieldState extends State<CustomTextField> {
           ? Colors.orange
           : Color(0xFFA3A9AC),
       fontWeight: FontWeight.w500,
-      fontSize: 16.0,
+      fontSize: widget.fontSize,
       letterSpacing: 1.0,
     );
   }

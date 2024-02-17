@@ -51,7 +51,6 @@ class LoginPageState
   Widget get desktopView => Container();
 
   @override
-  // TODO: implement mobileView
   Widget get mobileView {
     double screenWidth = screenSizeProvider.getScreenWidth(context);
     double screenHeight = screenSizeProvider.getScreenHeight(context);
@@ -59,115 +58,130 @@ class LoginPageState
     AppLocalizations app = AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: Scaffold(
-        key: globalKey,
-        body: Stack(
-          children: [
-            DecorLeft(
-              width: screenWidth,
-              height: screenHeight,
-            ),
-            Column(
-              children: [
-                DecorRight01(
-                  width: screenWidth,
-                  height: screenHeight,
-                ),
-                DecorRight02(
-                  width: screenWidth,
-                  height: screenHeight,
-                ),
-              ],
-            ),
-            Center(
-              child: SingleChildScrollView(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        LogoRongchoi(
-                          width: screenWidth,
-                          height: screenHeight,
+      body: SingleChildScrollView(
+        // Wrap with SingleChildScrollView
+        child: Container(
+          width: screenWidth, // Set width to match screen width
+          height: screenHeight, // Set height to match screen height
+          alignment: Alignment.center, // Align the content to center
+          child: Stack(
+            children: [
+              DecorLeft01(
+                width: screenWidth,
+                height: screenHeight,
+              ),
+              DecorBottomLeft04(
+                width: screenWidth,
+                height: screenHeight,
+              ),
+              Column(
+                children: [
+                  DecorRight03(
+                    width: screenWidth,
+                    height: screenHeight,
+                  ),
+                  DecorRight02(
+                    width: screenWidth,
+                    height: screenHeight,
+                  ),
+                ],
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      LogoRongchoi(
+                        width: screenWidth,
+                        height: screenHeight,
+                      ),
+                      LoginText(text: app.loginTitle),
+                      const SizedBox(height: 30),
+                      GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        },
+                        child: UsernameTextField(
+                          text: app.usernameLabel,
                         ),
-                        LoginText(text: app.loginTitle),
-                        const SizedBox(height: 30),
-                        GestureDetector(
-                          onTap: () {
-                            FocusScope.of(context).requestFocus(FocusNode());
-                          },
-                          child: UsernameTextField(
-                            text: app.usernameLabel,
-                          ),
+                      ),
+                      const SizedBox(height: 18),
+                      GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        },
+                        child: PasswordTextField(
+                          text: app.passwordLabel,
                         ),
-                        const SizedBox(height: 18),
-                        GestureDetector(
-                          onTap: () {
-                            FocusScope.of(context).requestFocus(FocusNode());
-                          },
-                          child: PasswordTextField(
-                            text: app.passwordLabel,
-                          ),
-                        ),
-                        const SizedBox(height: 17),
-                        clean_architecture.ControlledWidgetBuilder<
-                            LoginController>(builder: (context, controller) {
+                      ),
+                      const SizedBox(height: 17),
+                      clean_architecture.ControlledWidgetBuilder<
+                          LoginController>(
+                        builder: (context, controller) {
                           return ForgotPasswordText(
-                              text: app.forgotPasswordLabel,
-                              onTap: () => controller.login());
-                        }),
-                        const SizedBox(height: 17),
-                        clean_architecture.ControlledWidgetBuilder<
-                            LoginController>(builder: (context, controller) {
+                            text: app.forgotPasswordLabel,
+                            onTap: () => controller.login(),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 17),
+                      clean_architecture.ControlledWidgetBuilder<
+                          LoginController>(
+                        builder: (context, controller) {
                           return LoginButton(
                             text: app.loginButtonLabel,
                             onTap: () => controller.login(),
                           );
-                        }),
-                        const SizedBox(height: 16),
-                        clean_architecture.ControlledWidgetBuilder<
-                            LoginController>(builder: (context, controller) {
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      clean_architecture.ControlledWidgetBuilder<
+                          LoginController>(
+                        builder: (context, controller) {
                           return RegisterButton(
-                              text: app.registerButtonLabel,
-                              onTap: () => controller.login());
-                        }),
-                        const SizedBox(height: 19),
-                        OrText(text: app.orLabel),
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            clean_architecture.ControlledWidgetBuilder<
-                                    LoginController>(
-                                builder: (context, controller) {
+                            text: app.registerButtonLabel,
+                            onTap: () => controller.login(),
+                          );
+                        },
+                      ),
+                      SizedBox(height: (screenHeight/55)),
+                      OrText(text: app.orLabel),
+                          SizedBox(height: (screenHeight/80)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          clean_architecture.ControlledWidgetBuilder<
+                              LoginController>(
+                            builder: (context, controller) {
                               return CircleGoogle(
                                 width: screenWidth,
                                 height: screenHeight,
                                 onTap: () => controller.login(),
                               );
-                            }),
-                            SizedBox(
-                              width: screenWidth / 10,
-                            ),
-                            clean_architecture.ControlledWidgetBuilder<
-                                    LoginController>(
-                                builder: (context, controller) {
+                            },
+                          ),
+                          SizedBox(
+                            width: screenWidth / 10,
+                          ),
+                          clean_architecture.ControlledWidgetBuilder<
+                              LoginController>(
+                            builder: (context, controller) {
                               return CircleFacebook(
                                 width: screenWidth,
                                 height: screenHeight,
                                 onTap: () => controller.login(),
                               );
-                            }),
-                          ],
-                        ),
-                      ],
-                    ),
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
