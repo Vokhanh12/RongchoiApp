@@ -3,8 +3,8 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:rongchoi_app/app/page/login/login_presenter.dart';
 
 class LoginController extends clean_architecture.Controller {
-  late  String email;
-  late  String password;
+  late String email;
+  late String password;
 
   final LoginPresenter presenter;
 
@@ -25,7 +25,6 @@ class LoginController extends clean_architecture.Controller {
   }
 
   void login() {
-
     print(email);
     print(password);
     // pass appropriate credentials here
@@ -33,33 +32,17 @@ class LoginController extends clean_architecture.Controller {
     presenter.login(email, password);
   }
 
-  void goToRegister(){
-    
-  }
+  void goToRegister() {}
 
-
-  void forgotPassaword(){
-
+  void forgotPassaword() {
     print("Clicked forgot password");
-
   }
 
-
-  void loginWithGoogle(){
-
+  void loginWithGoogle() {
     print("Clicked login with google");
-
   }
 
-  void loginWithFacebook(){
-
-     print("Clicked login with facebook");
-
+  void loginWithFacebook() {
+    print("Clicked login with facebook");
   }
-
-
-
-
-
-
 }

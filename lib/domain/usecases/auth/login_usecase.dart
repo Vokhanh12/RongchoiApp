@@ -36,9 +36,3 @@ class LoginUseCaseParams {
   LoginUseCaseParams(this.email, this.password);
 }
 
-class LoginUseCaseResponse {
-  final bool success;
-  final String message; // Thông báo lỗi hoặc thành công
-
-  LoginUseCaseResponse({required this.success, required this.message});
-}

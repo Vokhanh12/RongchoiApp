@@ -1,12 +1,27 @@
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class DataAuthenticationRepository extends AuthenticationRepository{
-
+class DataAuthenticationRepository extends AuthenticationRepository {
   @override
-  Future<void> authenticate({required String email, required String password}) async {
+  Future<void> authenticate(
+      {required String email, required String password}) async {
     // TODO: implement authenticate
-    print("hello world");
+
+    try {
+      final userCerdential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+          print(userCerdential);
+          print("success login");
+    } on FirebaseAuthException catch (ex) {
+
+      print("email:"+ email);
+      print("password:"+ password);
+
+      print("something bad happened");
+      print(ex.runtimeType);
+      print(ex);
+    }
   }
 
   @override
@@ -32,6 +47,4 @@ class DataAuthenticationRepository extends AuthenticationRepository{
     // TODO: implement register
     throw UnimplementedError();
   }
-
-
 }

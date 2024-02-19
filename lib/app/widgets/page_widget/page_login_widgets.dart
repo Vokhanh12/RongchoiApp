@@ -11,6 +11,7 @@ import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/app/widgets/screen_config.dart';
+import 'package:rongchoi_app/app/widgets/screen_size.dart';
 
 // TextField
 class UsernameTextField extends StatelessWidget {
@@ -20,8 +21,8 @@ class UsernameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
@@ -45,8 +46,8 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
@@ -72,8 +73,8 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
@@ -94,9 +95,8 @@ class RegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
     return Container(
@@ -117,8 +117,8 @@ class ForgotPasswordText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
@@ -138,8 +138,8 @@ class OrText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
@@ -156,8 +156,8 @@ class LoginText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
@@ -184,8 +184,8 @@ class CircleGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return CustomCircleImage(
@@ -212,8 +212,8 @@ class CircleFacebook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return CustomCircleImage(
@@ -234,8 +234,8 @@ class LogoRongchoi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return Container(
@@ -254,9 +254,8 @@ class DecorLeft01 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
 
     return Align(
@@ -277,9 +276,8 @@ class DecorRight03 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return Align(
       alignment: Alignment.topRight,
@@ -298,8 +296,8 @@ class DecorRight02 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return Align(
@@ -320,8 +318,8 @@ class DecorBottomLeft04 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = ScreenSize.screenHeight;
 
     final screenConfig = ScreenConfig(screenWidth, screenHeight);
     return Positioned(
