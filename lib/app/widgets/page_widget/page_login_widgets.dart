@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
@@ -16,8 +17,9 @@ import 'package:rongchoi_app/app/widgets/screen_size.dart';
 // TextField
 class UsernameTextField extends StatelessWidget {
   final String text;
+  final TextEditingController controller;
 
-  const UsernameTextField({Key? key, required this.text}) : super(key: key);
+  const UsernameTextField({Key? key, required this.text, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class UsernameTextField extends StatelessWidget {
       child: CustomTextField(
         text: text,
         fontSize: ScreenConfig.sizeUsernameLabel,
+        controller: this.controller,
       ),
     );
   }
@@ -42,7 +45,8 @@ class UsernameTextField extends StatelessWidget {
 
 class PasswordTextField extends StatelessWidget {
   final String text;
-  const PasswordTextField({super.key, required this.text});
+  final TextEditingController controller;
+  const PasswordTextField({super.key, required this.text, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +63,7 @@ class PasswordTextField extends StatelessWidget {
         child: CustomTextField(
           text: this.text,
           fontSize: ScreenConfig.sizePasswordLabel,
+          controller: this.controller,
         ));
   }
 }

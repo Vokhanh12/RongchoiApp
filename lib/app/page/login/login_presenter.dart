@@ -1,26 +1,32 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/login_usecase.dart';
 
-class LoginPresenter{
+class LoginPresenter extends Presenter{
+   AuthenticationRepository _authenticationRepository;
+  late LoginUseCase _loginUseCase;
 
   late Function loginOnComplete; // alternatively `void loginOnComplete();`
   late Function loginOnError;
   late Function loginOnNext; // not needed in the case of a login presenter
 
-  final LoginUseCase loginUseCase;
   // dependency injection from controller
-  LoginPresenter(authenticationRepo): loginUseCase = LoginUseCase(authenticationRepo);
+ 
+   LoginPresenter(this._authenticationRepository) {
+    // Initialize the [UseCase] with the appropriate repository
+   _loginUseCase = LoginUseCase(_authenticationRepository);
+  }
 
   /// login function called by the controller
-  void login(String email, String password) {
-    loginUseCase.execute(_LoginUseCaseObserver(this), LoginUseCaseParams(email, password));
+  void login({required String email, required String password}) {
+    _loginUseCase.execute(_LoginUseCaseObserver(this), LoginUseCaseParams(email, password));
   }
 
 
    /// Disposes of the [LoginUseCase] and unsubscribes
    @override
    void dispose() {
-     loginUseCase.dispose();
+     _loginUseCase.dispose();
    }
 }
 

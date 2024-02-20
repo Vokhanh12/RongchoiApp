@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/widgets/page_widget/page_login_widgets.dart';
 import 'package:rongchoi_app/app/widgets/screen_size.dart';
@@ -20,19 +21,32 @@ class LoginPage extends clean_architecture.View {
 
   @override
   // ignore: no_logic_in_create_state
-  LoginPageState createState() => LoginPageState();
+  LoginPageView createState() => LoginPageView();
 }
 
-class LoginPageState
+class LoginPageView
     extends clean_architecture.ResponsiveViewState<LoginPage, LoginController> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  late final TextEditingController _email;
+  late final TextEditingController _password;
 
-  LoginPageState()
-      : super(LoginController(
-            email: 'khanhyou2019@gmail.com',
-            password: '123456789',
-            authenticationRepo: DataAuthenticationRepository()));
+  bool _isLoading = false;
+
+  LoginPageView() : super(LoginController(DataAuthenticationRepository()));
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   Widget loginScaffold({Widget? child}) {
     return MaterialApp(
@@ -44,160 +58,170 @@ class LoginPageState
     );
   }
 
+  void _submit() {
+    setState(() {
+      _isLoading = true;
+    });
+
+    print("Submitting to backend ...");
+
+    new Future.delayed(new Duration(seconds: 4), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   // TODO: implement desktopView
   Widget get desktopView => Container();
 
   @override
   Widget get mobileView {
-    AppLocalizations app = AppLocalizations.of(context)!;
-
     ScreenSize.init(context);
+
+    return Scaffold(
+        body: ModalProgressHUD(
+            inAsyncCall: _isLoading, child: _buildLoginFormWidget()));
+  }
+
+  Widget _buildLoginFormWidget() {
+    final _formKey = GlobalKey<FormState>();
+
+    AppLocalizations app = AppLocalizations.of(context)!;
 
     final double screenWidth = ScreenSize.screenWidth;
     final double screenHeight = ScreenSize.screenHeight;
 
-    return Scaffold(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         // Wrap with SingleChildScrollView
-        child: FutureBuilder(
-            future: Firebase.initializeApp(
-                options: DefaultFirebaseOptions.currentPlatform),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  return Container(
-                    width: screenWidth, // Set width to match screen width
-                    height: screenHeight, // Set height to match screen height
-                    alignment: Alignment.center, // Align the content to center
-                    child: Stack(
+        child: Container(
+      width: screenWidth, // Set width to match screen width
+      height: screenHeight, // Set height to match screen height
+      alignment: Alignment.center, // Align the content to center
+      child: Stack(
+        children: [
+          DecorLeft01(
+            width: screenWidth,
+            height: screenHeight,
+          ),
+          DecorBottomLeft04(
+            width: screenWidth,
+            height: screenHeight,
+          ),
+          Column(
+            children: [
+              DecorRight03(
+                width: screenWidth,
+                height: screenHeight,
+              ),
+              DecorRight02(
+                width: screenWidth,
+                height: screenHeight,
+              ),
+            ],
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    LogoRongchoi(
+                      width: screenWidth,
+                      height: screenHeight,
+                    ),
+                    LoginText(text: app.loginTitle),
+                    const SizedBox(height: 30),
+                    GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      },
+                      child: UsernameTextField(
+                        text: app.usernameLabel,
+                        controller: _email,
+                      ),
+                    ),
+                    const SizedBox(height: 18),
+                    GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      },
+                      child: PasswordTextField(
+                        text: app.passwordLabel,
+                        controller: _password,
+                      ),
+                    ),
+                    const SizedBox(height: 17),
+                    clean_architecture.ControlledWidgetBuilder<LoginController>(
+                      builder: (context, controller) {
+                        return ForgotPasswordText(
+                          text: app.forgotPasswordLabel,
+                          onTap: () => controller.login(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 17),
+                    clean_architecture.ControlledWidgetBuilder<LoginController>(
+                      builder: (context, controller) {
+                        return LoginButton(
+                          text: app.loginButtonLabel,
+                          onTap: () {
+                            controller.login();
+                          },
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    clean_architecture.ControlledWidgetBuilder<LoginController>(
+                      builder: (context, controller) {
+                        return RegisterButton(
+                          text: app.registerButtonLabel,
+                          onTap: () => controller.login(),
+                        );
+                      },
+                    ),
+                    SizedBox(height: (screenHeight / 55)),
+                    OrText(text: app.orLabel),
+                    SizedBox(height: (screenHeight / 80)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        DecorLeft01(
-                          width: screenWidth,
-                          height: screenHeight,
-                        ),
-                        DecorBottomLeft04(
-                          width: screenWidth,
-                          height: screenHeight,
-                        ),
-                        Column(
-                          children: [
-                            DecorRight03(
+                        clean_architecture.ControlledWidgetBuilder<
+                            LoginController>(
+                          builder: (context, controller) {
+                            return CircleGoogle(
                               width: screenWidth,
                               height: screenHeight,
-                            ),
-                            DecorRight02(
+                              onTap: () => controller.login(),
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          width: screenWidth / 10,
+                        ),
+                        clean_architecture.ControlledWidgetBuilder<
+                            LoginController>(
+                          builder: (context, controller) {
+                            return CircleFacebook(
                               width: screenWidth,
                               height: screenHeight,
-                            ),
-                          ],
-                        ),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                LogoRongchoi(
-                                  width: screenWidth,
-                                  height: screenHeight,
-                                ),
-                                LoginText(text: app.loginTitle),
-                                const SizedBox(height: 30),
-                                GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(context)
-                                        .requestFocus(FocusNode());
-                                  },
-                                  child: UsernameTextField(
-                                    text: app.usernameLabel,
-                                  ),
-                                ),
-                                const SizedBox(height: 18),
-                                GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(context)
-                                        .requestFocus(FocusNode());
-                                  },
-                                  child: PasswordTextField(
-                                    text: app.passwordLabel,
-                                  ),
-                                ),
-                                const SizedBox(height: 17),
-                                clean_architecture.ControlledWidgetBuilder<
-                                    LoginController>(
-                                  builder: (context, controller) {
-                                    return ForgotPasswordText(
-                                      text: app.forgotPasswordLabel,
-                                      onTap: () => controller.login(),
-                                    );
-                                  },
-                                ),
-                                const SizedBox(height: 17),
-                                clean_architecture.ControlledWidgetBuilder<
-                                    LoginController>(
-                                  builder: (context, controller) {
-                                    return LoginButton(
-                                      text: app.loginButtonLabel,
-                                      onTap: () => controller.login(),
-                                    );
-                                  },
-                                ),
-                                const SizedBox(height: 16),
-                                clean_architecture.ControlledWidgetBuilder<
-                                    LoginController>(
-                                  builder: (context, controller) {
-                                    return RegisterButton(
-                                      text: app.registerButtonLabel,
-                                      onTap: () => controller.login(),
-                                    );
-                                  },
-                                ),
-                                SizedBox(height: (screenHeight / 55)),
-                                OrText(text: app.orLabel),
-                                SizedBox(height: (screenHeight / 80)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    clean_architecture.ControlledWidgetBuilder<
-                                        LoginController>(
-                                      builder: (context, controller) {
-                                        return CircleGoogle(
-                                          width: screenWidth,
-                                          height: screenHeight,
-                                          onTap: () => controller.login(),
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(
-                                      width: screenWidth / 10,
-                                    ),
-                                    clean_architecture.ControlledWidgetBuilder<
-                                        LoginController>(
-                                      builder: (context, controller) {
-                                        return CircleFacebook(
-                                          width: screenWidth,
-                                          height: screenHeight,
-                                          onTap: () => controller.login(),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                              onTap: _submit,
+                            );
+                          },
                         ),
                       ],
                     ),
-                  );
-
-                default:
-                  return const Text("Loading ...");
-              }
-            }),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-    );
+    ));
   }
 
   @override

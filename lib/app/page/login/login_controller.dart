@@ -1,35 +1,38 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/login/login_presenter.dart';
+import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 
 class LoginController extends clean_architecture.Controller {
-  late String email;
-  late String password;
+  late TextEditingController emailTextController;
+  late TextEditingController passwordTextController;
+  late bool isLoading;
 
-  final LoginPresenter presenter;
+  final LoginPresenter _loginPresenter;
 
-  LoginController(
-      {required this.email,
-      required this.password,
-      required dynamic authenticationRepo})
-      : presenter = LoginPresenter(authenticationRepo),
-        super();
+  LoginController(authRepo) : _loginPresenter = LoginPresenter(authRepo) {
+    emailTextController = TextEditingController();
+    passwordTextController = TextEditingController();
+    initListeners();
+  }
 
   @override
   void initListeners() {
     // Initialize presenter listeners here
     // These will be called upon success, failure, or data retrieval after usecase execution
-    presenter.loginOnComplete = () => print('Login Successful');
-    presenter.loginOnError = (e) => print(e);
-    presenter.loginOnNext = () => print("onNext");
+    _loginPresenter.loginOnComplete = () => print('Login Successful');
+    _loginPresenter.loginOnError = (e) => print(e);
+    _loginPresenter.loginOnNext = () => print("onNext");
   }
 
-  void login() {
-    print(email);
-    print(password);
+  void login() async {
+    isLoading = true;
+    refreshUI();
     // pass appropriate credentials here
     // assuming you have text fields to retrieve them and whatnot
-    presenter.login(email, password);
+    _loginPresenter.login(
+        email: emailTextController.text, password: passwordTextController.text);
   }
 
   void goToRegister() {}

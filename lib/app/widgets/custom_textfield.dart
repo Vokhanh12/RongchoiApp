@@ -7,9 +7,9 @@ import 'package:rongchoi_app/app/page/login/login_controller.dart';
 class CustomTextField extends StatefulWidget {
   final String text;
   final double fontSize;
+  final TextEditingController controller;
 
-
-  const CustomTextField({Key? key, required this.text, required this.fontSize}) : super(key: key);
+  const CustomTextField({Key? key, required this.text, required this.fontSize, required this.controller}) : super(key: key);
 
   @override
   _LoginTextFieldState createState() => _LoginTextFieldState();
@@ -19,7 +19,6 @@ class _LoginTextFieldState extends State<CustomTextField> {
   bool _isTextColorChange = false;
   bool _isInputEmpty = true;
   FocusNode _focusNode = FocusNode();
-  late TextEditingController _textEditingController;
 
   @override
   void initState() {
@@ -33,7 +32,6 @@ class _LoginTextFieldState extends State<CustomTextField> {
       }
     });
 
-    _textEditingController = TextEditingController();
   }
 
   @override
@@ -54,7 +52,7 @@ class _LoginTextFieldState extends State<CustomTextField> {
         maxHeight: 65, // Set the maximum height
       ),
       child: TextField(
-        controller: _textEditingController,
+        controller: widget.controller,
         focusNode: _focusNode,
         decoration: _buildInputDecoration(),
         onTap: _handleTap,
@@ -115,7 +113,6 @@ class _LoginTextFieldState extends State<CustomTextField> {
 
   @override
   void dispose() {
-    _textEditingController.dispose();
     _focusNode.dispose();
     super.dispose();
   }

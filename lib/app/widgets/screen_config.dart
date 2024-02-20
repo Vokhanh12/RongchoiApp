@@ -38,20 +38,20 @@ class ScreenConfig {
 
     if (_screenWidth >= 320 && _screenWidth <= 413) {
       sizeForgotPasswordLabel = 0.0;
-      sizeLoginTitle = 20.0;
-      sizeOrLabel = 0.0;
-      sizePasswordLabel = 0.0;
-      sizeUsernameLabel = 0.0;
-      sizeLoginButtonLabel = 0.0;
-      sizeRegisterButtonLabel = 0.0;
+      sizeLoginTitle = 24.0;
+      sizeOrLabel = 14.0;
+      sizePasswordLabel = 17.0;
+      sizeUsernameLabel = 17.0;
+      sizeLoginButtonLabel = 16.0;
+      sizeRegisterButtonLabel = 16.0;
     } else if (_screenWidth >= 360 && _screenWidth <= 428) {
-      sizeForgotPasswordLabel = 0.0;
+      sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
-      sizeOrLabel = 0.0;
-      sizePasswordLabel = 0.0;
-      sizeUsernameLabel = 0.0;
-      sizeLoginButtonLabel = 0.0;
-      sizeRegisterButtonLabel = 0.0;
+      sizeOrLabel = 18.0;
+      sizePasswordLabel = 18.0;
+      sizeUsernameLabel = 18.0;
+      sizeLoginButtonLabel = 18.0;
+      sizeRegisterButtonLabel = 18.0;
     } else if (_screenWidth >= 428 && _screenWidth <= 768) {
       sizeForgotPasswordLabel = 0.0;
       sizeLoginTitle = 24.0;
