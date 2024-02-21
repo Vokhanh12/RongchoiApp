@@ -35,9 +35,11 @@ class LoginController extends clean_architecture.Controller {
         email: emailTextController.text, password: passwordTextController.text);
   }
 
-  void goToRegister() {}
+  void register() {
+    print("Clicked register");
+  }
 
-  void forgotPassaword() {
+  void forgotPassword() {
     print("Clicked forgot password");
   }
 

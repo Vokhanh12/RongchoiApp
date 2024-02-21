@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:rongchoi_app/app/widgets/screen_config.dart';
+import 'package:rongchoi_app/app/widgets/screen_size.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
 
+  
 
 
   const MyApp({super.key});
@@ -18,6 +21,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Use to setting singleton pattern
+    ScreenSize.init(context);
+    ScreenConfig.init(screenWidth,  screenHeight);
+    
+
+
     clean_architecture.FlutterCleanArchitecture.debugModeOn();
     return MaterialApp(
       title: 'Flutter Demo',

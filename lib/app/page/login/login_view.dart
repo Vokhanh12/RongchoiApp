@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
@@ -32,23 +33,20 @@ class LoginPage extends clean_architecture.View {
 
   @override
   // ignore: no_logic_in_create_state
-  LoginPageView createState() => LoginPageView();
+  LoginPageResponsiveViewState createState() => LoginPageResponsiveViewState();
 }
 
-class LoginPageView
+class LoginPageResponsiveViewState
     extends clean_architecture.ResponsiveViewState<LoginPage, LoginController> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
   bool _isLoading = false;
 
-  late final double screenWidth = ScreenSize.screenWidth;
-  late final double screenHeight = ScreenSize.screenHeight;
-
   final FocusNode _emailFocus;
   final FocusNode _passFocus;
 
-  LoginPageView()
+  LoginPageResponsiveViewState()
       : _emailFocus = FocusNode(),
         _passFocus = FocusNode(),
         super(LoginController(DataAuthenticationRepository()));
@@ -63,6 +61,7 @@ class LoginPageView
   @override
   void dispose() {
     // TODO: implement dispose
+
     _email.dispose();
     _password.dispose();
     super.dispose();
@@ -98,9 +97,6 @@ class LoginPageView
 
   @override
   Widget get mobileView {
-    ScreenSize.init(context);
-    ScreenConfig.init(screenWidth, screenHeight);
-
     return Scaffold(
         body: ModalProgressHUD(
             inAsyncCall: _isLoading, child: _buildLoginFormWidget()));
@@ -112,8 +108,8 @@ class LoginPageView
     return SingleChildScrollView(
         // Wrap with SingleChildScrollView
         child: Container(
-      width: screenWidth, // Set width to match screen width
-      height: screenHeight, // Set height to match screen height
+      width: ScreenSize.screenWidth, // Set width to match screen width
+      height: ScreenSize.screenHeight, // Set height to match screen height
       alignment: Alignment.center, // Align the content to center
       child: Stack(
         children: [
@@ -163,6 +159,7 @@ class LoginPageView
                     */
                     passwordField,
                     const SizedBox(height: 17),
+                    forgotPasswordButton,
 
                     /*
                     clean_architecture.ControlledWidgetBuilder<LoginController>(
@@ -200,9 +197,9 @@ class LoginPageView
                     ),
                     */
                     registerButton,
-                    SizedBox(height: (screenHeight / 55)),
+                    SizedBox(height: (ScreenSize.screenWidth / 35)),
                     orText,
-                    SizedBox(height: (screenHeight / 80)),
+                    SizedBox(height: (ScreenSize.screenHeight / 85)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -222,7 +219,7 @@ class LoginPageView
 
                         googleButton,
                         SizedBox(
-                          width: screenWidth / 10,
+                          width: ScreenSize.screenWidth / 10,
                         ),
 
                         /*
@@ -259,127 +256,154 @@ class LoginPageView
   // TODO: implement watchView
   Widget get watchView => Container();
 
-  Widget get logoRongChoi => Positioned(
-      child: Container(
-          margin: const EdgeInsets.all(20.0),
-          child: CustomSvgPicture(
-              width: screenWidth / 3,
-              height: screenHeight / 3,
-              url: 'assets/svg/logo-rongchoi-01.svg')));
+  Widget get logoRongChoi => Container(
+        margin: const EdgeInsets.all(20.0),
+        child: CustomSvgPicture(
+          width: ScreenSize.screenWidth / 3,
+          height: ScreenSize.screenHeight / 3,
+          url: 'assets/svg/logo-rongchoi-01.svg',
+        ),
+      );
 
   Widget get decorLeft01 => Positioned(
-          child: Align(
-        alignment: Alignment.topLeft,
-        child: Container(
-            child: CustomSvgPicture(
-                width: screenWidth / 5,
-                height: screenHeight / 5,
-                url: 'assets/svg/login-decore-01.svg')),
-      ));
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: CustomSvgPicture(
+              width: ScreenSize.screenWidth / 5,
+              height: ScreenSize.screenHeight / 5,
+              url: 'assets/svg/login-decore-01.svg'),
+        ),
+      );
 
-  Widget get decorRight02 => Positioned(
-          child: Align(
+  Widget get decorRight02 => Align(
         alignment: Alignment.topRight,
         child: CustomSvgPicture(
-            width: screenWidth / 6,
-            height: screenHeight / 6,
+            width: ScreenSize.screenWidth / 6,
+            height: ScreenSize.screenHeight / 6,
             url: 'assets/svg/login-decore-02.svg'),
-      ));
+      );
 
-  Widget get decorRight03 => Positioned(
-          child: Align(
+  Widget get decorRight03 => Align(
         alignment: Alignment.topRight,
         child: CustomSvgPicture(
-            width: screenWidth / 4,
-            height: screenHeight / 4,
+            width: ScreenSize.screenWidth / 4,
+            height: ScreenSize.screenHeight / 4,
             url: 'assets/svg/login-decore-03.svg'),
-      ));
+      );
 
   Widget get decorBottomLeft04 => Positioned(
         bottom: 0, // Đặt bottom thành 0 để nằm ở phía dưới cùng của màn hình
         left: 0, // Đặt left thành 0 để nằm ở bên trái của màn hình
         child: CustomSvgPicture(
-          width: screenWidth / 5.4,
-          height: screenHeight / 5.4,
+          width: ScreenSize.screenWidth / 5.4,
+          height: ScreenSize.screenHeight / 5.4,
           url: 'assets/svg/login-decore-04.svg',
         ),
       );
 
-  Widget get forgotPasswordText => GestureDetector(
-        onTap: () => {},
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: CustomClickableText(
-                text: AppLocalizations.of(context)!.forgotPasswordLabel),
-          ),
+  clean_architecture.ControlledWidgetBuilder<LoginController> get loginButton =>
+      clean_architecture.ControlledWidgetBuilder<LoginController>(
+          builder: (context, controller) {
+        return GestureDetector(
+            onTap: () => controller.register(),
+            child: CustomButton_01(
+              text: AppLocalizations.of(context)!.loginButtonLabel,
+            ));
+      });
+
+  clean_architecture.ControlledWidgetBuilder<LoginController>
+      get forgotPasswordButton =>
+          clean_architecture.ControlledWidgetBuilder<LoginController>(
+              builder: (context, controller) {
+            return GestureDetector(
+              onTap: () => {},
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: CustomClickableText(
+                    text: AppLocalizations.of(context)!.forgotPasswordLabel,
+                  ),
+                ),
+              ),
+            );
+          });
+
+  Container get orText => Container(
+        child: CustomText(
+          text: AppLocalizations.of(context)!.orLabel,
+          fontSize: ScreenConfig.sizeOrLabel,
         ),
       );
 
-  Widget get orText => GestureDetector(
-      onTap: () => {},
-      child: CustomText(
-        text: AppLocalizations.of(context)!.orLabel,
-        fontSize: ScreenConfig.sizeOrLabel,
-      ));
-
-  Widget get loginText => GestureDetector(
-        onTap: () => {},
+  Container get loginText => Container(
         child: CustomText(
           text: AppLocalizations.of(context)!.loginTitle,
           fontSize: ScreenConfig.sizeLoginTitle,
         ),
       );
 
-  Widget get googleButton => GestureDetector(
-      onTap: () => {},
-      child: CustomCircleImage(
-        widthPicture: screenWidth / 10 * 0.8,
-        heightPicture: screenHeight / 10 * 0.8,
-        color: Colors.white,
-        url: 'assets/svg/icon-google.svg',
-      ));
+  clean_architecture.ControlledWidgetBuilder<LoginController>
+      get googleButton =>
+          clean_architecture.ControlledWidgetBuilder<LoginController>(
+              builder: (context, controller) {
+            return GestureDetector(
+              onTap: () => {print("hello world")},
+              child: CustomCircleImage(
+                widthPicture: ScreenSize.screenWidth / 10 * 0.8,
+                heightPicture: ScreenSize.screenHeight / 10 * 0.8,
+                color: Colors.white,
+                url: 'assets/svg/icon-google.svg',
+              ),
+            );
+          });
 
-  Widget get facebookButton => GestureDetector(
-      onTap: () => {},
-      child: CustomCircleImage(
-        widthPicture: screenWidth / 10 * 0.9,
-        heightPicture: screenHeight / 10 * 0.9,
-        color: Colors.transparent,
-        url: 'assets/svg/icon-facebook.svg',
-      ));
+  clean_architecture.ControlledWidgetBuilder<LoginController>
+      get facebookButton =>
+          clean_architecture.ControlledWidgetBuilder<LoginController>(
+              builder: (context, controller) {
+            return GestureDetector(
+                onTap: () => {},
+                child: CustomCircleImage(
+                  widthPicture: ScreenSize.screenWidth / 10 * 0.9,
+                  heightPicture: ScreenSize.screenHeight / 10 * 0.9,
+                  color: Colors.transparent,
+                  url: 'assets/svg/icon-facebook.svg',
+                ));
+          });
 
-  Widget get loginButton => Container(
-        constraints: const BoxConstraints(maxWidth: 600),
-        child: GestureDetector(
-            onTap: () => {},
-            child: CustomButton_01(
-              text: AppLocalizations.of(context)!.loginButtonLabel,
-            )),
-      );
-
-  Widget get registerButton => Container(
-        constraints: const BoxConstraints(maxWidth: 600),
-        child: GestureDetector(
-            onTap: () => {},
-            child: CustomButton_02(
-                text: AppLocalizations.of(context)!.registerButtonLabel)),
-      );
+  clean_architecture.ControlledWidgetBuilder<LoginController>
+      get registerButton =>
+          clean_architecture.ControlledWidgetBuilder<LoginController>(
+              builder: (context, controller) {
+            return GestureDetector(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: GestureDetector(
+                  onTap: () => {},
+                  child: CustomButton_02(
+                    text: AppLocalizations.of(context)!.registerButtonLabel,
+                  ),
+                ),
+              ),
+            );
+          });
 
   Widget get emailField => EnsureVisibleWhenFocused(
-      focusNode: _emailFocus,
-      child: CustomTextField(
-        text: AppLocalizations.of(context)!.usernameLabel,
-        fontSize: ScreenConfig.sizeUsernameLabel,
-        controller: _email,
-      ));
+        focusNode: _emailFocus,
+        child: CustomTextField(
+          text: AppLocalizations.of(context)!.usernameLabel,
+          fontSize: ScreenConfig.sizeUsernameLabel,
+          controller: _email,
+        ),
+      );
 
   Widget get passwordField => EnsureVisibleWhenFocused(
-      focusNode: _passFocus,
-      child: CustomTextField(
-        text: AppLocalizations.of(context)!.passwordLabel,
-        fontSize: ScreenConfig.sizeUsernameLabel,
-        controller: _password,
-      ));
+        focusNode: _passFocus,
+        child: CustomTextField(
+          text: AppLocalizations.of(context)!.passwordLabel,
+          fontSize: ScreenConfig.sizeUsernameLabel,
+          controller: _password,
+        ),
+      );
 }
