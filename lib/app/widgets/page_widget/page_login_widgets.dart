@@ -1,3 +1,4 @@
+import 'package:ensure_visible_when_focused/ensure_visible_when_focused.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/app/widgets/screen_config.dart';
 import 'package:rongchoi_app/app/widgets/screen_size.dart';
 
+/*
+
+/*
 // TextField
 class UsernameTextField extends StatelessWidget {
   final String text;
@@ -42,6 +46,11 @@ class UsernameTextField extends StatelessWidget {
     );
   }
 }
+*/
+
+
+/*
+
 
 class PasswordTextField extends StatelessWidget {
   final String text;
@@ -63,10 +72,12 @@ class PasswordTextField extends StatelessWidget {
         child: CustomTextField(
           text: this.text,
           fontSize: ScreenConfig.sizePasswordLabel,
-          controller: this.controller,
+          controller: this.controller, focusNode: null,
         ));
   }
 }
+
+*/
 
 // Button
 
@@ -87,7 +98,6 @@ class LoginButton extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 600),
         child: CustomButton_01(
           text: this.text,
-          onTap: this.onTap,
         ));
   }
 }
@@ -106,7 +116,7 @@ class RegisterButton extends StatelessWidget {
 
     return Container(
       constraints: const BoxConstraints(maxWidth: 600),
-      child: CustomButton_02(text: this.text, onTap: this.onTap),
+      child: CustomButton_02(text: this.text)
     );
   }
 }
@@ -131,7 +141,7 @@ class ForgotPasswordText extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 600),
       child: Align(
         alignment: Alignment.centerRight,
-        child: CustomClickableText(text: this.text, onTap: this.onTap),
+        child: CustomClickableText(text: this.text),
       ),
     );
   }
@@ -198,7 +208,6 @@ class CircleGoogle extends StatelessWidget {
       heightPicture: height / 10 * 0.8,
       color: Colors.white,
       url: 'assets/svg/icon-google.svg',
-      onTap: onTap,
     );
   }
 }
@@ -226,7 +235,6 @@ class CircleFacebook extends StatelessWidget {
       heightPicture: height / 10 * 0.9,
       color: Colors.transparent,
       url: 'assets/svg/icon-facebook.svg',
-      onTap: this.onTap,
     );
   }
 }
@@ -338,3 +346,5 @@ class DecorBottomLeft04 extends StatelessWidget {
     );
   }
 }
+
+*/

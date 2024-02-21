@@ -6,9 +6,7 @@ import 'package:rongchoi_app/app/page/login/login_controller.dart';
 
 class CustomButton_02 extends StatefulWidget {
   final String text;
-  final Function() onTap;
-
-  const CustomButton_02({Key? key, required this.text, required this.onTap})
+  const CustomButton_02({Key? key, required this.text})
       : super(key: key);
 
   @override
@@ -29,9 +27,6 @@ class _CustomButton_02State extends State<CustomButton_02> {
     return Material(
       color: const Color.fromARGB(0, 82, 58, 58),
       child: InkWell(
-         onTap: () {
-          widget.onTap(); // Call the onTap function if needed
-        },
         onTapDown: (details) {
           setState(() {
             isButtonClicked = true;

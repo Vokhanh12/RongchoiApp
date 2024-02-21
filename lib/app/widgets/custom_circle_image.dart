@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomCircleImage extends StatelessWidget {
   final String url;
-  final Function() onTap;
  
   final double widthPicture;
   final double heightPicture;
@@ -15,8 +14,6 @@ class CustomCircleImage extends StatelessWidget {
   const CustomCircleImage(
       {super.key,
       required this.url,
-      required this.onTap,
-  
       required this.color,
       required this.widthPicture,
       required this.heightPicture,
@@ -28,9 +25,7 @@ class CustomCircleImage extends StatelessWidget {
   final screenWidth = MediaQuery.of(context).size.width;
   final screenHeight = MediaQuery.of(context).size..height;
     // use a common controller assuming HomePageButton is always a child of Home
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
+    return Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: this.color, // Background color
@@ -45,7 +40,6 @@ class CustomCircleImage extends StatelessWidget {
                 CircularProgressIndicator(),
           ),
         ),
-      ),
     );
   }
 }

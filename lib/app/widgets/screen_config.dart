@@ -1,14 +1,13 @@
 class ScreenConfig {
   double _screenWidth = 0.0;
-  double _screenHeigth = 0.0;
-
+  double _screenHeight = 0.0;
   double ratio = 0.0;
 
-// region Login page
+  // Private constructor
+  ScreenConfig._();
 
-  //size
-
-  //ratio
+  // Instance of ScreenSize
+  static final ScreenConfig _instance = ScreenConfig._();
 
   static double sizeForgotPasswordLabel = 0.0;
   static double sizeLoginTitle = 0.0;
@@ -18,33 +17,22 @@ class ScreenConfig {
   static double sizeLoginButtonLabel = 0.0;
   static double sizeRegisterButtonLabel = 0.0;
 
-// endregion Login page
+  // Method to initialize screen size
+  static void init(double screenWidth, double screenHeight) {
+    _instance._screenWidth = screenWidth;
+    _instance._screenHeight = screenHeight;
 
-// regRegister page
+    _instance.ratio = _instance._screenWidth / _instance._screenHeight;
 
-  //size
-
-  //ratio
-
-// endregion Register page
-
-  // Register page
-
-  // ....
-
-  ScreenConfig(double screenWidth, double screenHeigth) {
-    _screenWidth = screenWidth;
-    _screenHeigth = screenHeigth;
-
-    if (_screenWidth >= 320 && _screenWidth <= 413) {
-      sizeForgotPasswordLabel = 0.0;
+    if (_instance._screenWidth >= 320 && _instance._screenWidth <= 413) {
+      sizeForgotPasswordLabel = 5.0;
       sizeLoginTitle = 24.0;
       sizeOrLabel = 14.0;
       sizePasswordLabel = 17.0;
       sizeUsernameLabel = 17.0;
       sizeLoginButtonLabel = 16.0;
       sizeRegisterButtonLabel = 16.0;
-    } else if (_screenWidth >= 360 && _screenWidth <= 428) {
+    } else if (_instance._screenWidth >= 360 && _instance._screenWidth <= 428) {
       sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
       sizeOrLabel = 18.0;
@@ -52,14 +40,14 @@ class ScreenConfig {
       sizeUsernameLabel = 18.0;
       sizeLoginButtonLabel = 18.0;
       sizeRegisterButtonLabel = 18.0;
-    } else if (_screenWidth >= 428 && _screenWidth <= 768) {
-      sizeForgotPasswordLabel = 0.0;
-      sizeLoginTitle = 24.0;
-      sizeOrLabel = 0.0;
-      sizePasswordLabel = 0.0;
-      sizeUsernameLabel = 0.0;
-      sizeLoginButtonLabel = 0.0;
-      sizeRegisterButtonLabel = 0.0;
+    } else if (_instance._screenWidth >= 428 && _instance._screenWidth <= 768) {
+      sizeForgotPasswordLabel = 18.0;
+      sizeLoginTitle = 22.0;
+      sizeOrLabel = 18.0;
+      sizePasswordLabel = 18.0;
+      sizeUsernameLabel = 18.0;
+      sizeLoginButtonLabel = 18.0;
+      sizeRegisterButtonLabel = 18.0;
     }
   }
 }

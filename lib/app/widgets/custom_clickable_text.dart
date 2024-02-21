@@ -4,10 +4,9 @@ class CustomClickableText extends StatelessWidget {
 
   final String text;
 
-  final Function() onTap;
 
 
-  const CustomClickableText({super.key, required this.text, required this.onTap});
+  const CustomClickableText({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,6 @@ class CustomClickableText extends StatelessWidget {
   final screenHeight = MediaQuery.of(context).size..height;
   
     return GestureDetector(
-      onTap: onTap,
       child: Text(
         this.text,
         style:  TextStyle(

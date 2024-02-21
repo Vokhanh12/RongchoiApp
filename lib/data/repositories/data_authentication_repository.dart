@@ -9,9 +9,9 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     // TODO: implement authenticate
 
     try {
-      final userCerdential = await FirebaseAuth.instance
+      final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-          print(userCerdential);
+          print(userCredential);
           print("success login");
     } on FirebaseAuthException catch (ex) {
 

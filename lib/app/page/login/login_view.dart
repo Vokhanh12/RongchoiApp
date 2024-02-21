@@ -1,10 +1,21 @@
+import 'package:ensure_visible_when_focused/ensure_visible_when_focused.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
+import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
+import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
+import 'package:rongchoi_app/app/widgets/custom_circle_image.dart';
+import 'package:rongchoi_app/app/widgets/custom_clickable_text.dart';
+import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
+import 'package:rongchoi_app/app/widgets/custom_text.dart';
+import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/app/widgets/page_widget/page_login_widgets.dart';
+import 'package:rongchoi_app/app/widgets/screen_config.dart';
 import 'package:rongchoi_app/app/widgets/screen_size.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,7 +42,16 @@ class LoginPageView
 
   bool _isLoading = false;
 
-  LoginPageView() : super(LoginController(DataAuthenticationRepository()));
+  late final double screenWidth = ScreenSize.screenWidth;
+  late final double screenHeight = ScreenSize.screenHeight;
+
+  final FocusNode _emailFocus;
+  final FocusNode _passFocus;
+
+  LoginPageView()
+      : _emailFocus = FocusNode(),
+        _passFocus = FocusNode(),
+        super(LoginController(DataAuthenticationRepository()));
 
   @override
   void initState() {
@@ -79,6 +99,7 @@ class LoginPageView
   @override
   Widget get mobileView {
     ScreenSize.init(context);
+    ScreenConfig.init(screenWidth, screenHeight);
 
     return Scaffold(
         body: ModalProgressHUD(
@@ -88,11 +109,6 @@ class LoginPageView
   Widget _buildLoginFormWidget() {
     final _formKey = GlobalKey<FormState>();
 
-    AppLocalizations app = AppLocalizations.of(context)!;
-
-    final double screenWidth = ScreenSize.screenWidth;
-    final double screenHeight = ScreenSize.screenHeight;
-
     return SingleChildScrollView(
         // Wrap with SingleChildScrollView
         child: Container(
@@ -101,24 +117,12 @@ class LoginPageView
       alignment: Alignment.center, // Align the content to center
       child: Stack(
         children: [
-          DecorLeft01(
-            width: screenWidth,
-            height: screenHeight,
-          ),
-          DecorBottomLeft04(
-            width: screenWidth,
-            height: screenHeight,
-          ),
+          decorLeft01,
+          decorBottomLeft04,
           Column(
             children: [
-              DecorRight03(
-                width: screenWidth,
-                height: screenHeight,
-              ),
-              DecorRight02(
-                width: screenWidth,
-                height: screenHeight,
-              ),
+              decorRight03,
+              decorRight02,
             ],
           ),
           Center(
@@ -129,12 +133,10 @@ class LoginPageView
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    LogoRongchoi(
-                      width: screenWidth,
-                      height: screenHeight,
-                    ),
-                    LoginText(text: app.loginTitle),
+                    logoRongChoi,
+                    loginText,
                     const SizedBox(height: 30),
+                    /*
                     GestureDetector(
                       onTap: () {
                         FocusScope.of(context).requestFocus(FocusNode());
@@ -144,7 +146,11 @@ class LoginPageView
                         controller: _email,
                       ),
                     ),
+                    */
+                    emailField,
                     const SizedBox(height: 18),
+                    /*
+
                     GestureDetector(
                       onTap: () {
                         FocusScope.of(context).requestFocus(FocusNode());
@@ -154,7 +160,11 @@ class LoginPageView
                         controller: _password,
                       ),
                     ),
+                    */
+                    passwordField,
                     const SizedBox(height: 17),
+
+                    /*
                     clean_architecture.ControlledWidgetBuilder<LoginController>(
                       builder: (context, controller) {
                         return ForgotPasswordText(
@@ -163,7 +173,9 @@ class LoginPageView
                         );
                       },
                     ),
+                    */
                     const SizedBox(height: 17),
+                    /*
                     clean_architecture.ControlledWidgetBuilder<LoginController>(
                       builder: (context, controller) {
                         return LoginButton(
@@ -174,7 +186,10 @@ class LoginPageView
                         );
                       },
                     ),
+                     */
+                    loginButton,
                     const SizedBox(height: 16),
+                    /*
                     clean_architecture.ControlledWidgetBuilder<LoginController>(
                       builder: (context, controller) {
                         return RegisterButton(
@@ -183,12 +198,16 @@ class LoginPageView
                         );
                       },
                     ),
+                    */
+                    registerButton,
                     SizedBox(height: (screenHeight / 55)),
-                    OrText(text: app.orLabel),
+                    orText,
                     SizedBox(height: (screenHeight / 80)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        /*
+
                         clean_architecture.ControlledWidgetBuilder<
                             LoginController>(
                           builder: (context, controller) {
@@ -199,9 +218,15 @@ class LoginPageView
                             );
                           },
                         ),
+                        */
+
+                        googleButton,
                         SizedBox(
                           width: screenWidth / 10,
                         ),
+
+                        /*
+
                         clean_architecture.ControlledWidgetBuilder<
                             LoginController>(
                           builder: (context, controller) {
@@ -212,6 +237,8 @@ class LoginPageView
                             );
                           },
                         ),
+                        */
+                        facebookButton
                       ],
                     ),
                   ],
@@ -231,4 +258,128 @@ class LoginPageView
   @override
   // TODO: implement watchView
   Widget get watchView => Container();
+
+  Widget get logoRongChoi => Positioned(
+      child: Container(
+          margin: const EdgeInsets.all(20.0),
+          child: CustomSvgPicture(
+              width: screenWidth / 3,
+              height: screenHeight / 3,
+              url: 'assets/svg/logo-rongchoi-01.svg')));
+
+  Widget get decorLeft01 => Positioned(
+          child: Align(
+        alignment: Alignment.topLeft,
+        child: Container(
+            child: CustomSvgPicture(
+                width: screenWidth / 5,
+                height: screenHeight / 5,
+                url: 'assets/svg/login-decore-01.svg')),
+      ));
+
+  Widget get decorRight02 => Positioned(
+          child: Align(
+        alignment: Alignment.topRight,
+        child: CustomSvgPicture(
+            width: screenWidth / 6,
+            height: screenHeight / 6,
+            url: 'assets/svg/login-decore-02.svg'),
+      ));
+
+  Widget get decorRight03 => Positioned(
+          child: Align(
+        alignment: Alignment.topRight,
+        child: CustomSvgPicture(
+            width: screenWidth / 4,
+            height: screenHeight / 4,
+            url: 'assets/svg/login-decore-03.svg'),
+      ));
+
+  Widget get decorBottomLeft04 => Positioned(
+        bottom: 0, // Đặt bottom thành 0 để nằm ở phía dưới cùng của màn hình
+        left: 0, // Đặt left thành 0 để nằm ở bên trái của màn hình
+        child: CustomSvgPicture(
+          width: screenWidth / 5.4,
+          height: screenHeight / 5.4,
+          url: 'assets/svg/login-decore-04.svg',
+        ),
+      );
+
+  Widget get forgotPasswordText => GestureDetector(
+        onTap: () => {},
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: CustomClickableText(
+                text: AppLocalizations.of(context)!.forgotPasswordLabel),
+          ),
+        ),
+      );
+
+  Widget get orText => GestureDetector(
+      onTap: () => {},
+      child: CustomText(
+        text: AppLocalizations.of(context)!.orLabel,
+        fontSize: ScreenConfig.sizeOrLabel,
+      ));
+
+  Widget get loginText => GestureDetector(
+        onTap: () => {},
+        child: CustomText(
+          text: AppLocalizations.of(context)!.loginTitle,
+          fontSize: ScreenConfig.sizeLoginTitle,
+        ),
+      );
+
+  Widget get googleButton => GestureDetector(
+      onTap: () => {},
+      child: CustomCircleImage(
+        widthPicture: screenWidth / 10 * 0.8,
+        heightPicture: screenHeight / 10 * 0.8,
+        color: Colors.white,
+        url: 'assets/svg/icon-google.svg',
+      ));
+
+  Widget get facebookButton => GestureDetector(
+      onTap: () => {},
+      child: CustomCircleImage(
+        widthPicture: screenWidth / 10 * 0.9,
+        heightPicture: screenHeight / 10 * 0.9,
+        color: Colors.transparent,
+        url: 'assets/svg/icon-facebook.svg',
+      ));
+
+  Widget get loginButton => Container(
+        constraints: const BoxConstraints(maxWidth: 600),
+        child: GestureDetector(
+            onTap: () => {},
+            child: CustomButton_01(
+              text: AppLocalizations.of(context)!.loginButtonLabel,
+            )),
+      );
+
+  Widget get registerButton => Container(
+        constraints: const BoxConstraints(maxWidth: 600),
+        child: GestureDetector(
+            onTap: () => {},
+            child: CustomButton_02(
+                text: AppLocalizations.of(context)!.registerButtonLabel)),
+      );
+
+  Widget get emailField => EnsureVisibleWhenFocused(
+      focusNode: _emailFocus,
+      child: CustomTextField(
+        text: AppLocalizations.of(context)!.usernameLabel,
+        fontSize: ScreenConfig.sizeUsernameLabel,
+        controller: _email,
+      ));
+
+  Widget get passwordField => EnsureVisibleWhenFocused(
+      focusNode: _passFocus,
+      child: CustomTextField(
+        text: AppLocalizations.of(context)!.passwordLabel,
+        fontSize: ScreenConfig.sizeUsernameLabel,
+        controller: _password,
+      ));
 }
