@@ -28,10 +28,10 @@ class MyApp extends StatelessWidget {
     // Use to setting singleton pattern
     ScreenSize.init(context);
     ScreenConfig.init(screenWidth,  screenHeight);
-    
 
 
     clean_architecture.FlutterCleanArchitecture.debugModeOn();
+
     return MaterialApp(
       title: 'Flutter Demo',
       localizationsDelegates: const [
@@ -57,9 +57,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginPage(
-        key: const ValueKey('unique_key'),
-        title: 'Flutter Clean Demo Page',
-      ),
-    );
+          key: ValueKey('unique_key'),
+          title: 'Flutter Clean Demo Page',
+        ),
+      );
   }
 }

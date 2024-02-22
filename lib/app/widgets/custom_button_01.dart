@@ -5,9 +5,11 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 
 class CustomButton_01 extends StatefulWidget {
-  final String text;
 
-  const CustomButton_01({Key? key, required this.text})
+  final String text;
+  final Function() onTap;
+
+  const CustomButton_01({Key? key, required this.text, required this.onTap})
       : super(key: key);
 
   @override
@@ -25,6 +27,8 @@ class _CustomButton_01State extends State<CustomButton_01> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
+
+        onTap: widget.onTap,
    
         onTapDown: (details) {
           setState(() {
