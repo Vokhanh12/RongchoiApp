@@ -18,7 +18,9 @@ SnackBar _getGenericSnackbar(String text, bool isError) {
 }
 
 /// Shows a generic [Snackbar]
-void showGenericSnackbar(GlobalKey<ScaffoldMessengerState> key, String text,
+void showGenericSnackbar(BuildContext context, String text,
     {bool isError = false}) {
-  key.currentState!.showSnackBar(_getGenericSnackbar(text, isError));
+  ScaffoldMessenger.of(context).showSnackBar(_getGenericSnackbar(text, isError));
 }
+
+

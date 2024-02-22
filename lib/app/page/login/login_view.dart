@@ -8,6 +8,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
+import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
 import 'package:rongchoi_app/app/widgets/custom_circle_image.dart';
@@ -42,10 +43,6 @@ class LoginPageResponsiveViewState
   late final TextEditingController _password;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-
-
-  bool _isLoading = false;
 
   final FocusNode _emailFocus;
   final FocusNode _passFocus;
@@ -53,7 +50,7 @@ class LoginPageResponsiveViewState
   LoginPageResponsiveViewState()
       : _emailFocus = FocusNode(),
         _passFocus = FocusNode(),
-        super(LoginController(DataAuthenticationRepository(),GlobalKey<ScaffoldMessengerState>()));
+        super(LoginController(DataAuthenticationRepository()));
 
   @override
   void initState() {
@@ -73,14 +70,10 @@ class LoginPageResponsiveViewState
 
   Widget loginScaffold({Widget? child}) {
     return Scaffold(
-      key: _scaffoldKey,
+      key: globalKey,
       body: child, // Provide a default value for child
     );
   }
-
-  @override
-  // TODO: implement desktopView
-  Widget get desktopView => Container();
 
   @override
   Widget get mobileView => loginScaffold(child:
@@ -158,6 +151,10 @@ class LoginPageResponsiveViewState
   @override
   // TODO: implement watchView
   Widget get watchView => Container();
+
+  @override
+  // TODO: implement desktopView
+  Widget get desktopView => throw UnimplementedError();
 
   Widget get background => Positioned(
       top: 0.0,
@@ -287,26 +284,6 @@ class LoginPageResponsiveViewState
     }
   }
 
-  // Google Button
-  Widget get googleButton =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
-          builder: (context, controller) {
-        final appLocalization = AppLocalizations.of(context);
-        if (appLocalization != null) {
-          return GestureDetector(
-            onTap: () => {print("hello world")},
-            child: CustomCircleImage(
-              widthPicture: ScreenSize.screenWidth / 10 * 0.8,
-              heightPicture: ScreenSize.screenHeight / 10 * 0.8,
-              color: Colors.white,
-              url: 'assets/svg/icon-google.svg',
-            ),
-          );
-        } else {
-          return Container(child: Text("Hello world aaaa"));
-        }
-      });
-
   // Facebook Button
   Widget get facebookButton =>
       clean_architecture.ControlledWidgetBuilder<LoginController>(
@@ -326,22 +303,35 @@ class LoginPageResponsiveViewState
         }
       });
 
+  // Google Button
+  Widget get googleButton =>
+      clean_architecture.ControlledWidgetBuilder<LoginController>(
+          builder: (context, controller) {
+        final appLocalization = AppLocalizations.of(context);
+        if (appLocalization != null) {
+          return GestureDetector(
+            onTap: () {},
+            child: CustomCircleImage(
+              widthPicture: ScreenSize.screenWidth / 10 * 0.8,
+              heightPicture: ScreenSize.screenHeight / 10 * 0.8,
+              color: Colors.white,
+              url: 'assets/svg/icon-google.svg',
+            ),
+          );
+        } else {
+          return Container(child: Text("Hello world aaaa"));
+        }
+      });
+
   // Register Button
   Widget get registerButton =>
       clean_architecture.ControlledWidgetBuilder<LoginController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
-          return GestureDetector(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 600),
-              child: GestureDetector(
-                onTap: () => {},
-                child: CustomButton_02(
-                  text: appLocalization.registerButtonLabel,
-                ),
-              ),
-            ),
+          return CustomButton_02(
+            onTap: () => controller.register(),
+            text: appLocalization.registerButtonLabel,
           );
         } else {
           return Container();

@@ -13,28 +13,25 @@ class LoginController extends clean_architecture.Controller {
 
   final LoginPresenter _loginPresenter;
 
-  final GlobalKey<ScaffoldMessengerState> _scaffoldKey;
-
-  LoginController(authRepo, this._scaffoldKey)
-      : _loginPresenter = LoginPresenter(authRepo) {
+  LoginController(authRepo) : _loginPresenter = LoginPresenter(authRepo) {
     emailTextController = TextEditingController();
     passwordTextController = TextEditingController();
     initListeners();
   }
 
+
+   /// Initializes [Presenter] listeners
   @override
   void initListeners() {
     // Initialize presenter listeners here
     // These will be called upon success, failure, or data retrieval after usecase execution
-    _loginPresenter.loginOnComplete = this._loginOnComplete;
-    _loginPresenter.loginOnNext = () => print("onNext");
-    _loginPresenter.loginOnError = this._loginOnError;
+    _loginPresenter.loginOnComplete = _loginOnComplete;
+    _loginPresenter.loginOnError = _loginOnError;
   }
 
-  void login() async {
-    print(emailTextController.text);
-    print(passwordTextController.text);
 
+  // Logs a [User] into the application
+  void login() async {
     isLoading = true;
     refreshUI();
     // pass appropriate credentials here
@@ -46,17 +43,17 @@ class LoginController extends clean_architecture.Controller {
   /// Login is successful
   void _loginOnComplete() {
     dismissLoading();
+    showGenericSnackbar(getContext(), "Đăng nhập thành công", isError: false);
   }
 
   void _loginOnError(e) {
     dismissLoading();
-    showGenericSnackbar(_scaffoldKey, e.message, isError: true);
+    showGenericSnackbar(getContext(), e.message, isError: false);
   }
 
   void dismissLoading() {
     isLoading = false;
     refreshUI();
-    showGenericSnackbar(_scaffoldKey, "Hello world", isError: false);
   }
 
   void _submit() async {
@@ -67,6 +64,7 @@ class LoginController extends clean_architecture.Controller {
 
   void register() {
     print("Clicked register");
+    showGenericSnackbar(getContext(), "Hello world", isError: false);
   }
 
   void forgotPassword() {

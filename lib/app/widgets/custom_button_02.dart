@@ -6,7 +6,9 @@ import 'package:rongchoi_app/app/page/login/login_controller.dart';
 
 class CustomButton_02 extends StatefulWidget {
   final String text;
-  const CustomButton_02({Key? key, required this.text})
+  final Function() onTap;
+
+  const CustomButton_02({Key? key, required this.text, required this.onTap})
       : super(key: key);
 
   @override
@@ -16,17 +18,15 @@ class CustomButton_02 extends StatefulWidget {
 class _CustomButton_02State extends State<CustomButton_02> {
   bool isButtonClicked = false;
 
-
   @override
   Widget build(BuildContext context) {
-  final screenWidth = MediaQuery.of(context).size.width;
-  final screenHeight = MediaQuery.of(context).size.height;
-
-
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Material(
       color: const Color.fromARGB(0, 82, 58, 58),
       child: InkWell(
+        onTap: widget.onTap,
         onTapDown: (details) {
           setState(() {
             isButtonClicked = true;
@@ -45,7 +45,7 @@ class _CustomButton_02State extends State<CustomButton_02> {
           ),
           alignment: FractionalOffset.center,
           decoration: BoxDecoration(
-            color: isButtonClicked ?      Color(0xFFFFCE00)  :  Color(0xFFFFBD3F),
+            color: isButtonClicked ? Color(0xFFFFCE00) : Color(0xFFFFBD3F),
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Text(
