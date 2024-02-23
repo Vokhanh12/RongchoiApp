@@ -48,7 +48,7 @@ class LoginController extends clean_architecture.Controller {
 
   void _loginOnError(e) {
     dismissLoading();
-    showGenericSnackbar(getContext(), e.message, isError: false);
+    showGenericSnackbar(getContext(), e.message, isError: true);
   }
 
   void dismissLoading() {

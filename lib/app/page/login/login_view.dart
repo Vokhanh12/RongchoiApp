@@ -9,6 +9,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/app/widgets/button_eye.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
 import 'package:rongchoi_app/app/widgets/custom_circle_image.dart';
@@ -183,7 +184,7 @@ class LoginPageResponsiveViewState
           child: CustomSvgPicture(
               width: ScreenSize.screenWidth / 5,
               height: ScreenSize.screenHeight / 5,
-              url: 'assets/svg/login-decore-01.svg'),
+              url: Resources.loginDecor01Url),
         ),
       );
 
@@ -193,7 +194,7 @@ class LoginPageResponsiveViewState
         child: CustomSvgPicture(
             width: ScreenSize.screenWidth / 6,
             height: ScreenSize.screenHeight / 6,
-            url: 'assets/svg/login-decore-02.svg'),
+            url: Resources.loginDecor02Url),
       );
 
   // Decor 03
@@ -202,7 +203,7 @@ class LoginPageResponsiveViewState
         child: CustomSvgPicture(
             width: ScreenSize.screenWidth / 4,
             height: ScreenSize.screenHeight / 4,
-            url: 'assets/svg/login-decore-03.svg'),
+            url: Resources.loginDecor03Url),
       );
 
   // Decor 04
@@ -212,7 +213,7 @@ class LoginPageResponsiveViewState
         child: CustomSvgPicture(
           width: ScreenSize.screenWidth / 5.4,
           height: ScreenSize.screenHeight / 5.4,
-          url: 'assets/svg/login-decore-04.svg',
+          url: Resources.loginDecor04Url,
         ),
       );
 
@@ -345,13 +346,22 @@ class LoginPageResponsiveViewState
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return EnsureVisibleWhenFocused(
-            focusNode: _emailFocus,
-            child: CustomTextField(
+              focusNode: _emailFocus,
+              child: CustomTextField(
+                TextHint: appLocalization.usernameLabel,
+                keyboardType: TextInputType.emailAddress,
+                enableSuggestions: false,
+                autocorrect: false,
+                obscureText: false,
+              )
+
+              /* CustomTextField(
               text: appLocalization.usernameLabel,
               fontSize: ScreenConfig.sizeUsernameLabel,
               controller: controller.emailTextController,
             ),
-          );
+            */
+              );
         } else {
           return Container();
         }
@@ -364,13 +374,26 @@ class LoginPageResponsiveViewState
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return EnsureVisibleWhenFocused(
-            focusNode: _passFocus,
-            child: CustomTextField(
-              text: appLocalization.passwordLabel,
+              focusNode: _passFocus,
+              child: Stack(
+                children: [
+                  CustomTextField(
+                    TextHint: appLocalization.passwordLabel,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    obscureText: false,
+                  ),
+                  Positioned(right: 3.0, child: ButtonEye())
+                ],
+              )
+
+              /* CustomTextField(
+              text: appLocalization.usernameLabel,
               fontSize: ScreenConfig.sizeUsernameLabel,
-              controller: controller.passwordTextController,
+              controller: controller.emailTextController,
             ),
-          );
+            */
+              );
         } else {
           return Container();
         }

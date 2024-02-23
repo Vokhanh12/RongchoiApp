@@ -7,5 +7,7 @@
   "passwordLabel": "Password",
   "usernameLabel": "Username",
   "loginButtonLabel": "Login",
-  "registerButtonLabel": "Register"
+  "registerButtonLabel": "Register",
+  "loginCheckEmailNotification": "Invalid email. Please check again",
+  "loginAuthNotification": "Incorrect email or password"
 }

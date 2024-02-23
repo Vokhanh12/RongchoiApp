@@ -8,6 +8,8 @@
   "passwordLabel": "Mật khẩu",
   "usernameLabel": "Tên tài khoản",
   "loginButtonLabel": "Đăng nhập",
-  "registerButtonLabel": "Đăng ký"
+  "registerButtonLabel": "Đăng ký",
+  "loginCheckEmailNotification": "Email không hợp lệ. Vui lòng kiểm tra lại",
+  "loginAuthNotification": "Địa chỉ email hoặc mật khẩu không đúng"
 
 }
