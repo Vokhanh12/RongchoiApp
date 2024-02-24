@@ -1,6 +1,7 @@
 import 'package:ensure_visible_when_focused/ensure_visible_when_focused.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
@@ -105,38 +106,52 @@ class LoginPageResponsiveViewState
           Center(
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    logoRongChoi,
-                    loginText,
-                    const SizedBox(height: 30),
-                    emailField,
-                    const SizedBox(height: 18),
-                    passwordField,
-                    const SizedBox(height: 17),
-                    forgotPasswordButton,
-                    const SizedBox(height: 17),
-                    loginButton,
-                    const SizedBox(height: 16),
-                    registerButton,
-                    SizedBox(height: (ScreenSize.screenWidth / 35)),
-                    orText,
-                    SizedBox(height: (ScreenSize.screenHeight / 85)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        googleButton,
-                        SizedBox(
-                          width: ScreenSize.screenWidth / 10,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Form(
+                      key: _formKey,
+                      child: Center(
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              logoRongChoi,
+                              loginText,
+                              const SizedBox(height: 30),
+                              emailField,
+                              const SizedBox(height: 18),
+                              passwordField,
+                              const SizedBox(height: 17),
+                              forgotPasswordButton,
+                              const SizedBox(height: 17),
+                              loginButton,
+                              const SizedBox(height: 16),
+                              SizedBox(height: (ScreenSize.screenWidth / 35)),
+                              orText,
+                              SizedBox(height: (ScreenSize.screenHeight / 85)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  googleButton,
+                                  SizedBox(
+                                    width: ScreenSize.screenWidth / 10,
+                                  ),
+                                  facebookButton,
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        facebookButton,
-                      ],
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    alignment: Alignment.bottomCenter,
+                    child: haveAccountRichText,
+                  )
+                ],
               ),
             ),
           ),
@@ -292,6 +307,7 @@ class LoginPageResponsiveViewState
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return GestureDetector(
+              // Login via facebook account
               onTap: () => {},
               child: CustomCircleImage(
                 widthPicture: ScreenSize.screenWidth / 10 * 0.9,
@@ -311,7 +327,8 @@ class LoginPageResponsiveViewState
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return GestureDetector(
-            onTap: () {},
+            // Login via Google account
+            onTap: () => controller.loginWithGoogle(),
             child: CustomCircleImage(
               widthPicture: ScreenSize.screenWidth / 10 * 0.8,
               heightPicture: ScreenSize.screenHeight / 10 * 0.8,
@@ -320,7 +337,7 @@ class LoginPageResponsiveViewState
             ),
           );
         } else {
-          return Container(child: Text("Hello world aaaa"));
+          return Container(child: Text("Error button"));
         }
       });
 
@@ -331,6 +348,7 @@ class LoginPageResponsiveViewState
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return CustomButton_02(
+            // Register account
             onTap: () => controller.register(),
             text: appLocalization.registerButtonLabel,
           );
@@ -397,5 +415,53 @@ class LoginPageResponsiveViewState
         } else {
           return Container();
         }
+      });
+
+  // Register RichText
+
+  Widget get haveAccountRichText =>
+      clean_architecture.ControlledWidgetBuilder<LoginController>(
+          builder: (context, controller) {
+        final appLocalization = AppLocalizations.of(context);
+        if (appLocalization != null) {
+          return RichText(
+              text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(
+                style: TextStyle(
+                    color: Color(0xFFA3A9AC),
+                    fontSize: ScreenConfig.loginHaveAccountLabel,
+                    fontWeight: FontWeight.w500),
+                text: appLocalization.loginHaveAccountLabel,
+              ),
+              TextSpan(
+                  style: TextStyle(
+                    color: Colors.orange,
+                    fontSize: ScreenConfig.loginRegisterClickText,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  text: appLocalization.loginRegisterClickText,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      print('Register cliked');
+                    }),
+            ],
+          ));
+        } else
+          return Container(
+            child: Text("Error HaceAccountRichText"),
+          );
+      });
+
+  Widget get changeLanguageButton =>
+      clean_architecture.ControlledWidgetBuilder<LoginController>(
+          builder: (context, controller) {
+        final appLocalization = AppLocalizations.of(context);
+        if (appLocalization != null) {
+          return Text("Change Language");
+        } else
+          return Container(
+            child: Text("Error HaceAccountRichText"),
+          );
       });
 }

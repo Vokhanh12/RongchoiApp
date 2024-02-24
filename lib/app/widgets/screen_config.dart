@@ -17,6 +17,11 @@ class ScreenConfig {
   static double sizeLoginButtonLabel = 0.0;
   static double sizeRegisterButtonLabel = 0.0;
 
+  static double loginCheckEmailNotification = 0.0;
+  static double loginAuthNotification = 0.0;
+  static double loginHaveAccountLabel = 0.0;
+  static double loginRegisterClickText = 0.0;
+
   // Method to initialize screen size
   static void init(double screenWidth, double screenHeight) {
     _instance._screenWidth = screenWidth;
@@ -32,6 +37,11 @@ class ScreenConfig {
       sizeUsernameLabel = 17.0;
       sizeLoginButtonLabel = 16.0;
       sizeRegisterButtonLabel = 16.0;
+
+      loginCheckEmailNotification = 0.0;
+      loginAuthNotification = 0.0;
+      loginHaveAccountLabel = 15.0;
+      loginRegisterClickText = 15.0;
     } else if (_instance._screenWidth >= 360 && _instance._screenWidth <= 428) {
       sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
@@ -40,6 +50,11 @@ class ScreenConfig {
       sizeUsernameLabel = 18.0;
       sizeLoginButtonLabel = 18.0;
       sizeRegisterButtonLabel = 18.0;
+
+      loginCheckEmailNotification = 0.0;
+      loginAuthNotification = 0.0;
+      loginHaveAccountLabel = 14.0;
+      loginRegisterClickText = 14.0;
     } else if (_instance._screenWidth >= 428 && _instance._screenWidth <= 768) {
       sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
@@ -48,6 +63,11 @@ class ScreenConfig {
       sizeUsernameLabel = 18.0;
       sizeLoginButtonLabel = 18.0;
       sizeRegisterButtonLabel = 18.0;
+
+      loginCheckEmailNotification = 0.0;
+      loginAuthNotification = 0.0;
+      loginHaveAccountLabel = 0.0;
+      loginRegisterClickText = 0.0;
     }
   }
 }
