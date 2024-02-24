@@ -6,10 +6,14 @@ import 'package:logging/logging.dart';
 class Resources {
   static const String background = 'none';
   static const String logo = 'assets/svg/logo-rongchoi-01.svg';
+  static const String logoNotTitile = 'assets/svg/logo-not-titile.svg';
   static const String loginDecor01Url = 'assets/svg/login-decore-01.svg';
   static const String loginDecor02Url = 'assets/svg/login-decore-02.svg';
   static const String loginDecor03Url = 'assets/svg/login-decore-03.svg';
   static const String loginDecor04Url = 'assets/svg/login-decore-04.svg';
+
+  static const String loginIconChangeLanguageUrl = 'assets/svg/icon-language/icon_vietnam.svg';
+
 
   static const String loader = 'assets/img/loading.svg';
   static const String event_race = 'assets/img/event_race.jpg';

@@ -15,6 +15,7 @@ import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
 import 'package:rongchoi_app/app/widgets/custom_circle_image.dart';
 import 'package:rongchoi_app/app/widgets/custom_clickable_text.dart';
+import 'package:rongchoi_app/app/widgets/custom_image.dart';
 import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
@@ -146,11 +147,8 @@ class LoginPageResponsiveViewState
                       ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    alignment: Alignment.bottomCenter,
-                    child: haveAccountRichText,
-                  )
+                  haveAccountRichText,
+                  changeLanguageButton
                 ],
               ),
             ),
@@ -424,33 +422,35 @@ class LoginPageResponsiveViewState
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
-          return RichText(
-              text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(
-                style: TextStyle(
-                    color: Color(0xFFA3A9AC),
-                    fontSize: ScreenConfig.loginHaveAccountLabel,
-                    fontWeight: FontWeight.w500),
-                text: appLocalization.loginHaveAccountLabel,
-              ),
-              TextSpan(
+          return Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: RichText(
+                text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
                   style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: ScreenConfig.loginRegisterClickText,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  text: appLocalization.loginRegisterClickText,
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      print('Register cliked');
-                    }),
-            ],
-          ));
-        } else
-          return Container(
-            child: Text("Error HaceAccountRichText"),
+                      color: const Color(0xFFA3A9AC),
+                      fontSize: ScreenConfig.loginHaveAccountLabel,
+                      fontWeight: FontWeight.w500),
+                  text: appLocalization.loginHaveAccountLabel,
+                ),
+                TextSpan(
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: ScreenConfig.loginRegisterClickText,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    text: appLocalization.loginRegisterClickText,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        print('Register clicked');
+                      }),
+              ],
+            )),
           );
+        } else {
+          return const Text("Error HaveAccountRichText");
+        }
       });
 
   Widget get changeLanguageButton =>
@@ -458,10 +458,26 @@ class LoginPageResponsiveViewState
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
-          return Text("Change Language");
-        } else
-          return Container(
-            child: Text("Error HaceAccountRichText"),
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(appLocalization.loginLanguageLabel),
+              GestureDetector(
+
+
+                child: const Row(
+                  children: [
+                    CustomSvgPicture(
+                        url: Resources.logoNotTitile,
+                        width: 45,
+                        height: 45)
+                  ],
+                ),
+              )
+            ],
           );
+        } else {
+          return const Text("Error changeLanguageButton");
+        }
       });
 }
