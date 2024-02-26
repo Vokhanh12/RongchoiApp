@@ -46,6 +46,7 @@ dependencies:
   modal_progress_hud_nsn: ^0.5.0
   ensure_visible_when_focused: ^1.2.0
   font_awesome_flutter: ^10.7.0
+  flutter_bloc: ^8.1.4
 
 dev_dependencies:
   flutter_clean_architecture: ^5.0.4

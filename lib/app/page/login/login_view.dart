@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rongchoi_app/app/bloc/language_bloc.dart';
+import 'package:rongchoi_app/app/bloc/language_event.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
@@ -31,9 +33,12 @@ class LoginPage extends clean_architecture.View {
   const LoginPage({
     Key? key,
     required this.title,
+    required this.bloc,
   }) : super(key: key);
 
   final String title;
+
+  final bloc; 
 
   @override
   // ignore: no_logic_in_create_state
@@ -49,6 +54,8 @@ class LoginPageResponsiveViewState
 
   final FocusNode _emailFocus;
   final FocusNode _passFocus;
+
+
 
   LoginPageResponsiveViewState()
       : _emailFocus = FocusNode(),
@@ -464,6 +471,12 @@ class LoginPageResponsiveViewState
               Text(appLocalization.loginLanguageLabel),
               GestureDetector(
 
+                onTap: (){
+                      
+                    widget.bloc.eventController.sink.add(changeLanguageEnglish('en'));
+
+
+                } ,
 
                 child: const Row(
                   children: [
