@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:rongchoi_app/domain/entities/language.dart';
 
 class Resources {
   static const String background = 'none';
@@ -12,7 +13,7 @@ class Resources {
   static const String loginDecor03Url = 'assets/svg/login-decore-03.svg';
   static const String loginDecor04Url = 'assets/svg/login-decore-04.svg';
 
-  static const String loginIconChangeLanguageUrl = 'assets/svg/icon-language/icon_vietnam.svg';
+  static const String loginIconCurrentLanguageUrl = '/home/vokhanh/development/flutter/RongChoi_Project/rongchoi_app/assets/svg/icon-language/icon-vietnam.svg';
 
 
   static const String loader = 'assets/img/loading.svg';
@@ -64,3 +65,14 @@ void showGenericSnackbar(BuildContext context, String text,
   ScaffoldMessenger.of(context)
       .showSnackBar(_getGenericSnackbar(text, isError));
 }
+
+
+class Languages {
+  const Languages._();
+
+  static const languages = [
+    Language(code: 'vi', value: 'Vietnamese'),
+    Language(code: 'en', value: 'English'),
+  ];
+}
+

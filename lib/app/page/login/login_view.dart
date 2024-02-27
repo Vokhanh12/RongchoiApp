@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:rongchoi_app/app/bloc/language_bloc.dart';
-import 'package:rongchoi_app/app/bloc/language_event.dart';
+import 'package:rongchoi_app/app/presentation/bloc/language_bloc.dart';
+import 'package:rongchoi_app/app/presentation/bloc/language_event.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
@@ -28,6 +29,7 @@ import 'package:rongchoi_app/data/repositories/data_authentication_repository.da
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/firebase_options.dart';
+import 'package:rongchoi_app/main.dart';
 
 class LoginPage extends clean_architecture.View {
   const LoginPage({
@@ -38,7 +40,7 @@ class LoginPage extends clean_architecture.View {
 
   final String title;
 
-  final bloc; 
+  final bloc;
 
   @override
   // ignore: no_logic_in_create_state
@@ -54,8 +56,6 @@ class LoginPageResponsiveViewState
 
   final FocusNode _emailFocus;
   final FocusNode _passFocus;
-
-
 
   LoginPageResponsiveViewState()
       : _emailFocus = FocusNode(),
@@ -465,29 +465,23 @@ class LoginPageResponsiveViewState
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(appLocalization.loginLanguageLabel),
-              GestureDetector(
-
-                onTap: (){
-                      
-                    widget.bloc.eventController.sink.add(changeLanguageEnglish('en'));
-
-
-                } ,
-
-                child: const Row(
-                  children: [
-                    CustomSvgPicture(
-                        url: Resources.logoNotTitile,
-                        width: 45,
-                        height: 45)
-                  ],
-                ),
-              )
-            ],
+          return Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: GestureDetector(
+              onTap: () => MyApp.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'en')),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(appLocalization.loginLanguageLabel),
+                  const SizedBox(width: 8.0,),
+                  const CustomSvgPicture(
+                    url: 'assets/svg/icon-language/icon-american.svg',
+                    width: 29,
+                    height: 29,
+                  )
+                ],
+              ),
+            ),
           );
         } else {
           return const Text("Error changeLanguageButton");
