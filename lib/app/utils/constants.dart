@@ -25,8 +25,8 @@ class Resources {
 
 
   static const List<Map<String, String>> languages = [
-    {'name': 'Vietnamese', 'iconUrl': 'assets/svg/icon-language/icon-vietnam.svg'},
-    {'name': 'English', 'iconUrl': 'assets/svg/icon-language/icon-english.svg'},
+    {'name': 'Vietnamese','code':'vi', 'iconUrl': 'assets/svg/icon-language/icon-vietnam.svg'},
+    {'name': 'English(US)','code':'en', 'iconUrl': 'assets/svg/icon-language/icon-american.svg'},
   ];
 
 

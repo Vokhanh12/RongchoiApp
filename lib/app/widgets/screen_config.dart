@@ -21,6 +21,9 @@ class ScreenConfig {
   static double loginAuthNotification = 0.0;
   static double loginHaveAccountLabel = 0.0;
   static double loginRegisterClickText = 0.0;
+  
+
+  static double sizeLanguageSelectLabel = 0.0;
 
   // Method to initialize screen size
   static void init(double screenWidth, double screenHeight) {
@@ -42,6 +45,11 @@ class ScreenConfig {
       loginAuthNotification = 0.0;
       loginHaveAccountLabel = 15.0;
       loginRegisterClickText = 15.0;
+
+      sizeLanguageSelectLabel = 20.0;
+
+
+
     } else if (_instance._screenWidth >= 360 && _instance._screenWidth <= 428) {
       sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
@@ -55,6 +63,11 @@ class ScreenConfig {
       loginAuthNotification = 0.0;
       loginHaveAccountLabel = 14.0;
       loginRegisterClickText = 14.0;
+
+      sizeLanguageSelectLabel = 20.0;
+
+
+
     } else if (_instance._screenWidth >= 428 && _instance._screenWidth <= 768) {
       sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
@@ -68,6 +81,9 @@ class ScreenConfig {
       loginAuthNotification = 0.0;
       loginHaveAccountLabel = 0.0;
       loginRegisterClickText = 0.0;
+
+
+
     }
   }
 }
