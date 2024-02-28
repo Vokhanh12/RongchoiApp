@@ -21,6 +21,17 @@ class Resources {
   static const String event_spaghetti = 'assets/img/event_spaghetti.jpg';
   static const String event_consumer = 'assets/img/event_consumer.jpg';
   static const String checkpoint = 'assets/img/checkpoint_16x16.bmp';
+
+
+
+  static const List<Map<String, String>> languages = [
+    {'name': 'Vietnamese', 'iconUrl': 'assets/svg/icon-language/icon-vietnam.svg'},
+    {'name': 'English', 'iconUrl': 'assets/svg/icon-language/icon-english.svg'},
+  ];
+
+
+
+
 }
 
 /// Returns the app's default snackbar with a [text].

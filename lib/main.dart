@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/presentation/bloc/language_bloc.dart';
 import 'package:rongchoi_app/app/presentation/bloc/language_state.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
@@ -86,11 +87,13 @@ class _MyAppState extends State<MyApp> {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(
+      home: LanguagePage()
+      /* LoginPage(
         key: ValueKey('unique_key'),
         title: 'Flutter Clean Demo Page',
         bloc: null,
       ),
+      */
     );
   }
 }

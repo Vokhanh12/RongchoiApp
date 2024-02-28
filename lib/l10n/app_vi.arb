@@ -1,5 +1,4 @@
 {
- 
   "@@locale": "vi",
   "appName": "Ứng dụng Rongchoi",
   "forgotPasswordLabel": "Quên mật khẩu",
@@ -13,5 +12,6 @@
   "loginAuthNotification": "Địa chỉ email hoặc mật khẩu không đúng",
   "loginHaveAccountLabel": "Bạn chưa có tài khoản? ",
   "loginRegisterClickText": "ĐĂNG KÝ",
-  "loginLanguageLabel": "Ngôn ngữ:"
+  "loginLanguageLabel": "Ngôn ngữ:",
+  "languageSelectLanguage": "Lựa chọn ngôn ngữ",
 }
