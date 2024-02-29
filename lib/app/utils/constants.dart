@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 import 'package:rongchoi_app/domain/entities/language.dart';
 
 class Resources {
+  
   static const String background = 'none';
   static const String logo = 'assets/svg/logo-rongchoi-01.svg';
   static const String logoNotTitile = 'assets/svg/logo-not-titile.svg';

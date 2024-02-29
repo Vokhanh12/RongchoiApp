@@ -6,9 +6,10 @@ import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/language_card.dart';
-import 'package:rongchoi_app/app/widgets/screen_config.dart';
-import 'package:rongchoi_app/app/widgets/screen_size.dart';
+import 'package:rongchoi_app/app/utils/screen_config.dart';
+import 'package:rongchoi_app/app/utils/screen_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rongchoi_app/data/repositories/data_setting_repository.dart';
 import 'package:rongchoi_app/main.dart';
 
 class LanguagePage extends clean_architecture.View {
@@ -21,7 +22,7 @@ class LanguagePage extends clean_architecture.View {
 
 class LanguagePageResponsiveViewState extends clean_architecture
     .ResponsiveViewState<LanguagePage, LanguageController> {
-  LanguagePageResponsiveViewState() : super(LanguageController());
+  LanguagePageResponsiveViewState() : super(LanguageController(DataSettingRepository));
 
   @override
   // TODO: implement desktopView
@@ -57,20 +58,25 @@ class LanguagePageResponsiveViewState extends clean_architecture
   }
 
   // Language Cards
-  Widget get getLanguageCards => GridView.count(
-        padding: const EdgeInsets.all(12.0),
-        shrinkWrap: true,
-        crossAxisCount: 2,
-        children: Resources.languages.asMap().entries.map((entry) {
-          final int index = entry.key;
-          final Map<String, String> language = entry.value;
-          return LanguageCard(
-            iconUrl: language['iconUrl']!,
-            name: language['name']!,
-            onTap: () => MyApp.of(context)!.setLocale(Locale.fromSubtags(languageCode: language['code']!)),
-          );
-        }).toList(),
-      );
+  Widget get getLanguageCards =>
+      clean_architecture.ControlledWidgetBuilder<LanguageController>(
+          builder: (context, controller) {
+        return GridView.count(
+          padding: const EdgeInsets.all(12.0),
+          shrinkWrap: true,
+          crossAxisCount: 2,
+          children: Resources.languages.asMap().entries.map((entry) {
+            final int index = entry.key;
+            final Map<String, String> language = entry.value;
+            return LanguageCard(
+              iconUrl: language['iconUrl']!,
+              name: language['name']!,
+              onTap: (){ controller.changeLanguage(context,language['code']!);},
+            );
+          }).toList(),
+        );
+      });
+
   // Select Language Text
   Widget get selectLanguageText {
     final appLocalization = AppLocalizations.of(context);

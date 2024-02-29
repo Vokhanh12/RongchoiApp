@@ -30,8 +30,6 @@ class LoginUseCase extends CompletableUseCase<LoginUseCaseParams> {
 }
 
 
-
-
 class LoginUseCaseParams {
   final String email;
   final String password;

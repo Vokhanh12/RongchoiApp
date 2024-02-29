@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:rongchoi_app/app/page/login/login_presenter.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 
 class LoginController extends clean_architecture.Controller {
   late TextEditingController emailTextController;
@@ -13,7 +14,7 @@ class LoginController extends clean_architecture.Controller {
 
   final LoginPresenter _loginPresenter;
 
-  LoginController(authRepo) : _loginPresenter = LoginPresenter(authRepo) {
+  LoginController(AuthenticationRepository authRepo) : _loginPresenter = LoginPresenter(authRepo) {
     emailTextController = TextEditingController();
     passwordTextController = TextEditingController();
     initListeners();

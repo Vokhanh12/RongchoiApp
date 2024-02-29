@@ -12,8 +12,8 @@ import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
-import 'package:rongchoi_app/app/widgets/screen_config.dart';
-import 'package:rongchoi_app/app/widgets/screen_size.dart';
+import 'package:rongchoi_app/app/utils/screen_config.dart';
+import 'package:rongchoi_app/app/utils/screen_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() => runApp(const MyApp());
