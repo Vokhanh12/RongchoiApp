@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clippath">
+      <ellipse cx="25" cy="25" rx="24.88" ry="24.94" fill="#d90027"/>
+    </clipPath>
+  </defs>
+  <ellipse cx="25" cy="25" rx="24.88" ry="24.94" fill="#d90027"/>
+  <g clip-path="url(#clippath)">
+    <g>
+      <polygon points="16.42 56.66 16.42 25.05 -7.44 25.05 -7.44 17.44 16.42 17.44 16.42 -6.66 24.02 -6.66 24.02 17.44 57.44 17.44 57.44 25.05 24.02 25.05 24.02 56.66 16.42 56.66" fill="#0152b5"/>
+      <path d="M23.25-5.9V18.2H56.68v6.09H23.25v31.62h-6.08V24.29H-6.68v-6.09H17.18V-5.9h6.08m1.52-1.52H15.66V16.68H-8.2v9.13H15.66v31.62h9.12V25.81H58.2v-9.13H24.78V-7.42h0Z" fill="#fff2fc"/>
+    </g>
+  </g>
+</svg>

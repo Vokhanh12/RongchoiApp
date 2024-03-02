@@ -15,8 +15,7 @@ class ChangeLanguageUseCase
   @override
   Future<Stream<void>> buildUseCaseStream(
       ChangeLanguageUseCaseParams? params) async {
-    // TODO: implement buildUseCaseStream
-    final StreamController controller = StreamController();
+      final StreamController<void> controller = StreamController<void>();
     try {
       _settingRepository.changeLanguage(
           context: params!.context, code: params!.code);
@@ -28,6 +27,8 @@ class ChangeLanguageUseCase
       logger.severe('changeLanguageUseCase unsuccessful.');
       // Trigger .onError
       controller.addError(ex);
+    } finally {
+      controller.close();
     }
 
     return controller.stream;

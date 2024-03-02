@@ -20,15 +20,14 @@ class DataSettingRepository extends SettingRepository {
   Future<void> changeLanguage(
       {required BuildContext context, required String code}) async {
     try {
-      // TODO: implement changeLanguage
-      print("success change language");
+      print("Attempting to change language to $code");
       MyApp.of(context)!.setLocale(Locale.fromSubtags(languageCode: code));
-    } catch (ex) {
-      print("something bad happened");
-      print(ex.runtimeType);
-      print(ex);
-
-      rethrow;
+      print("Success: Language changed to $code");
+    } catch (error) {
+      // Xử lý lỗi một cách chính xác
+      print("Error occurred while changing language:");
+      print(error);
+      throw error; // Throw lỗi để cho lớp gọi có thể xử lý tiếp
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "@@locale": "ja",
+  "appName": "Rongchoiアプリ",
+  "forgotPasswordLabel": "パスワードをお忘れですか？",
+  "loginTitle": "ログイン",
+  "orLabel": "または",
+  "passwordLabel": "パスワード",
+  "usernameLabel": "ユーザー名",
+  "loginButtonLabel": "ログイン",
+  "registerButtonLabel": "登録",
+  "loginCheckEmailNotification": "無効なメールアドレスです。再度確認してください",
+  "loginAuthNotification": "間違ったメールアドレスまたはパスワード",
+  "loginHaveAccountLabel": "まだアカウントをお持ちでないですか？ ",
+  "loginRegisterClickText": "登録",
+  "loginLanguageLabel": "言語：",
+  "languageSelectLanguage": "言語を選択",
+  "languageChangeNotification": "言語が正常に変更されました"
+}

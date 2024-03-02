@@ -1,0 +1,18 @@
+{
+  "@@locale": "fr",
+  "appName": "Application Rongchoi",
+  "forgotPasswordLabel": "Mot de passe oublié?",
+  "loginTitle": "Connexion",
+  "orLabel": "Ou",
+  "passwordLabel": "Mot de passe",
+  "usernameLabel": "Nom d'utilisateur",
+  "loginButtonLabel": "Connexion",
+  "registerButtonLabel": "S'inscrire",
+  "loginCheckEmailNotification": "Email invalide. Veuillez vérifier à nouveau",
+  "loginAuthNotification": "Email ou mot de passe incorrect",
+  "loginHaveAccountLabel": "Vous n'avez pas encore de compte? ",
+  "loginRegisterClickText": "S'INSCRIRE",
+  "loginLanguageLabel": "Langue:",
+  "languageSelectLanguage": "Sélectionner la langue",
+  "languageChangeNotification": "Langue changée avec succès"
+}

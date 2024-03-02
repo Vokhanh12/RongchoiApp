@@ -1,38 +1,30 @@
 // ignore_for_file: unused_element
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/language/language_presenter.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LanguageController extends clean_architecture.Controller {
-
-
   late final LanguagePresenter _languagePresenter;
 
-
-  LanguageController(settingRepo)
+  LanguageController(SettingRepository settingRepo)
       : _languagePresenter = LanguagePresenter(settingRepo) {
     // Example more..
-
 
     initListeners();
   }
 
   // Logs a [User] change language from the application
-  void changeLanguage(BuildContext context,String code) async{
-    
+  void changeLanguage(BuildContext context, String code) async {
     refreshUI();
 
     _languagePresenter.changeLanguage(context: context, code: code);
-
-
   }
 
-
-    /// Initializes [Presenter] listeners
+  /// Initializes [Presenter] listeners
   @override
   void initListeners() {
     // TODO: implement initListeners
@@ -46,8 +38,15 @@ class LanguageController extends clean_architecture.Controller {
   /// change language is successful
   void _changeLanguageOnComplete() {
     dismissLoading();
-    showGenericSnackbar(getContext(), "Thay đổi ngôn ngữ {Ngôn ngữ} thành công",
-        isError: false);
+
+// Make sure the language has been completely changed before displaying the message
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      showGenericSnackbar(
+        getContext(),
+        AppLocalizations.of(getContext())!.languageChangeNotification,
+        isError: false,
+      );
+    });
   }
 
   /// change language is error

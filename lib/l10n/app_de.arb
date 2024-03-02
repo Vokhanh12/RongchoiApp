@@ -1,0 +1,18 @@
+{
+  "@@locale": "de",
+  "appName": "Rongchoi App",
+  "forgotPasswordLabel": "Passwort vergessen?",
+  "loginTitle": "Anmelden",
+  "orLabel": "Oder",
+  "passwordLabel": "Passwort",
+  "usernameLabel": "Benutzername",
+  "loginButtonLabel": "Anmelden",
+  "registerButtonLabel": "Registrieren",
+  "loginCheckEmailNotification": "Ungültige E-Mail. Bitte erneut überprüfen",
+  "loginAuthNotification": "Falsche E-Mail oder Passwort",
+  "loginHaveAccountLabel": "Sie haben noch kein Konto? ",
+  "loginRegisterClickText": "REGISTRIEREN",
+  "loginLanguageLabel": "Sprache:",
+  "languageSelectLanguage": "Sprache auswählen",
+  "languageChangeNotification": "Sprache erfolgreich geändert"
+}

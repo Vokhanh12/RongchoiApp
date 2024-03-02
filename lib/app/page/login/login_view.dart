@@ -35,12 +35,9 @@ class LoginPage extends clean_architecture.View {
   const LoginPage({
     Key? key,
     required this.title,
-    required this.bloc,
   }) : super(key: key);
 
   final String title;
-
-  final bloc;
 
   @override
   // ignore: no_logic_in_create_state
@@ -468,12 +465,15 @@ class LoginPageResponsiveViewState
           return Padding(
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
-              onTap: () => MyApp.of(context)!.setLocale(Locale.fromSubtags(languageCode: 'en')),
+              onTap: () => MyApp.of(context)!
+                  .setLocale(Locale.fromSubtags(languageCode: 'en')),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(appLocalization.loginLanguageLabel),
-                  const SizedBox(width: 8.0,),
+                  const SizedBox(
+                    width: 8.0,
+                  ),
                   const CustomSvgPicture(
                     url: 'assets/svg/icon-language/icon-american.svg',
                     width: 29,

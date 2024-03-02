@@ -22,7 +22,15 @@ class LanguagePage extends clean_architecture.View {
 
 class LanguagePageResponsiveViewState extends clean_architecture
     .ResponsiveViewState<LanguagePage, LanguageController> {
-  LanguagePageResponsiveViewState() : super(LanguageController(DataSettingRepository));
+  LanguagePageResponsiveViewState()
+      : super(LanguageController(DataSettingRepository()));
+
+  Widget LanguageScaffold({Widget? child}) {
+    return Scaffold(
+      key: globalKey,
+      body: child,
+    );
+  }
 
   @override
   // TODO: implement desktopView
@@ -30,7 +38,7 @@ class LanguagePageResponsiveViewState extends clean_architecture
 
   @override
   // TODO: implement mobileView
-  Widget get mobileView => _buildLanguageFormWidget();
+  Widget get mobileView => LanguageScaffold(child: _buildLanguageFormWidget());
 
   @override
   // TODO: implement tabletView
@@ -62,16 +70,21 @@ class LanguagePageResponsiveViewState extends clean_architecture
       clean_architecture.ControlledWidgetBuilder<LanguageController>(
           builder: (context, controller) {
         return GridView.count(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(15.0),
+            crossAxisSpacing: 8.0,
+  mainAxisSpacing: 12.0,
           shrinkWrap: true,
           crossAxisCount: 2,
+          // range language load show card and the index used to get code for to change language
           children: Resources.languages.asMap().entries.map((entry) {
             final int index = entry.key;
             final Map<String, String> language = entry.value;
             return LanguageCard(
-              iconUrl: language['iconUrl']!,
+              iconUrl: language['iconUrl'] ?? 'vi',
               name: language['name']!,
-              onTap: (){ controller.changeLanguage(context,language['code']!);},
+              // onTap change language from controller
+              onTap: () =>
+                  controller.changeLanguage(context, language['code']!),
             );
           }).toList(),
         );
@@ -87,7 +100,7 @@ class LanguagePageResponsiveViewState extends clean_architecture
             fontSize: ScreenConfig.sizeLanguageSelectLabel,
             fontWeight: FontWeight.w600),
       );
-    } else {
+    } else{
       return Container();
     }
   }

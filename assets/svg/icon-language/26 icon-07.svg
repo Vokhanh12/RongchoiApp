@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clippath">
+      <ellipse cx="25" cy="25" rx="24.88" ry="24.94" fill="#d90027"/>
+    </clipPath>
+  </defs>
+  <ellipse cx="25" cy="25" rx="24.88" ry="24.94" fill="#d90027"/>
+  <g clip-path="url(#clippath)">
+    <rect x="-6.54" y="-7.67" width="66.72" height="32.67" fill="#f0f0f0"/>
+    <path d="M5.2,7.36L22.96,25,5.88,42.15S-27.67,26.89,5.2,7.36Z" fill="#094fb4"/>
+  </g>
+</svg>

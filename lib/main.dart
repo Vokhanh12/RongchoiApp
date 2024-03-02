@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/language/language_view.dart';
+import 'package:rongchoi_app/app/page/route/app_route.dart';
 import 'package:rongchoi_app/app/presentation/bloc/language_bloc.dart';
 import 'package:rongchoi_app/app/presentation/bloc/language_state.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
@@ -29,7 +30,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   Locale _locale = Locale('vi');
 
   void setLocale(Locale value) {
@@ -51,8 +51,6 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final appLocalization = AppLocalizations.of(context);
-
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -62,38 +60,51 @@ class _MyAppState extends State<MyApp> {
 
     clean_architecture.FlutterCleanArchitecture.debugModeOn();
 
-    return MaterialApp(
-      locale: _locale,
-      title: 'Flutter Demo',
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('vi'), // Tieng Viet
-        Locale('en'),
-      ],
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: LanguagePage()
-      /* LoginPage(
+    return MaterialApp.router(
+        locale: _locale,
+        routeInformationProvider: AppRouter.router.routeInformationProvider,
+        routeInformationParser: AppRouter.router.routeInformationParser,
+        routerDelegate: AppRouter.router.routerDelegate,
+        title: 'Flutter Demo',
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('vi'),
+          Locale('en'),
+          Locale('ja'),
+          Locale('en-GB'),
+          Locale('fr'),
+          Locale('de'),
+        ],
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        )
+
+        /*
+        home: const LanguagePage(
+          key: ValueKey('unique_key'),
+        )
+        /* LoginPage(
         key: ValueKey('unique_key'),
         title: 'Flutter Clean Demo Page',
         bloc: null,
       ),
       */
-    );
+        );
+        */
+        );
   }
 }
