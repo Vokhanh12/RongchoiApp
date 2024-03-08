@@ -6,6 +6,7 @@ import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
 import 'package:rongchoi_app/domain/usecases/setting/change_language_usecase.dart';
 
 class LanguagePresenter extends Presenter {
+  
   final SettingRepository _settingRepository;
 
   late ChangeLanguageUseCase _changeLanguageUseCase;

@@ -98,7 +98,7 @@ SnackBar _getGenericSnackbar(String text, bool isError) {
               child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xFF808080), // Điều chỉnh màu chữ
                   fontSize: 15.0, // Giảm kích thước chữ để phù hợp với SnackBar
                   fontWeight: FontWeight.w500,

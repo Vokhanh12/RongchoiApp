@@ -3,6 +3,7 @@ import 'package:rongchoi_app/domain/repositories/authentication_repository.dart'
 import 'package:rongchoi_app/domain/usecases/auth/login_usecase.dart';
 
 class LoginPresenter extends Presenter {
+  
   final AuthenticationRepository _authenticationRepository;
   
   late LoginUseCase _loginUseCase;
