@@ -12,8 +12,8 @@ import 'package:rongchoi_app/app/widgets/custom_clickable_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
-import 'package:rongchoi_app/app/utils/screen_config.dart';
-import 'package:rongchoi_app/app/utils/screen_size.dart';
+import 'package:rongchoi_app/shared/build_config/screen_config.dart';
+import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 
 /*
 

@@ -15,11 +15,13 @@ class LoginController extends clean_architecture.Controller {
   final LoginPresenter _loginPresenter;
 
   LoginController(AuthenticationRepository authRepo) : _loginPresenter = LoginPresenter(authRepo) {
+
+    // email used to for textfield
     emailTextController = TextEditingController();
+    // password used to for textfield
     passwordTextController = TextEditingController();
     initListeners();
   }
-
 
    /// Initializes [Presenter] listeners
   @override

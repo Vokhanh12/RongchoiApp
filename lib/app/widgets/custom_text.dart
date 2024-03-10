@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
-import 'package:rongchoi_app/app/utils/screen_config.dart';
+import 'package:rongchoi_app/shared/build_config/screen_config.dart';
 
 class CustomText extends StatelessWidget {
   final String text;
