@@ -14,8 +14,8 @@ class LoginController extends clean_architecture.Controller {
 
   final LoginPresenter _loginPresenter;
 
-  LoginController(AuthenticationRepository authRepo) : _loginPresenter = LoginPresenter(authRepo) {
-
+  LoginController(AuthenticationRepository authRepo)
+      : _loginPresenter = LoginPresenter(authRepo) {
     // email used to for textfield
     emailTextController = TextEditingController();
     // password used to for textfield
@@ -23,7 +23,7 @@ class LoginController extends clean_architecture.Controller {
     initListeners();
   }
 
-   /// Initializes [Presenter] listeners
+  /// Initializes [Presenter] listeners
   @override
   void initListeners() {
     // Initialize presenter listeners here
@@ -31,7 +31,6 @@ class LoginController extends clean_architecture.Controller {
     _loginPresenter.loginOnComplete = _loginOnComplete;
     _loginPresenter.loginOnError = _loginOnError;
   }
-
 
   // Logs a [User] into the application
   void login() async {
@@ -54,31 +53,36 @@ class LoginController extends clean_architecture.Controller {
     showGenericSnackbar(getContext(), e.message, isError: true);
   }
 
-  void dismissLoading() {
-    isLoading = false;
-    refreshUI();
-  }
-
+  // Logs a [User] into the application
   void _submit() async {
     isLoading = true;
 
     print("Submitting to backend ...");
   }
 
+  // Logs a [User] into the application
   void register() {
     print("Clicked register");
     showGenericSnackbar(getContext(), "Hello world", isError: false);
   }
 
+  // Logs a [User] into the application
   void forgotPassword() {
     print("Clicked forgot password");
   }
 
+  // Logs a [User] into the application
   void loginWithGoogle() {
     print("Clicked login with google");
   }
 
+  // Logs a [User] into the application
   void loginWithFacebook() {
     print("Clicked login with facebook");
+  }
+
+  void dismissLoading() {
+    isLoading = false;
+    refreshUI();
   }
 }

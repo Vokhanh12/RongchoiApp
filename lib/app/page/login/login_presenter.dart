@@ -13,7 +13,6 @@ class LoginPresenter extends Presenter {
   late Function loginOnNext; // not needed in the case of a login presenter
 
   // dependency injection from controller
-
   LoginPresenter(this._authenticationRepository) {
     // Initialize the [UseCase] with the appropriate repository
     _loginUseCase = LoginUseCase(_authenticationRepository);

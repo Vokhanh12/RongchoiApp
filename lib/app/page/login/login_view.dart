@@ -23,8 +23,8 @@ import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/app/widgets/page_widget/page_login_widgets.dart';
-import 'package:rongchoi_app/app/utils/screen_config.dart';
-import 'package:rongchoi_app/app/utils/screen_size.dart';
+import 'package:rongchoi_app/shared/build_config/screen_config.dart';
+import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
@@ -83,12 +83,15 @@ class LoginPageResponsiveViewState
   }
 
   @override
-  Widget get mobileView => loginScaffold(child:
-          clean_architecture.ControlledWidgetBuilder<LoginController>(
-              builder: (context, controller) {
-        return ModalProgressHUD(
-            inAsyncCall: controller.isLoading, child: _buildLoginFormWidget());
-      }));
+  Widget get mobileView => loginScaffold(
+        child: clean_architecture.ControlledWidgetBuilder<LoginController>(
+          builder: (context, controller) {
+            return ModalProgressHUD(
+                inAsyncCall: controller.isLoading,
+                child: _buildLoginFormWidget());
+          },
+        ),
+      );
 
   Widget _buildLoginFormWidget() {
     return SingleChildScrollView(

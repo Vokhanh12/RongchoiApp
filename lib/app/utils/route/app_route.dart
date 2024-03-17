@@ -1,49 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rongchoi_app/app/main_page.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
-import 'package:rongchoi_app/app/page/not_found_page.dart';
-import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 
-import '../../presentation/cubit/navigation_cubit.dart';
-
-class AppRouter {
-
-  static final _rootNavigatorKey = GlobalKey<NavigatorState>();
-  static final _shellNavigatorKey = GlobalKey<NavigatorState>();
-
-  static final GoRouter _router = GoRouter(
-    initialLocation: Routes.homeNamePage,
-    debugLogDiagnostics: true,
-    navigatorKey: _rootNavigatorKey,
+class AppRouter extends StatelessWidget {
+// GoRouter configuration
+  final _router = GoRouter(
+    initialLocation: '/',
     routes: [
-      ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) {
-          return BlocProvider(
-            create: (context) => NavigationCubit(),
-            child: MainScreen(screen: child),
-          );
-        },
-        routes: [
-          GoRoute(
-            path: Routes.homeNamePage,
-            pageBuilder: (context, state) =>
-            const NoTransitionPage(
-              child: HomePage(
-                key:ValueKey('unique_key'),
-                title: 'homepage'),
-            ),
-           
-          ),
-          
-        ],
+      GoRoute(
+        name:
+            'splash', // Optional, add name to your routes. Allows you navigate by name instead of path
+        path: '/',
+        builder: (context, state) => SplashPage(title: 'Splash'),
+      ),
+      GoRoute(
+        name: 'home',
+        path: '/home',
+        builder: (context, state) => HomePage(title: 'Home'),
       ),
     ],
-    errorBuilder: (context, state) => const NotFoundPage(),
-
   );
-
-  static GoRouter get router => _router;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp.router(
+      routerConfig: _router,
+    );
+  }
 }
