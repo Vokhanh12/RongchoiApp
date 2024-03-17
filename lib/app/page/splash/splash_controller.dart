@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/splash/splash_presenter.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
+import 'package:rongchoi_app/domain/repositories/location_repository.dart';
 
 class SplashController extends clean_architecture.Controller {
   late bool isLoading;
 
   final SplashPresenter _splashPresenter;
+  final LocationRepository _locationRepository;
 
-  SplashController(AuthenticationRepository authRepo)
+  SplashController(AuthenticationRepository authRepo, this._locationRepository)
       : _splashPresenter = SplashPresenter(authRepo) {
     getAuthStatus();
+    handlePermissions();
   }
 
   @override
@@ -40,6 +44,9 @@ class SplashController extends clean_architecture.Controller {
 
   void authStatusOnNext(bool isAuth) {
     String page = isAuth ? '/home' : '/login';
+    GoRouter.of(getContext()).go(page);
+
+    print(page);
 
     // use go router
     //Navigator.of(getContext()).pushReplacementNamed(page);
@@ -50,4 +57,10 @@ class SplashController extends clean_architecture.Controller {
     // so the animation can be seen
     Future.delayed(Duration(seconds: 3), _splashPresenter.getAuthStatus);
   }
+
+    void handlePermissions() {
+    _locationRepository.enableDevice();
+  }
+
+  void dispose() => _splashPresenter.dispose();
 }

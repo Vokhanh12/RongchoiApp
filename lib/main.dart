@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
 
     clean_architecture.FlutterCleanArchitecture.debugModeOn();
 
-    return MaterialApp(
+    return MaterialApp.router(
       locale: _locale,
       title: 'Flutter Demo',
       localizationsDelegates: const [
@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: AppRouter(),
+      routerConfig: AppRouter.Router,
     );
   }
 }

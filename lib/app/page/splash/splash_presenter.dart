@@ -34,7 +34,7 @@ class _GetAuthStatusUseCaseObserver implements Observer<bool> {
 
   /// implement if the `Stream` emits a value
   // in this case, unnecessary
-  void onNext(isAuth) {
+  void onNext(bool? isAuth) {
        print('on Next');
     assert(_splashPresenter.getAuthStatusOnNext != null);
     _splashPresenter.getAuthStatusOnNext(isAuth);

@@ -191,8 +191,8 @@ class LoginPageResponsiveViewState
   Widget get logoRongChoi => Container(
         margin: const EdgeInsets.all(20.0),
         child: CustomSvgPicture(
-          width: ScreenSize.screenWidth / 3,
-          height: ScreenSize.screenHeight / 3,
+          width: ScreenSize.screenWidth / 3.3,
+          height: ScreenSize.screenHeight / 3.3,
           url: 'assets/svg/logo-rongchoi-01.svg',
         ),
       );
