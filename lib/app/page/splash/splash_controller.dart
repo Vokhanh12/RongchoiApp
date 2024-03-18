@@ -43,6 +43,7 @@ class SplashController extends clean_architecture.Controller {
   }
 
   void authStatusOnNext(bool isAuth) {
+    
     String page = isAuth ? '/home' : '/login';
     GoRouter.of(getContext()).go(page);
 

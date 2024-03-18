@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
@@ -53,10 +54,21 @@ class LanguagePageResponsiveViewState extends clean_architecture
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
-              left: 8.0, right: 8.0, top: 15.0, bottom: 8.0),
+              left: 8.0, right: 8.0, top: 35.0, bottom: 8.0),
           child: Column(
             children: [
-              selectLanguageText,
+              Row(
+                children: [
+                    // Expanded cho iconBackButton
+                    iconBackButton,
+                  Flexible(
+                    // Flexible cho selectLanguageText
+                    child: Center(
+                      child: selectLanguageText,
+                    ),
+                  ),
+                ],
+              ),
               getLanguageCards,
             ],
           ),
@@ -71,8 +83,8 @@ class LanguagePageResponsiveViewState extends clean_architecture
           builder: (context, controller) {
         return GridView.count(
           padding: const EdgeInsets.all(15.0),
-            crossAxisSpacing: 8.0,
-  mainAxisSpacing: 12.0,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 12.0,
           shrinkWrap: true,
           crossAxisCount: 2,
           // range language load show card and the index used to get code for to change language
@@ -100,8 +112,19 @@ class LanguagePageResponsiveViewState extends clean_architecture
             fontSize: ScreenConfig.sizeLanguageSelectLabel,
             fontWeight: FontWeight.w600),
       );
-    } else{
+    } else {
       return Container();
     }
+  }
+
+  Widget get iconBackButton {
+    return Center(
+      child: IconButton(
+          // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+          icon: FaIcon(FontAwesomeIcons.angleLeft),
+          onPressed: () {
+            print("Pressed");
+          }),
+    );
   }
 }

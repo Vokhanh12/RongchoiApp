@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
+import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 
@@ -16,8 +17,8 @@ class AppRouter {
         pageBuilder: (_, state) {
           return CustomTransitionPage(
             key: state.pageKey,
-            child: SplashPage(title: 'Splash'),
-            transitionDuration: Duration(seconds: 1),
+            child: const SplashPage(title: 'Splash'),
+            transitionDuration: const Duration(seconds: 1),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),
           );
@@ -29,13 +30,41 @@ class AppRouter {
         pageBuilder: (_, state) {
           return CustomTransitionPage(
             key: state.pageKey,
-            child: LoginPage(key: ValueKey('unique_key'), title: 'login'),
-            transitionDuration: Duration(seconds: 1),
+            child: const LoginPage(key: ValueKey('unique_key'), title: 'login'),
+            transitionDuration: const Duration(seconds: 1),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),
           );
         },
-      )
+      ),
+       GoRoute(
+        name: 'language',
+        path: '/language',
+        pageBuilder: (_, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: const LanguagePage(key: ValueKey('unique_key')),
+            transitionDuration: const Duration(seconds: 1),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c),
+          );
+        },
+      ),
+      /*
+        GoRoute(
+        name: 'register',
+        path: '/register',
+        pageBuilder: (_, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: const RegisterPage(key: ValueKey('unique_key')),
+            transitionDuration: const Duration(seconds: 1),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c),
+          );
+        },
+      ),
+      */
     ],
   );
 }

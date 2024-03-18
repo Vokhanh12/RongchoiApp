@@ -468,8 +468,7 @@ class LoginPageResponsiveViewState
           return Padding(
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
-              onTap: () => MyApp.of(context)!
-                  .setLocale(Locale.fromSubtags(languageCode: 'en')),
+              onTap: () => controller.changeLanguage(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
