@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/language_card.dart';
+import 'package:rongchoi_app/domain/entities/language.dart';
 import 'package:rongchoi_app/shared/build_config/screen_config.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -57,16 +61,13 @@ class LanguagePageResponsiveViewState extends clean_architecture
               left: 8.0, right: 8.0, top: 35.0, bottom: 8.0),
           child: Column(
             children: [
-              Row(
+              Stack(
                 children: [
-                    // Expanded cho iconBackButton
-                    iconBackButton,
-                  Flexible(
-                    // Flexible cho selectLanguageText
-                    child: Center(
-                      child: selectLanguageText,
-                    ),
-                  ),
+                  // Expanded cho iconBackButton
+
+                  iconBackButton,
+
+                  selectLanguageText,
                 ],
               ),
               getLanguageCards,
@@ -81,36 +82,76 @@ class LanguagePageResponsiveViewState extends clean_architecture
   Widget get getLanguageCards =>
       clean_architecture.ControlledWidgetBuilder<LanguageController>(
           builder: (context, controller) {
-        return GridView.count(
-          padding: const EdgeInsets.all(15.0),
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 12.0,
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          // range language load show card and the index used to get code for to change language
-          children: Resources.languages.asMap().entries.map((entry) {
+        return GridView.builder(
+            itemCount: Resources.languages.length,
+            padding: const EdgeInsets.all(15.0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // Number of columns
+              crossAxisSpacing: 10, // Spacing between columns
+              mainAxisSpacing: 10, // Spacing between rows
+            ),
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  // Handle onTap event
+                  print('Selected language: ${Resources.languages[index].name}');
+                },
+                child: Card(
+                  elevation: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                        Resources.languages[index].iconUrl,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        Resources.languages[index].name,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+
+                /*
+          // range language load show card and th e index used to get code for to change language
+          children: Resources.languages.e   
             final int index = entry.key;
-            final Map<String, String> language = entry.value;
+            final Language language = entry.value;
             return LanguageCard(
-              iconUrl: language['iconUrl'] ?? 'vi',
-              name: language['name']!,
-              // onTap change language from controller
-              onTap: () =>
-                  controller.changeLanguage(context, language['code']!),
-            );
+                iconUrl: language['iconUrl'] ?? 'vi',
+                name: language['name']!,
+                // onTap change language from controller
+                onTap: () {
+                  Log.d("getLanguageCards pressed, code $language['code']! ",
+                      "LanguagePage");
+                  controller.changeLanguage(context, language['code']!);
+                });
           }).toList(),
         );
+        */
+              );
+            });
       });
 
   // Select Language Text
   Widget get selectLanguageText {
     final appLocalization = AppLocalizations.of(context);
     if (appLocalization != null) {
-      return Text(
-        appLocalization.languageSelectLanguage,
-        style: TextStyle(
-            fontSize: ScreenConfig.sizeLanguageSelectLabel,
-            fontWeight: FontWeight.w600),
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Center(
+          child: Text(
+            appLocalization.languageSelectLanguage,
+            style: TextStyle(
+                fontSize: ScreenConfig.sizeLanguageSelectLabel,
+                fontWeight: FontWeight.w600),
+          ),
+        ),
       );
     } else {
       return Container();
@@ -118,12 +159,14 @@ class LanguagePageResponsiveViewState extends clean_architecture
   }
 
   Widget get iconBackButton {
-    return Center(
+    return Align(
+      alignment: Alignment.topLeft,
       child: IconButton(
           // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-          icon: FaIcon(FontAwesomeIcons.angleLeft),
+          icon: const FaIcon(FontAwesomeIcons.angleLeft),
           onPressed: () {
-            print("Pressed");
+            Log.d("iconBackButton pressed", "Language Page");
+            Navigator.of(context).pop();
           }),
     );
   }

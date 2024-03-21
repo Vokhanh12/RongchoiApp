@@ -22,43 +22,42 @@ class Resources {
   static const String event_consumer = 'assets/img/event_consumer.jpg';
   static const String checkpoint = 'assets/img/checkpoint_16x16.bmp';
 
-  static const List<Map<String, String>> languages = [
-    {
-      'name': 'Vietnamese',
-      'code': 'vi',
-      'iconUrl': 'assets/svg/icon-language/icon-vietnam.svg'
-    },
-    {
-      'name': 'English(US)',
-      'code': 'en',
-      'iconUrl': 'assets/svg/icon-language/icon-american.svg'
-    },
-    {
-      'name': 'Japan',
-      'code': 'ja',
-      'iconUrl': 'assets/svg/icon-language/icon-japan.svg'
-    },
-    {
-      'name': 'France',
-      'code': 'fr',
-      'iconUrl': 'assets/svg/icon-language/icon-france.svg'
-    },
-    {
-      'name': 'German',
-      'code': 'de',
-      'iconUrl': 'assets/svg/icon-language/icon-germany.svg'
-    },
-    {
-      'name': 'United Kingdom',
-      'code': 'en-GB',
-      'iconUrl': 'assets/svg/icon-language/icon-american.svg'
-    },
+  static const List<Language> languages = [
+    Language(
+      code: 'vi',
+      name: 'Vietnamese',
+      iconUrl: 'assets/svg/icon-language/icon-vietnam.svg',
+    ),
+    Language(
+      code: 'en',
+      name: 'English(US)',
+      iconUrl: 'assets/svg/icon-language/icon-american.svg',
+    ),
+    Language(
+      code: 'ja',
+      name: 'Japan',
+      iconUrl: 'assets/svg/icon-language/icon-japan.svg',
+    ),
+    Language(
+      code: 'fr',
+      name: 'France',
+      iconUrl: 'assets/svg/icon-language/icon-france.svg',
+    ),
+    Language(
+      code: 'de',
+      name: 'German',
+      iconUrl: 'assets/svg/icon-language/icon-germany.svg',
+    ),
+    Language(
+      code: 'en-GB',
+      name: 'United Kingdom',
+      iconUrl: 'assets/svg/icon-language/icon-american.svg',
+    ),
   ];
 }
 
 
-class Routes{
-  
+class Routes {
   static const root = '/';
   static const loginNamePage = '/login';
   static const registerNamePage = '/register';
@@ -74,9 +73,7 @@ class Routes{
   //static profileNamedPage([String? name]) => '/${name ?? ':profile'}';
   static Widget errorWidget(BuildContext context, GoRouterState state) => const NotFoundScreen();
   */
-
 }
-
 
 /// Returns the app's default snackbar with a [text].
 SnackBar _getGenericSnackbar(String text, bool isError) {
@@ -123,13 +120,4 @@ void showGenericSnackbar(BuildContext context, String text,
     {bool isError = false}) {
   ScaffoldMessenger.of(context)
       .showSnackBar(_getGenericSnackbar(text, isError));
-}
-
-class Languages {
-  const Languages._();
-
-  static const languages = [
-    Language(code: 'vi', value: 'Vietnamese'),
-    Language(code: 'en', value: 'English'),
-  ];
 }

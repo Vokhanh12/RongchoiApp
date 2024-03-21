@@ -4,11 +4,17 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/language/language_presenter.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/domain/entities/language.dart';
 import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LanguageController extends clean_architecture.Controller {
   late final LanguagePresenter _languagePresenter;
+
+
+  // Current first Language
+  Language _currentLanguage = Resources.languages[0];
+
 
   LanguageController(SettingRepository settingRepo)
       : _languagePresenter = LanguagePresenter(settingRepo) {
@@ -16,12 +22,18 @@ class LanguageController extends clean_architecture.Controller {
 
     initListeners();
   }
+ 
 
   // Logs a [User] change language from the application
-  void changeLanguage(BuildContext context, String code) async {
+  void changeLanguage(BuildContext context, Language language) async {
     refreshUI();
 
-    _languagePresenter.changeLanguage(context: context, code: code);
+    // set current language
+    _currentLanguage = language;
+    
+    // change language to current language
+    _languagePresenter.changeLanguage(context: context, language: _currentLanguage);
+
   }
 
   /// Initializes [Presenter] listeners
@@ -58,4 +70,10 @@ class LanguageController extends clean_architecture.Controller {
   void dismissLoading() {
     refreshUI();
   }
+
+  
+
+  // get current language
+  Language get getCurrentLanguage => _currentLanguage;
+
 }

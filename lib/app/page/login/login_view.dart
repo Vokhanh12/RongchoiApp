@@ -8,8 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:rongchoi_app/app/presentation/bloc/language_bloc.dart';
-import 'package:rongchoi_app/app/presentation/bloc/language_event.dart';
+import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
@@ -76,10 +75,7 @@ class LoginPageResponsiveViewState
   }
 
   Widget loginScaffold({Widget? child}) {
-    return Scaffold(
-      key: globalKey,
-      body: child, // Provide a default value for child
-    );
+    return Scaffold(key: globalKey, body: child);
   }
 
   @override
@@ -462,31 +458,36 @@ class LoginPageResponsiveViewState
 
   Widget get changeLanguageButton =>
       clean_architecture.ControlledWidgetBuilder<LoginController>(
-          builder: (context, controller) {
-        final appLocalization = AppLocalizations.of(context);
-        if (appLocalization != null) {
-          return Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: GestureDetector(
-              onTap: () => controller.changeLanguage(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(appLocalization.loginLanguageLabel),
-                  const SizedBox(
-                    width: 8.0,
-                  ),
-                  const CustomSvgPicture(
-                    url: 'assets/svg/icon-language/icon-american.svg',
-                    width: 29,
-                    height: 29,
-                  )
-                ],
+          builder: (context, loginController) {
+        return clean_architecture.ControlledWidgetBuilder<LanguageController>(
+            builder: (context, languageController) {
+          final appLocalization = AppLocalizations.of(context);
+          if (appLocalization != null) {
+            return Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: GestureDetector(
+                // click nav language page
+                onTap: () => loginController.changeLanguage(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(appLocalization.loginLanguageLabel),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
+                    CustomSvgPicture(
+                      // set first icon vi
+                      url: languageController.getCurrentLanguage.iconUrl,
+                      width: 29,
+                      height: 29,
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        } else {
-          return const Text("Error changeLanguageButton");
-        }
+            );
+          } else {
+            return const Text("Error changeLanguageButton");
+          }
+        });
       });
 }

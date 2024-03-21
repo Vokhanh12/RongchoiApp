@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/domain/entities/language.dart';
 import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
 import 'package:logging/logging.dart';
 import 'package:rongchoi_app/main.dart';
@@ -17,12 +19,12 @@ class DataSettingRepository extends SettingRepository {
   factory DataSettingRepository() => _instance;
 
   @override
-  Future<void> changeLanguage(
-      {required BuildContext context, required String code}) async {
+  Future<void> changeLanguage(BuildContext context, Language language) async {
     try {
-      print("Attempting to change language to $code");
-      MyApp.of(context)!.setLocale(Locale.fromSubtags(languageCode: code));
-      print("Success: Language changed to $code");
+      print("Attempting to change language to ${language.code}");
+      MyApp.of(context)!
+          .setLocale(Locale.fromSubtags(languageCode: language.code));
+      print("Success: Language changed to ${language.code}");
     } catch (error) {
       // Xử lý lỗi một cách chính xác
       print("Error occurred while changing language:");

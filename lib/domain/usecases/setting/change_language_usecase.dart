@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:rongchoi_app/domain/entities/language.dart';
 import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
 import 'package:rongchoi_app/main.dart';
 
@@ -17,8 +18,8 @@ class ChangeLanguageUseCase
       ChangeLanguageUseCaseParams? params) async {
       final StreamController<void> controller = StreamController<void>();
     try {
-      _settingRepository.changeLanguage(
-          context: params!.context, code: params!.code);
+      // setting
+      _settingRepository.changeLanguage(params!.context,params!.language);
       logger.finest('changeLanguageUseCase successful.');
       // triggers onComplete
       controller.close();
@@ -37,7 +38,7 @@ class ChangeLanguageUseCase
 
 class ChangeLanguageUseCaseParams {
   final BuildContext context;
-  final String code;
+  final Language language;
 
-  ChangeLanguageUseCaseParams(this.context, this.code);
+  ChangeLanguageUseCaseParams(this.context, this.language);
 }

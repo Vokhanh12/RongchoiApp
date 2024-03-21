@@ -3,12 +3,10 @@ import 'dart:ffi';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:go_router/go_router.dart';
+import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
-import 'package:rongchoi_app/app/presentation/cubit/navigation_cubit.dart';
 import 'package:rongchoi_app/app/utils/route/app_route.dart';
-import 'package:rongchoi_app/app/presentation/bloc/language_bloc.dart';
-import 'package:rongchoi_app/app/presentation/bloc/language_state.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +14,23 @@ import 'package:rongchoi_app/app/page/login/login_controller.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/data/repositories/data_setting_repository.dart';
 import 'package:rongchoi_app/shared/build_config/screen_config.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => LanguageController(DataSettingRepository())),
+        ChangeNotifierProvider(
+            create: (_) => LoginController(DataAuthenticationRepository())),
+        // Các provider khác nếu cần
+      ],
+      child: MyApp(),
+    ));
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -56,8 +66,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
-    final NavigationCubit navigationCubit;
 
     // Use to setting singleton pattern
     ScreenSize.init(context);
