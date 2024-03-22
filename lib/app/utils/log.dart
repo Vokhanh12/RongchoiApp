@@ -1,8 +1,8 @@
 class Log {
 
-  static void d(String log, String from){
+  static void d(String log, Type runtimeType){
 
-    print("Notification: $log, Where: $from");
+    print("Notification: $log, Where: ${runtimeType.toString()}");
 
   }
 

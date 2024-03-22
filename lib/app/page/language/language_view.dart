@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
+import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/language_card.dart';
 import 'package:rongchoi_app/domain/entities/language.dart';
@@ -96,17 +97,18 @@ class LanguagePageResponsiveViewState extends clean_architecture
                 onTap: () {
                   // Handle onTap event
                   print('Selected language: ${Resources.languages[index].name}');
+                  controller.changeLanguage(context, Resources.languages[index]);
+                  
                 },
                 child: Card(
                   elevation: 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.network(
-                        Resources.languages[index].iconUrl,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
+                      CustomSvgPicture(
+                        url: Resources.languages[index].iconUrl,
+                        width: 60,
+                        height: 60,
                       ),
                       SizedBox(height: 10),
                       Text(
@@ -165,7 +167,7 @@ class LanguagePageResponsiveViewState extends clean_architecture
           // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
           icon: const FaIcon(FontAwesomeIcons.angleLeft),
           onPressed: () {
-            Log.d("iconBackButton pressed", "Language Page");
+            Log.d("iconBackButton pressed", runtimeType);
             Navigator.of(context).pop();
           }),
     );

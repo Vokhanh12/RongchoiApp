@@ -49,12 +49,12 @@ class Resources {
       iconUrl: 'assets/svg/icon-language/icon-germany.svg',
     ),
     Language(
-      code: 'en-GB',
+      code: 'en GB',
       name: 'United Kingdom',
-      iconUrl: 'assets/svg/icon-language/icon-american.svg',
+      iconUrl: 'assets/svg/icon-language/icon-united-kingdom.svg',
     ),
   ];
-}
+} 
 
 
 class Routes {

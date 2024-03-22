@@ -5,6 +5,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
+import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 import 'package:rongchoi_app/app/utils/route/app_route.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
@@ -28,6 +29,7 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(
             create: (_) => LoginController(DataAuthenticationRepository())),
         // Các provider khác nếu cần
+        Provider(create: (_) => LanguageCubit()),
       ],
       child: MyApp(),
     ));
@@ -86,7 +88,7 @@ class _MyAppState extends State<MyApp> {
         Locale('vi'),
         Locale('en'),
         Locale('ja'),
-        Locale('en-GB'),
+        Locale('en_GB'),
         Locale('fr'),
         Locale('de'),
       ],

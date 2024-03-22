@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/domain/entities/user.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,12 @@ import 'package:logging/logging.dart';
 class DataAuthenticationRepository extends AuthenticationRepository {
   // Members
   /// Singleton object of `DataAuthenticationRepository`
-  static DataAuthenticationRepository _instance = DataAuthenticationRepository._internal();
+  static DataAuthenticationRepository _instance =
+      DataAuthenticationRepository._internal();
 
   late Logger _logger;
 
-    // Constructors
+  // Constructors
   DataAuthenticationRepository._internal() {
     _logger = Logger('DataAuthenticationRepository');
   }
@@ -31,18 +33,12 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      print(userCredential);
-      print("email:" + email);
-      print("password:" + password);
-      print("success login");
+      Log.d(userCredential.toString(), runtimeType);
+      Log.d("success login", runtimeType);
       _logger.finest('Login Successful.');
     } on FirebaseAuthException catch (ex) {
-      print("email:" + email);
-      print("password:" + password);
-
-      print("something bad happened");
-      print(ex.runtimeType);
-      print(ex);
+      Log.d("something bad happened runtimeType:ex.runtimeType", runtimeType);
+      Log.d("$ex", runtimeType);
 
       _logger.warning(ex.message);
       rethrow;
@@ -72,8 +68,4 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     // TODO: implement register
     throw UnimplementedError();
   }
-  
- 
-
-
 }

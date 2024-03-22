@@ -1,30 +1,12 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/domain/entities/language.dart';
 
 class SystemConfig {
-  static final SystemConfig _instance = SystemConfig._internal();
 
-  factory SystemConfig() {
-    return _instance;
-  }
 
-  SystemConfig._internal();
+  // List Language vi first index at value 0
+  static Language firstLanguageSelect = Resources.languages[0];
 
-  String _languageCode = 'vi';
 
-  String get languageCode => _languageCode;
 
-  set languageCode(String language) {
-    _languageCode = language;
-    _saveLanguageCode(language);
-  }
-
-  Future<void> _saveLanguageCode(String language) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('languageCode', language);
-  }
-
-  Future<void> loadLanguageCode() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _languageCode = prefs.getString('languageCode') ?? 'vi';
-  }
 }
