@@ -13,8 +13,10 @@ class LoginController extends clean_architecture.Controller {
 
   bool isLoading = false;
 
+  // Presenter
   final LoginPresenter _loginPresenter;
 
+  // Construstor
   LoginController(AuthenticationRepository authRepo)
       : _loginPresenter = LoginPresenter(authRepo) {
     // email used to for textfield

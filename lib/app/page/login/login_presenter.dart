@@ -4,10 +4,13 @@ import 'package:rongchoi_app/domain/usecases/auth/login_usecase.dart';
 
 class LoginPresenter extends Presenter {
   
+  // Data Repository
   final AuthenticationRepository _authenticationRepository;
   
+  // UseCase
   late LoginUseCase _loginUseCase;
 
+  // Observer Check status
   late Function loginOnComplete; // alternatively `void loginOnComplete();`
   late Function loginOnError;
   late Function loginOnNext; // not needed in the case of a login presenter

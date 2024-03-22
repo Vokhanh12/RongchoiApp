@@ -80,17 +80,6 @@ class LoginPageResponsiveViewState
     return Scaffold(key: globalKey, body: child);
   }
 
-  @override
-  Widget get mobileView => loginScaffold(
-        child: clean_architecture.ControlledWidgetBuilder<LoginController>(
-          builder: (context, controller) {
-            return ModalProgressHUD(
-                inAsyncCall: controller.isLoading,
-                child: _buildLoginFormWidget());
-          },
-        ),
-      );
-
   Widget _buildLoginFormWidget() {
     return SingleChildScrollView(
         // Wrap with SingleChildScrollView
@@ -162,6 +151,17 @@ class LoginPageResponsiveViewState
       ),
     ));
   }
+
+  @override
+  Widget get mobileView => loginScaffold(
+        child: clean_architecture.ControlledWidgetBuilder<LoginController>(
+          builder: (context, controller) {
+            return ModalProgressHUD(
+                inAsyncCall: controller.isLoading,
+                child: _buildLoginFormWidget());
+          },
+        ),
+      );
 
   @override
   // TODO: implement tabletView
@@ -476,8 +476,7 @@ class LoginPageResponsiveViewState
                     width: 8.0,
                   ),
                   Selector<LanguageCubit, String>(
-                    selector: (context, cubit) =>
-                        cubit.state.iconUrl,
+                    selector: (context, cubit) => cubit.state.iconUrl,
                     builder: (context, iconUrl, child) {
                       return CustomSvgPicture(
                         // set first icon vi
