@@ -10,7 +10,7 @@ import 'package:rongchoi_app/main.dart';
 
 class DataSettingRepository extends SettingRepository {
   /// Singleton object of `DataAuthenticationRepository`
-  static DataSettingRepository _instance = DataSettingRepository._internal();
+  static final DataSettingRepository _instance = DataSettingRepository._internal();
 
   late Logger _logger;
 

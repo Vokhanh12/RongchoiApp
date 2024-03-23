@@ -438,7 +438,7 @@ class LoginPageResponsiveViewState
                       color: const Color(0xFFA3A9AC),
                       fontSize: ConfigFontSize.loginHaveAccountLabel,
                       fontWeight: FontWeight.w500),
-                  text: appLocalization.loginHaveAccountLabel,
+                  text: appLocalization.loginNotHaveAccountLabel,
                 ),
                 TextSpan(
                     style: TextStyle(
@@ -460,39 +460,40 @@ class LoginPageResponsiveViewState
       });
 
   Widget get changeLanguageButton =>
-      clean_architecture.ControlledWidgetBuilder<LanguageController>(
-          builder: (context, controller) {
-        final appLocalization = AppLocalizations.of(context);
-        if (appLocalization != null) {
-          return Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: GestureDetector(
-              // click nav language page
-              onTap: () => controller.goToLanguagePage(context),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(appLocalization.loginLanguageLabel),
-                  const SizedBox(
-                    width: 8.0,
-                  ),
-                  Selector<LanguageCubit, String>(
-                    selector: (context, cubit) => cubit.state.iconUrl,
-                    builder: (context, iconUrl, child) {
-                      return CustomSvgPicture(
-                        // set first icon vi
-                        url: iconUrl,
-                        width: 29,
-                        height: 29,
-                      );
-                    },
-                  ),
-                ],
+      clean_architecture.ControlledWidgetBuilder<LoginController>(
+        builder: (context, controller) {
+          final appLocalization = AppLocalizations.of(context);
+          if (appLocalization != null) {
+            return Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: GestureDetector(
+                // click nav language page
+                onTap: () => controller.goToLanguagePage(context),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(appLocalization.loginLanguageLabel),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
+                    Selector<LanguageCubit, String>(
+                      selector: (context, cubit) => cubit.state.iconUrl,
+                      builder: (context, iconUrl, child) {
+                        return CustomSvgPicture(
+                          // set first icon vi
+                          url: iconUrl,
+                          width: 29,
+                          height: 29,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        } else {
-          return const Text("Error changeLanguageButton");
-        }
-      });
+            );
+          } else {
+            return const Text("Error changeLanguageButton");
+          }
+        },
+      );
 }

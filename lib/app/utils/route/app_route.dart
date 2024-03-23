@@ -9,7 +9,7 @@ import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 class AppRouter {
 // GoRouter configuration
   static var Router = GoRouter(
-    initialLocation: '/register',
+    initialLocation: '/',
     routes: [
       GoRoute(
         name:

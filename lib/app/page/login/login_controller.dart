@@ -86,6 +86,11 @@ class LoginController extends clean_architecture.Controller {
     print("Clicked login with facebook");
   }
 
+  // Navigate to Language Page
+  void goToLanguagePage(BuildContext context){
+     GoRouter.of(context).push('/language');
+  }
+
   void dismissLoading() {
     isLoading = false;
     refreshUI();

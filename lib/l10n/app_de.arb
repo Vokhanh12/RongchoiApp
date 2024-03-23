@@ -10,7 +10,7 @@
   "registerButtonLabel": "Registrieren",
   "loginCheckEmailNotification": "Ungültige E-Mail. Bitte erneut überprüfen",
   "loginAuthNotification": "Falsche E-Mail oder Passwort",
-  "loginHaveAccountLabel": "Sie haben noch kein Konto? ",
+  "loginNotHaveAccountLabel": "Sie haben noch kein Konto? ",
   "loginRegisterClickText": "REGISTRIEREN",
   "loginLanguageLabel": "Sprache:",
   "languageSelectLanguage": "Sprache auswählen",

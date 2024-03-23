@@ -10,7 +10,7 @@
   "registerButtonLabel": "Register",
   "loginCheckEmailNotification": "Invalid email. Please check again",
   "loginAuthNotification": "Incorrect email or password",
-  "loginHaveAccountLabel": "Don't have an account yet? ",
+  "loginNotHaveAccountLabel": "Don't have an account yet? ",
   "loginRegisterClickText": "REGISTER",
   "loginLanguageLabel": "Language:",
   "languageSelectLanguage": "Select language",

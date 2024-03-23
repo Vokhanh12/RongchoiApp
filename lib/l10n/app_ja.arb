@@ -10,7 +10,7 @@
   "registerButtonLabel": "登録",
   "loginCheckEmailNotification": "無効なメールアドレスです。再度確認してください",
   "loginAuthNotification": "間違ったメールアドレスまたはパスワード",
-  "loginHaveAccountLabel": "まだアカウントをお持ちでないですか？ ",
+  "loginNotHaveAccountLabel": "まだアカウントをお持ちでないですか？ ",
   "loginRegisterClickText": "登録",
   "loginLanguageLabel": "言語：",
   "languageSelectLanguage": "言語を選択",

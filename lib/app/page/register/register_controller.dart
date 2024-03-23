@@ -40,4 +40,11 @@ class RegisterController extends clean_architecture.Controller {
     // Initialize presenter listeners here
     // These will be called upon success, failure, or data retrieval after usecase execution
   }
+
+
+  // Navigate to login page
+  void goToLoginPage(){
+    
+  }
+
 }

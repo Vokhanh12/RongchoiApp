@@ -122,7 +122,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
                             rePasswordField,
                             const SizedBox(height: 18),
                             numberPhoneField,
-                            const SizedBox(height: 18),
+                            const SizedBox(height: 26),
                             registerButton,
                           ],
                         ),
@@ -232,7 +232,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
         if (appLocalization != null) {
           return CustomButton_01(
             onTap: () => controller.reigster(),
-            text: appLocalization.loginButtonLabel,
+            text: appLocalization.registerButtonLabel,
           );
         } else {
           return Container();
@@ -438,7 +438,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
                       color: const Color(0xFFA3A9AC),
                       fontSize: ConfigFontSize.registerHaveAccountLabel,
                       fontWeight: FontWeight.w500),
-                  text: appLocalization.loginHaveAccountLabel,
+                  text: appLocalization.registerAlreadyHaveAccountLabel,
                 ),
                 TextSpan(
                     style: TextStyle(
