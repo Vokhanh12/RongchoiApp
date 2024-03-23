@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/language/language_presenter.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
@@ -22,11 +23,12 @@ class LanguageController extends clean_architecture.Controller {
     initListeners();
   }
 
+  void goToLanguagePage(BuildContext context){
+     GoRouter.of(context).push('/language');
+  }
+
   // Logs a [User] change language from the application
   void changeLanguage(BuildContext context, Language language) async {
-
-   
-
     // change language to current language
     _languagePresenter.changeLanguage(
         context: context, language: language);

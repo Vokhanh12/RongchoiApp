@@ -1,13 +1,13 @@
-class ScreenConfig {
+class ConfigFontSize {
   double _screenWidth = 0.0;
   double _screenHeight = 0.0;
   double ratio = 0.0;
 
   // Private constructor
-  ScreenConfig._();
+  ConfigFontSize._();
 
   // Instance of ScreenSize
-  static final ScreenConfig _instance = ScreenConfig._();
+  static final ConfigFontSize _instance = ConfigFontSize._();
 
   static double sizeForgotPasswordLabel = 0.0;
   static double sizeLoginTitle = 0.0;
@@ -21,7 +21,10 @@ class ScreenConfig {
   static double loginAuthNotification = 0.0;
   static double loginHaveAccountLabel = 0.0;
   static double loginRegisterClickText = 0.0;
-  
+
+  static double registerLoginClickText = 0.0;
+  static double registerHaveAccountLabel = 0.0;
+  static double sizeRegisterTitle = 0.0;
 
   static double sizeLanguageSelectLabel = 0.0;
 
@@ -46,10 +49,12 @@ class ScreenConfig {
       loginHaveAccountLabel = 15.0;
       loginRegisterClickText = 15.0;
 
+      registerLoginClickText = 15.0;
+      registerHaveAccountLabel = 15.0;
+       sizeRegisterTitle = 35.0;
+
+
       sizeLanguageSelectLabel = 20.0;
-
-
-
     } else if (_instance._screenWidth >= 360 && _instance._screenWidth <= 428) {
       sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
@@ -58,16 +63,18 @@ class ScreenConfig {
       sizeUsernameLabel = 18.0;
       sizeLoginButtonLabel = 18.0;
       sizeRegisterButtonLabel = 18.0;
+      sizeRegisterTitle = 35.0;
 
       loginCheckEmailNotification = 0.0;
       loginAuthNotification = 0.0;
       loginHaveAccountLabel = 14.0;
       loginRegisterClickText = 14.0;
 
+      registerLoginClickText = 14.0;
+      registerHaveAccountLabel = 14.0;
+
+
       sizeLanguageSelectLabel = 20.0;
-
-
-
     } else if (_instance._screenWidth >= 428 && _instance._screenWidth <= 768) {
       sizeForgotPasswordLabel = 18.0;
       sizeLoginTitle = 22.0;
@@ -81,9 +88,7 @@ class ScreenConfig {
       loginAuthNotification = 0.0;
       loginHaveAccountLabel = 0.0;
       loginRegisterClickText = 0.0;
-
-
-
+      registerLoginClickText = 0.0;
     }
   }
 }

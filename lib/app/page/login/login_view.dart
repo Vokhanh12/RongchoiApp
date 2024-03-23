@@ -23,7 +23,7 @@ import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/app/widgets/page_widget/page_login_widgets.dart';
-import 'package:rongchoi_app/shared/build_config/screen_config.dart';
+import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -73,6 +73,7 @@ class LoginPageResponsiveViewState
 
     _email.dispose();
     _password.dispose();
+
     super.dispose();
   }
 
@@ -280,7 +281,7 @@ class LoginPageResponsiveViewState
       return Container(
         child: CustomText(
           text: appLocalization.orLabel,
-          fontSize: ScreenConfig.sizeOrLabel,
+          fontSize: ConfigFontSize.sizeOrLabel,
         ),
       );
     } else {
@@ -295,7 +296,7 @@ class LoginPageResponsiveViewState
       return Container(
         child: CustomText(
           text: appLocalization.loginTitle,
-          fontSize: ScreenConfig.sizeLoginTitle,
+          fontSize: ConfigFontSize.sizeLoginTitle,
         ),
       );
     } else {
@@ -435,14 +436,14 @@ class LoginPageResponsiveViewState
                 TextSpan(
                   style: TextStyle(
                       color: const Color(0xFFA3A9AC),
-                      fontSize: ScreenConfig.loginHaveAccountLabel,
+                      fontSize: ConfigFontSize.loginHaveAccountLabel,
                       fontWeight: FontWeight.w500),
                   text: appLocalization.loginHaveAccountLabel,
                 ),
                 TextSpan(
                     style: TextStyle(
                       color: Colors.orange,
-                      fontSize: ScreenConfig.loginRegisterClickText,
+                      fontSize: ConfigFontSize.loginRegisterClickText,
                       fontWeight: FontWeight.w600,
                     ),
                     text: appLocalization.loginRegisterClickText,
@@ -459,15 +460,15 @@ class LoginPageResponsiveViewState
       });
 
   Widget get changeLanguageButton =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
-          builder: (context, loginController) {
+      clean_architecture.ControlledWidgetBuilder<LanguageController>(
+          builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return Padding(
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
               // click nav language page
-              onTap: () => loginController.changeLanguage(),
+              onTap: () => controller.goToLanguagePage(context),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

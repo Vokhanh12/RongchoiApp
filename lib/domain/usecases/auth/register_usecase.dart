@@ -12,11 +12,13 @@ class RegisterUseCase extends CompletableUseCase<RegisterUseCaseParams> {
   Future<Stream<void>> buildUseCaseStream(RegisterUseCaseParams? params) async {
     final StreamController controller = StreamController();
     try {
+      /*
       // assuming you pass credentials here
       await _authenticationRepository.authenticate(
           email: params!.email, password: params!.password);
       logger.finest('LoginUseCase successful.');
       // triggers onComplete
+      */
       controller.close();
     } catch (e) {
       print(e);

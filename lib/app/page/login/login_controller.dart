@@ -69,11 +69,7 @@ class LoginController extends clean_architecture.Controller {
     showGenericSnackbar(getContext(), "Hello world", isError: false);
   }
 
-  void changeLanguage(){
-
-    GoRouter.of(getContext()).push('/language');
-
-  }
+  
 
   // Logs a [User] into the application
   void forgotPassword() {

@@ -3,8 +3,10 @@
   "appName": "Rongchoi App",
   "forgotPasswordLabel": "Forgot Password?",
   "loginTitle": "Login",
+  "registerTitle": "Register",
   "orLabel": "Or",
   "passwordLabel": "Password",
+  "rePasswordLabel": "Repassword",
   "usernameLabel": "Username",
   "loginButtonLabel": "Login",
   "registerButtonLabel": "Register",
@@ -12,7 +14,11 @@
   "loginAuthNotification": "Incorrect email or password",
   "loginHaveAccountLabel": "Don't have an account yet? ",
   "loginRegisterClickText": "REGISTER",
+   "registerLoginClickText": "LOGIN",
   "loginLanguageLabel": "Language:",
   "languageSelectLanguage": "Select language",
-  "languageChangeNotification": "Language changed successfully"
+  "languageChangeNotification": "Language changed successfully",
+  "firstNameLabel": "First name",
+  "lastNameLabel": "Last name",
+  "numberPhoneLabel": "Number phone"
 }

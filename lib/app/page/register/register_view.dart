@@ -1,18 +1,25 @@
+import 'package:ensure_visible_when_focused/ensure_visible_when_focused.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
+import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/register/register_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
+import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
 import 'package:rongchoi_app/app/widgets/custom_circle_image.dart';
 import 'package:rongchoi_app/app/widgets/custom_clickable_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
+import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
-import 'package:rongchoi_app/shared/build_config/screen_config.dart';
+import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends clean_architecture.View {
   const RegisterPage({
@@ -30,15 +37,42 @@ class RegisterPage extends clean_architecture.View {
 
 class RegisterPageResponsiveViewState extends clean_architecture
     .ResponsiveViewState<RegisterPage, RegisterController> {
+  final FocusNode _firstNameFocus;
+  final FocusNode _lastNameFocus;
+  final FocusNode _usernameFocus;
+  final FocusNode _passwordFocus;
+  final FocusNode _rePasswordNameFocus;
+  final FocusNode _numberPhoneFocus;
+
   RegisterPageResponsiveViewState()
-      : super(RegisterController(DataAuthenticationRepository()));
+      : _firstNameFocus = FocusNode(),
+        _lastNameFocus = FocusNode(),
+        _usernameFocus = FocusNode(),
+        _passwordFocus = FocusNode(),
+        _rePasswordNameFocus = FocusNode(),
+        _numberPhoneFocus = FocusNode(),
+        super(RegisterController(DataAuthenticationRepository()));
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _firstNameFocus.dispose();
+    _lastNameFocus.dispose();
+    _usernameFocus.dispose();
+    _passwordFocus.dispose();
+    _rePasswordNameFocus.dispose();
+    _numberPhoneFocus.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   Widget registerScaffold({Widget? child}) {
     return Scaffold(key: globalKey, body: child);
   }
 
   Widget _buildRegisterFormWidget() {
-   return SingleChildScrollView(
+    return SingleChildScrollView(
         // Wrap with SingleChildScrollView
         child: Container(
       width: ScreenSize.screenWidth, // Set width to match screen width
@@ -64,36 +98,33 @@ class RegisterPageResponsiveViewState extends clean_architecture
                     child: Form(
                       key: _formKey,
                       child: Center(
-                        child: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              logoRongChoi,
-                              loginText,
-                              const SizedBox(height: 30),
-                              emailField,
-                              const SizedBox(height: 18),
-                              passwordField,
-                              const SizedBox(height: 17),
-                              forgotPasswordButton,
-                              const SizedBox(height: 17),
-                              loginButton,
-                              const SizedBox(height: 16),
-                              SizedBox(height: (ScreenSize.screenWidth / 35)),
-                              orText,
-                              SizedBox(height: (ScreenSize.screenHeight / 85)),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  googleButton,
-                                  SizedBox(
-                                    width: ScreenSize.screenWidth / 10,
-                                  ),
-                                  facebookButton,
-                                ],
-                              ),
-                            ],
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Align(
+                                alignment: Alignment.centerLeft,
+                                child: registerText),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(child: firstNameField),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(child: lastNameField)
+                              ],
+                            ),
+                            const SizedBox(height: 18),
+                            usernameField,
+                            const SizedBox(height: 18),
+                            passwordField,
+                            const SizedBox(height: 18),
+                            rePasswordField,
+                            const SizedBox(height: 18),
+                            numberPhoneField,
+                            const SizedBox(height: 18),
+                            registerButton,
+                          ],
                         ),
                       ),
                     ),
@@ -111,7 +142,11 @@ class RegisterPageResponsiveViewState extends clean_architecture
 
   @override
   // TODO: implement desktopView
-  Widget get desktopView => registerScaffold(
+  Widget get desktopView => throw UnimplementedError();
+
+  @override
+  // TODO: implement mobileView
+  Widget get mobileView => registerScaffold(
         child: clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
             return ModalProgressHUD(
@@ -122,18 +157,12 @@ class RegisterPageResponsiveViewState extends clean_architecture
       );
 
   @override
-  // TODO: implement mobileView
-  Widget get mobileView => throw UnimplementedError();
-
-  @override
   // TODO: implement tabletView
   Widget get tabletView => throw UnimplementedError();
 
   @override
   // TODO: implement watchView
   Widget get watchView => throw UnimplementedError();
-
-
 
   Widget get background => Positioned(
       top: 0.0,
@@ -202,7 +231,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return CustomButton_01(
-            onTap: () => controller.login(),
+            onTap: () => controller.reigster(),
             text: appLocalization.loginButtonLabel,
           );
         } else {
@@ -210,15 +239,14 @@ class RegisterPageResponsiveViewState extends clean_architecture
         }
       });
 
-
   //Register Text
   Container get registerText {
     final appLocalization = AppLocalizations.of(context);
     if (appLocalization != null) {
       return Container(
         child: CustomText(
-          text: appLocalization.loginTitle,
-          fontSize: ScreenConfig.sizeLoginTitle,
+          text: appLocalization.registerTitle,
+          fontSize: ConfigFontSize.sizeRegisterTitle,
         ),
       );
     } else {
@@ -226,116 +254,100 @@ class RegisterPageResponsiveViewState extends clean_architecture
     }
   }
 
-  // Register Button
-  Widget get loginButton =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
+  // FirstName Field
+  Widget get firstNameField =>
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
-          return CustomButton_02(
-            // Register account
-            onTap: () => controller.register(),
-            text: appLocalization.registerButtonLabel,
+          return EnsureVisibleWhenFocused(
+              focusNode: _firstNameFocus,
+              child: CustomTextField(
+                TextHint: appLocalization.firstNameLabel,
+                keyboardType: TextInputType.emailAddress,
+                enableSuggestions: false,
+                autocorrect: false,
+                obscureText: false,
+              )
+
+              /* CustomTextField(
+              text: appLocalization.usernameLabel,
+              fontSize: ScreenConfig.sizeUsernameLabel,
+              controller: controller.emailTextController,
+            ),
+            */
+              );
+        } else {
+          return Container(child: Text("Erro"));
+        }
+      });
+
+  // LastName Field
+  Widget get lastNameField =>
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
+          builder: (context, controller) {
+        final appLocalization = AppLocalizations.of(context);
+        if (appLocalization != null) {
+          return EnsureVisibleWhenFocused(
+            focusNode: _lastNameFocus,
+            child: CustomTextField(
+              TextHint: appLocalization.lastNameLabel,
+              keyboardType: TextInputType.emailAddress,
+              enableSuggestions: false,
+              autocorrect: false,
+              obscureText: false,
+            ),
+
+            /* CustomTextField(
+              text: appLocalization.usernameLabel,
+              fontSize: ScreenConfig.sizeUsernameLabel,
+              controller: controller.emailTextController,
+            ),
+            */
           );
         } else {
           return Container();
         }
       });
 
-  // FirstName Field
-  Widget get firstNameField =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
-          builder: (context, controller) {
-        final appLocalization = AppLocalizations.of(context);
-        if (appLocalization != null) {
-          return EnsureVisibleWhenFocused(
-              focusNode: _emailFocus,
-              child: CustomTextField(
-                TextHint: appLocalization.usernameLabel,
-                keyboardType: TextInputType.emailAddress,
-                enableSuggestions: false,
-                autocorrect: false,
-                obscureText: false,
-              )
-
-              /* CustomTextField(
-              text: appLocalization.usernameLabel,
-              fontSize: ScreenConfig.sizeUsernameLabel,
-              controller: controller.emailTextController,
-            ),
-            */
-              );
-        } else {
-          return Container();
-        }
-      });
-  
-   // LastName Field
-  Widget get lastNameField =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
-          builder: (context, controller) {
-        final appLocalization = AppLocalizations.of(context);
-        if (appLocalization != null) {
-          return EnsureVisibleWhenFocused(
-              focusNode: _emailFocus,
-              child: CustomTextField(
-                TextHint: appLocalization.usernameLabel,
-                keyboardType: TextInputType.emailAddress,
-                enableSuggestions: false,
-                autocorrect: false,
-                obscureText: false,
-              )
-
-              /* CustomTextField(
-              text: appLocalization.usernameLabel,
-              fontSize: ScreenConfig.sizeUsernameLabel,
-              controller: controller.emailTextController,
-            ),
-            */
-              );
-        } else {
-          return Container();
-        }
-      });
-
-       // Username Field
+  // Username Field
   Widget get usernameField =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return EnsureVisibleWhenFocused(
-              focusNode: _emailFocus,
-              child: CustomTextField(
-                TextHint: appLocalization.usernameLabel,
-                keyboardType: TextInputType.emailAddress,
-                enableSuggestions: false,
-                autocorrect: false,
-                obscureText: false,
-              )
+            focusNode: _usernameFocus,
+            child: CustomTextField(
+              TextHint: appLocalization.usernameLabel,
+              keyboardType: TextInputType.emailAddress,
+              enableSuggestions: false,
+              autocorrect: false,
+              obscureText: false,
+            ),
 
-              /* CustomTextField(
+            /* CustomTextField(
               text: appLocalization.usernameLabel,
               fontSize: ScreenConfig.sizeUsernameLabel,
               controller: controller.emailTextController,
             ),
             */
-              );
+          );
         } else {
           return Container();
         }
       });
 
-       // Password Field
+  // Password Field
   Widget get passwordField =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return EnsureVisibleWhenFocused(
-              focusNode: _emailFocus,
+              focusNode: _passwordFocus,
               child: CustomTextField(
-                TextHint: appLocalization.usernameLabel,
+                TextHint: appLocalization.passwordLabel,
                 keyboardType: TextInputType.emailAddress,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -354,17 +366,16 @@ class RegisterPageResponsiveViewState extends clean_architecture
         }
       });
 
-
-       // RePassword Field
+  // RePassword Field
   Widget get rePasswordField =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return EnsureVisibleWhenFocused(
-              focusNode: _emailFocus,
+              focusNode: _rePasswordNameFocus,
               child: CustomTextField(
-                TextHint: appLocalization.usernameLabel,
+                TextHint: appLocalization.rePasswordLabel,
                 keyboardType: TextInputType.emailAddress,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -383,16 +394,16 @@ class RegisterPageResponsiveViewState extends clean_architecture
         }
       });
 
-       // NumberPhone Field
+  // NumberPhone Field
   Widget get numberPhoneField =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return EnsureVisibleWhenFocused(
-              focusNode: _emailFocus,
+              focusNode: _numberPhoneFocus,
               child: CustomTextField(
-                TextHint: appLocalization.usernameLabel,
+                TextHint: appLocalization.numberPhoneLabel,
                 keyboardType: TextInputType.emailAddress,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -411,19 +422,9 @@ class RegisterPageResponsiveViewState extends clean_architecture
         }
       });
 
-      
-
-      
-
-      
-
-      
-      
-
-  
   // Login RichText
   Widget get haveAccountRichText =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
@@ -435,17 +436,17 @@ class RegisterPageResponsiveViewState extends clean_architecture
                 TextSpan(
                   style: TextStyle(
                       color: const Color(0xFFA3A9AC),
-                      fontSize: ScreenConfig.loginHaveAccountLabel,
+                      fontSize: ConfigFontSize.registerHaveAccountLabel,
                       fontWeight: FontWeight.w500),
                   text: appLocalization.loginHaveAccountLabel,
                 ),
                 TextSpan(
                     style: TextStyle(
                       color: Colors.orange,
-                      fontSize: ScreenConfig.loginRegisterClickText,
+                      fontSize: ConfigFontSize.registerLoginClickText,
                       fontWeight: FontWeight.w600,
                     ),
-                    text: appLocalization.loginRegisterClickText,
+                    text: appLocalization.registerLoginClickText,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         print('Register clicked');
@@ -458,18 +459,17 @@ class RegisterPageResponsiveViewState extends clean_architecture
         }
       });
 
-
   // Change Language Button
   Widget get changeLanguageButton =>
-      clean_architecture.ControlledWidgetBuilder<LoginController>(
-          builder: (context, loginController) {
+      clean_architecture.ControlledWidgetBuilder<LanguageController>(
+          builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return Padding(
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
               // click nav language page
-              onTap: () => loginController.changeLanguage(),
+              onTap: () => controller.goToLanguagePage(context),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -496,8 +496,4 @@ class RegisterPageResponsiveViewState extends clean_architecture
           return const Text("Error changeLanguageButton");
         }
       });
-}
-
-
-
 }

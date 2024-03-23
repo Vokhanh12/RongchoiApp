@@ -3,12 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
+import 'package:rongchoi_app/app/page/register/register_view.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 
 class AppRouter {
 // GoRouter configuration
   static var Router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/register',
     routes: [
       GoRoute(
         name:
@@ -50,21 +51,19 @@ class AppRouter {
           );
         },
       ),
-      /*
         GoRoute(
         name: 'register',
         path: '/register',
         pageBuilder: (_, state) {
           return CustomTransitionPage(
             key: state.pageKey,
-            child: const RegisterPage(key: ValueKey('unique_key')),
+            child: const RegisterPage(key: ValueKey('unique_key'), title: 'Register',),
             transitionDuration: const Duration(seconds: 1),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),
           );
         },
       ),
-      */
     ],
   );
 }

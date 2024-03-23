@@ -3,8 +3,10 @@
   "appName": "Ứng dụng Rongchoi",
   "forgotPasswordLabel": "Quên mật khẩu",
   "loginTitle": "Đăng nhập",
+  "registerTitle": "Đăng ký",
   "orLabel": "Hoặc",
   "passwordLabel": "Mật khẩu",
+  "rePasswordLabel": "Nhập lại mật khẩu",
   "usernameLabel": "Tên tài khoản",
   "loginButtonLabel": "Đăng nhập",
   "loginRegisterButtonLabel": "Đăng ký",
@@ -12,7 +14,12 @@
   "loginAuthNotification": "Địa chỉ email hoặc mật khẩu không đúng",
   "loginHaveAccountLabel": "Bạn chưa có tài khoản? ",
   "loginRegisterClickText": "ĐĂNG KÝ",
+  "registerLoginClickText": "ĐĂNG NHẬP",
   "loginLanguageLabel": "Ngôn ngữ:",
   "languageSelectLanguage": "Lựa chọn ngôn ngữ",
-  "languageChangeNotification": "Thay đổi ngôn ngữ thành công"
+  "languageChangeNotification": "Thay đổi ngôn ngữ thành công",
+  "registerTitle": "Đăng ký",
+  "firstNameLabel": "Họ",
+  "lastNameLabel": "Tên",
+  "numberPhoneLabel": "Số điện thoại"
 }

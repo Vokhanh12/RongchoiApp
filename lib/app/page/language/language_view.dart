@@ -12,7 +12,7 @@ import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/language_card.dart';
 import 'package:rongchoi_app/domain/entities/language.dart';
-import 'package:rongchoi_app/shared/build_config/screen_config.dart';
+import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rongchoi_app/data/repositories/data_setting_repository.dart';
@@ -150,7 +150,7 @@ class LanguagePageResponsiveViewState extends clean_architecture
           child: Text(
             appLocalization.languageSelectLanguage,
             style: TextStyle(
-                fontSize: ScreenConfig.sizeLanguageSelectLabel,
+                fontSize: ConfigFontSize.sizeLanguageSelectLabel,
                 fontWeight: FontWeight.w600),
           ),
         ),

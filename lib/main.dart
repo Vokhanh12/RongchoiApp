@@ -17,7 +17,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_setting_repository.dart';
-import 'package:rongchoi_app/shared/build_config/screen_config.dart';
+import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
 
     // Use to setting singleton pattern
     ScreenSize.init(context);
-    ScreenConfig.init(screenWidth, screenHeight);
+    ConfigFontSize.init(screenWidth, screenHeight);
 
     clean_architecture.FlutterCleanArchitecture.debugModeOn();
 
