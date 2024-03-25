@@ -5,23 +5,23 @@ import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/repositories/users_repository.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
-class NavigateRegisterPageUseCase extends CompletableUseCase<NavigateRegisterPageUseCaseParams> {
+class BackNavigationPageUseCase extends CompletableUseCase<BackNavigationPageUseCaseParams> {
   final NavigationRepository _navigationRepository;
 
-  NavigateRegisterPageUseCase(this._navigationRepository);
+  BackNavigationPageUseCase(this._navigationRepository);
 
   @override
-  Future<Stream<void>> buildUseCaseStream(NavigateRegisterPageUseCaseParams? params) async {
+  Future<Stream<void>> buildUseCaseStream(BackNavigationPageUseCaseParams? params) async {
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToRegisterPage(context: params!.context);
-      logger.finest('NavigateRegisterPageUseCase successful.');
+      await _navigationRepository.backNavigationPage(context: params!.context);
+      logger.finest('BackNavigationPageUseCase successful.');
       // triggers onComplete
       controller.close();
     } catch (e) {
       print(e);
-      logger.severe('NavigateRegisterPageUseCase unsuccessful.');
+      logger.severe('BackNavigationPageUseCase unsuccessful.');
       // Trigger .onError
       controller.addError(e);
     }
@@ -30,11 +30,11 @@ class NavigateRegisterPageUseCase extends CompletableUseCase<NavigateRegisterPag
 }
 
 
-class NavigateRegisterPageUseCaseParams {
+class BackNavigationPageUseCaseParams {
 
   final BuildContext context;
 
-  NavigateRegisterPageUseCaseParams (this.context);
+  BackNavigationPageUseCaseParams (this.context);
 
 }
 

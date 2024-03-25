@@ -6,6 +6,7 @@ import 'package:rongchoi_app/app/page/login/login_presenter.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
+import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
 class LoginController extends clean_architecture.Controller {
   late TextEditingController emailTextController;
@@ -17,8 +18,9 @@ class LoginController extends clean_architecture.Controller {
   final LoginPresenter _loginPresenter;
 
   // Construstor
-  LoginController(AuthenticationRepository authRepo)
-      : _loginPresenter = LoginPresenter(authRepo) {
+  LoginController(
+      AuthenticationRepository authRepo, NavigationRepository navRepository)
+      : _loginPresenter = LoginPresenter(authRepo, navRepository) {
     // email used to for textfield
     emailTextController = TextEditingController();
     // password used to for textfield
@@ -33,6 +35,12 @@ class LoginController extends clean_architecture.Controller {
     // These will be called upon success, failure, or data retrieval after usecase execution
     _loginPresenter.loginOnComplete = _loginOnComplete;
     _loginPresenter.loginOnError = _loginOnError;
+
+    _loginPresenter.goToRegisterPageOnComplete = _goToRegisterPageOnComplete;
+    _loginPresenter.goToRegisterPageOnError = _goToRegisterPageOnError;
+
+    _loginPresenter.goToLanguagePageOnComplete = _goToLanguagePageOnComplete;
+    _loginPresenter.goToLanguagePageOnError = _goToLanguagePageOnError;
   }
 
   // Logs a [User] into the application
@@ -50,10 +58,30 @@ class LoginController extends clean_architecture.Controller {
     dismissLoading();
     showGenericSnackbar(getContext(), "Đăng nhập thành công", isError: false);
   }
-
+  /// Login is error
   void _loginOnError(e) {
     dismissLoading();
     showGenericSnackbar(getContext(), e.message, isError: true);
+  }
+
+  /// go to RegisterPage is successful
+  void _goToRegisterPageOnComplete() {
+    dismissLoading();
+  }
+
+  /// go to RegisterPage is error
+  void _goToRegisterPageOnError(e) {
+    dismissLoading();
+  }
+
+  /// go to LanguagePage is successful
+  void _goToLanguagePageOnComplete() {
+    dismissLoading();
+  }
+
+  /// go to LanguagePage is error
+  void _goToLanguagePageOnError(e) {
+    dismissLoading();
   }
 
   // Logs a [User] into the application
@@ -64,12 +92,16 @@ class LoginController extends clean_architecture.Controller {
   }
 
   // Logs a [User] into the application
-  void register() {
-    print("Clicked register");
-    showGenericSnackbar(getContext(), "Hello world", isError: false);
+  void goToRegisterPage() {
+    // Go to RegisterPage
+    _loginPresenter.goToRegisterPage(context: getContext());
   }
 
-  
+  // Logs a [User] into the application
+  void goToLanguagePage() {
+    // Go to RegisterPage
+    _loginPresenter.goToLanguagePage(context: getContext());
+  }
 
   // Logs a [User] into the application
   void forgotPassword() {
@@ -84,11 +116,6 @@ class LoginController extends clean_architecture.Controller {
   // Logs a [User] into the application
   void loginWithFacebook() {
     print("Clicked login with facebook");
-  }
-
-  // Navigate to Language Page
-  void goToLanguagePage(BuildContext context){
-     GoRouter.of(context).push('/language');
   }
 
   void dismissLoading() {

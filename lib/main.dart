@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
+import 'package:rongchoi_app/app/page/register/register_controller.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 import 'package:rongchoi_app/app/utils/route/app_route.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
@@ -16,6 +17,7 @@ import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_setting_repository.dart';
 import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
@@ -25,9 +27,11 @@ import 'package:provider/provider.dart';
 void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) => LanguageController(DataSettingRepository())),
+            create: (_) => LanguageController(DataSettingRepository(),DataNavigationRepository())),
         ChangeNotifierProvider(
-            create: (_) => LoginController(DataAuthenticationRepository())),
+            create: (_) => LoginController(DataAuthenticationRepository(), DataNavigationRepository())),
+                 ChangeNotifierProvider(
+            create: (_) => RegisterController(DataAuthenticationRepository(), DataNavigationRepository())),
         // Các provider khác nếu cần
         Provider(create: (_) => LanguageCubit()),
       ],

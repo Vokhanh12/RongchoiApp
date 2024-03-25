@@ -11,6 +11,7 @@ import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/language_card.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/domain/entities/language.dart';
 import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
@@ -29,7 +30,8 @@ class LanguagePage extends clean_architecture.View {
 class LanguagePageResponsiveViewState extends clean_architecture
     .ResponsiveViewState<LanguagePage, LanguageController> {
   LanguagePageResponsiveViewState()
-      : super(LanguageController(DataSettingRepository()));
+      : super(LanguageController(
+            DataSettingRepository(), DataNavigationRepository()));
 
   Widget LanguageScaffold({Widget? child}) {
     return Scaffold(
@@ -96,9 +98,10 @@ class LanguagePageResponsiveViewState extends clean_architecture
               return GestureDetector(
                 onTap: () {
                   // Handle onTap event
-                  print('Selected language: ${Resources.languages[index].name}');
-                  controller.changeLanguage(context, Resources.languages[index]);
-                  
+                  print(
+                      'Selected language: ${Resources.languages[index].name}');
+                  controller.changeLanguage(
+                      context, Resources.languages[index]);
                 },
                 child: Card(
                   elevation: 2,
@@ -161,15 +164,19 @@ class LanguagePageResponsiveViewState extends clean_architecture
   }
 
   Widget get iconBackButton {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: IconButton(
-          // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-          icon: const FaIcon(FontAwesomeIcons.angleLeft),
-          onPressed: () {
-            Log.d("iconBackButton pressed", runtimeType);
-            Navigator.of(context).pop();
-          }),
+    return clean_architecture.ControlledWidgetBuilder<LanguageController>(
+      builder: (context, controller) {
+        return Align(
+          alignment: Alignment.topLeft,
+          child: IconButton(
+              // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+              icon: const FaIcon(FontAwesomeIcons.angleLeft),
+              onPressed: () {
+                Log.d("iconBackButton pressed", runtimeType);
+                controller.backNavigationPage();
+              }),
+        );
+      },
     );
   }
 }

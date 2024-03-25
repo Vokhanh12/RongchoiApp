@@ -23,6 +23,7 @@ import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/app/widgets/page_widget/page_login_widgets.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
@@ -58,7 +59,7 @@ class LoginPageResponsiveViewState
   LoginPageResponsiveViewState()
       : _emailFocus = FocusNode(),
         _passFocus = FocusNode(),
-        super(LoginController(DataAuthenticationRepository()));
+        super(LoginController(DataAuthenticationRepository(), DataNavigationRepository()));
 
   @override
   void initState() {
@@ -345,15 +346,15 @@ class LoginPageResponsiveViewState
         }
       });
 
-  // Register Button
+  // Navigate LanguageButton
   Widget get registerButton =>
       clean_architecture.ControlledWidgetBuilder<LoginController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
           return CustomButton_02(
-            // Register account
-            onTap: () => controller.register(),
+            // Navigate Languageaccount
+            onTap: () => controller.goToRegisterPage(),
             text: appLocalization.registerButtonLabel,
           );
         } else {
@@ -421,7 +422,7 @@ class LoginPageResponsiveViewState
         }
       });
 
-  // Register RichText
+  // Navigate LanguageRichText
 
   Widget get haveAccountRichText =>
       clean_architecture.ControlledWidgetBuilder<LoginController>(
@@ -449,7 +450,7 @@ class LoginPageResponsiveViewState
                     text: appLocalization.loginRegisterClickText,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        print('Register clicked');
+                        controller.goToRegisterPage();
                       }),
               ],
             )),
@@ -468,7 +469,7 @@ class LoginPageResponsiveViewState
               padding: const EdgeInsets.all(3.0),
               child: GestureDetector(
                 // click nav language page
-                onTap: () => controller.goToLanguagePage(context),
+                onTap: () => controller.goToLanguagePage(),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

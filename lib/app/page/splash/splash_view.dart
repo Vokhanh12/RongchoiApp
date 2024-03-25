@@ -6,6 +6,7 @@ import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/widgets/custom_image.dart';
 import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/device/repositories/device_location_repository.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 
@@ -29,7 +30,11 @@ class SplashPageResponsiveViewState
   late Animation<double> _animation;
 
   SplashPageResponsiveViewState()
-      : super(SplashController(DataAuthenticationRepository(), DeviceLocationRepository()));
+      : super(SplashController(
+          DataAuthenticationRepository(),
+          DataNavigationRepository(),
+          DeviceLocationRepository(),
+        ));
 
   @override
   void initState() {
@@ -79,7 +84,6 @@ class SplashPageResponsiveViewState
           return _body;
         },
       ));
-
 
   @override
   // TODO: implement tabletView

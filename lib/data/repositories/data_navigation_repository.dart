@@ -1,60 +1,81 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
 class DataNavigationRepository extends NavigationRepository {
   /// Singleton object of `DataAuthenticationRepository`
-  static final DataNavigationRepository _instance = DataNavigationRepository._internal();
+  static final DataNavigationRepository _instance =
+      DataNavigationRepository._internal();
 
   late Logger _logger;
 
   // Constructors
   DataNavigationRepository._internal() {
-    _logger = Logger('DataSettingRepository');
+    _logger = Logger('DataNavigationRepository');
   }
 
   factory DataNavigationRepository() => _instance;
-  
+
   @override
-  Future<void> goToHomePage() {
+  Future<void> goToHomePage(BuildContext context) async {
     // TODO: implement goToHomePage
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<void> goToJobsPage() {
-    // TODO: implement goToJobsPage
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<void> goToLoginPage() {
-    // TODO: implement goToLoginPage
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<void> goToMapPage() {
-    // TODO: implement goToMapPage
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<void> goToMediaSocialPage() {
-    // TODO: implement goToMediaSocialPage
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<void> goToRegisterPage() {
-    // TODO: implement goToRegisterPage
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<void> goToSplashPage() {
-    // TODO: implement goToSplashPage
-    throw UnimplementedError();
+    // Go to Home Page
+    GoRouter.of(context).push('/home');
   }
 
- 
+  @override
+  Future<void> goToJobsPage(BuildContext context) async {
+    // TODO: implement goToJobsPage
+    // Go to Jobs Page
+    GoRouter.of(context).push('/jobs');
+  }
+
+  @override
+  Future<void> goToLoginPage({required BuildContext context}) async {
+    // TODO: implement goToLoginPage
+    // Go to Jobs Page
+    GoRouter.of(context).push('/login');
+  }
+
+  @override
+  Future<void> goToMapPage(BuildContext context) async {
+    // TODO: implement goToMapPage
+    // Go to Jobs Page
+    GoRouter.of(context).push('/map');
+  }
+
+  @override
+  Future<void> goToMediaSocialPage(BuildContext context) async {
+    // TODO: implement goToMediaSocialPage
+    // Go to Jobs Page
+    GoRouter.of(context).push('/MediaSocial');
+  }
+
+  @override
+  Future<void> goToRegisterPage({required BuildContext context}) async {
+    // TODO: implement goToRegisterPage
+    // Go to Jobs Page
+    GoRouter.of(context).push('/register');
+  }
+
+  @override
+  Future<void> goToSplashPage(BuildContext context) async {
+    // TODO: implement goToSplashPage
+    // Go to Jobs Page
+    GoRouter.of(context).push('/splash');
+  }
+
+  @override
+  Future<void> goToLanguagePage({required BuildContext context}) async {
+    // TODO: implement goToLanguagePage
+    GoRouter.of(context).push('/language');
+  }
+
+  @override
+  Future<void> backNavigationPage({required BuildContext context}) async {
+    // TODO: implement backNavigationPage
+    Navigator.of(context).pop();
+  }
 }

@@ -3,8 +3,10 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/splash/splash_presenter.dart';
+import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/location_repository.dart';
+import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
 class SplashController extends clean_architecture.Controller {
   late bool isLoading;
@@ -12,8 +14,8 @@ class SplashController extends clean_architecture.Controller {
   final SplashPresenter _splashPresenter;
   final LocationRepository _locationRepository;
 
-  SplashController(AuthenticationRepository authRepo, this._locationRepository)
-      : _splashPresenter = SplashPresenter(authRepo) {
+  SplashController(AuthenticationRepository authRepo,NavigationRepository navRepository, this._locationRepository)
+      : _splashPresenter = SplashPresenter(authRepo,navRepository) {
     getAuthStatus();
     handlePermissions();
   }
@@ -23,6 +25,9 @@ class SplashController extends clean_architecture.Controller {
     // TODO: implement initListeners
     _splashPresenter.getAuthStatusOnNext = authStatusOnNext;
     _splashPresenter.getAuthStatusOnComplete = () => isLoading = false;
+
+    _splashPresenter.goToLoginPageError = _goToLoginPageOnError; 
+    _splashPresenter.goToLoginPageOnComplete = _goToLoginPageOnComplete;
   }
 
   /// Initializes [animation] for the view using a given [controller]
@@ -44,13 +49,32 @@ class SplashController extends clean_architecture.Controller {
 
   void authStatusOnNext(bool isAuth) {
     
-    String page = isAuth ? '/home' : '/login';
-    GoRouter.of(getContext()).go(page);
+    const HOME_PAGE = '/home';
+    const LOGIN_PAGE = '/login';
 
-    print(page);
+    String page = isAuth ? HOME_PAGE : LOGIN_PAGE;
+
+    if(page == HOME_PAGE) {
+      GoRouter.of(getContext()).go(HOME_PAGE);
+    } else{
+       _splashPresenter.goToLoginPage(context: getContext());
+    }
 
     // use go router
     //Navigator.of(getContext()).pushReplacementNamed(page);
+  }
+
+
+ 
+
+   /// Navigate is successful
+  void _goToLoginPageOnComplete() {
+    dismissLoading();
+  }
+
+   /// Navigate is error
+  void _goToLoginPageOnError(e) {
+    dismissLoading();
   }
 
   void getAuthStatus() async {
@@ -63,5 +87,13 @@ class SplashController extends clean_architecture.Controller {
     _locationRepository.enableDevice();
   }
 
-  void dispose() => _splashPresenter.dispose();
+  void dispose(){
+    _splashPresenter.dispose();
+  }
+
+
+  void dismissLoading() {
+    isLoading = false;
+    refreshUI();
+  }
 }

@@ -3,11 +3,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/register/register_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_01.dart';
 import 'package:rongchoi_app/app/widgets/custom_button_02.dart';
 import 'package:rongchoi_app/app/widgets/custom_circle_image.dart';
@@ -16,6 +18,7 @@ import 'package:rongchoi_app/app/widgets/custom_svg_picture.dart';
 import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -51,7 +54,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
         _passwordFocus = FocusNode(),
         _rePasswordNameFocus = FocusNode(),
         _numberPhoneFocus = FocusNode(),
-        super(RegisterController(DataAuthenticationRepository()));
+        super(RegisterController(DataAuthenticationRepository(), DataNavigationRepository()));
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -239,7 +242,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
         }
       });
 
-  //Register Text
+  //Navigate LanguageText
   Container get registerText {
     final appLocalization = AppLocalizations.of(context);
     if (appLocalization != null) {
@@ -449,7 +452,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
                     text: appLocalization.registerLoginClickText,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        print('Register clicked');
+                         controller.goToLoginPage();
                       }),
               ],
             )),
@@ -461,7 +464,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
 
   // Change Language Button
   Widget get changeLanguageButton =>
-      clean_architecture.ControlledWidgetBuilder<LanguageController>(
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {
@@ -469,7 +472,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
             padding: const EdgeInsets.all(3.0),
             child: GestureDetector(
               // click nav language page
-              onTap: () => controller.goToLanguagePage(context),
+              onTap: () => controller.goToLanguagePage(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -496,4 +499,5 @@ class RegisterPageResponsiveViewState extends clean_architecture
           return const Text("Error changeLanguageButton");
         }
       });
+
 }

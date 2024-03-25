@@ -2,6 +2,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/register/register_presenter.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
+import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/register_usecase.dart';
 
 class RegisterController extends clean_architecture.Controller {
@@ -12,8 +13,8 @@ class RegisterController extends clean_architecture.Controller {
 
   // Constructor
 
-  RegisterController(AuthenticationRepository authRepo)
-      : _registerPresenter = RegisterPresenter(authRepo) {
+  RegisterController(AuthenticationRepository authRepo, NavigationRepository navRepository)
+      : _registerPresenter = RegisterPresenter(authRepo, navRepository) {
     initListeners();
   }
 
@@ -39,12 +40,52 @@ class RegisterController extends clean_architecture.Controller {
 
     // Initialize presenter listeners here
     // These will be called upon success, failure, or data retrieval after usecase execution
+
+    _registerPresenter.goToLanguagePageOnComplete = _goToLanguagePageOnComplete;
+    _registerPresenter.goToLanguagePageOnError = _goToLanguagePageOnError;
+
+    _registerPresenter.goToLoginPageOnComplete = _goToLoginPageOnComplete;
+    _registerPresenter.goToLoginPageOnError = _goToLoginPageOnError;
+
   }
 
 
   // Navigate to login page
   void goToLoginPage(){
-    
+      _registerPresenter.goToLoginPage(context: getContext());
+  }
+
+  // Navigate to login page
+  void goToLanguagePage(){
+    _registerPresenter.goToLanguagePage(context: getContext());
+  }
+
+
+   /// Navigate is successful
+  void _goToLoginPageOnComplete() {
+    dismissLoading();
+  }
+
+   /// Navigate is error
+  void _goToLoginPageOnError(e) {
+    dismissLoading();
+  }
+
+
+   /// Navigate is successful
+  void _goToLanguagePageOnComplete() {
+    dismissLoading();
+  }
+
+   /// Navigate is error
+  void _goToLanguagePageOnError(e) {
+    dismissLoading();
+  }
+
+
+  void dismissLoading() {
+    isLoading = false;
+    refreshUI();
   }
 
 }
