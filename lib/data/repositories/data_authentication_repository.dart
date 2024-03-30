@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
+import 'package:rongchoi_app/data/utils/constants.dart';
+import 'package:rongchoi_app/data/utils/http_helper.dart';
 import 'package:rongchoi_app/domain/entities/user.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,19 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       {required String email, required String password}) async {
     // TODO: implement authenticate
 
+     try {
+      // invoke http request to login and convert body to map
+      await HttpHelper.invokeHttp("http://localhost:8080/v1/ready", RequestType.get);
+      _logger.finest('Login Successful.');
+
+   
+    } catch(error) {
+         Log.d("something bad happened runtimeType:", runtimeType);
+      _logger.warning(error.toString());
+      rethrow;
+    }
+
+    /*
     try {
       await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform);
@@ -43,6 +58,7 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       _logger.warning(ex.message);
       rethrow;
     }
+    */
   }
 
   @override
