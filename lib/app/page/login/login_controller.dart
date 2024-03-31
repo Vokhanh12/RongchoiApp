@@ -134,7 +134,7 @@ class LoginController extends clean_architecture.Controller {
           await HttpHelper.invokeHttp(url, RequestType.get, headers: query);
 
            User user = User.fromJson(body);
-      print('getUser Successful. $user');
+      print('getUser Successful. ${user.toJson()}');
     } catch (error) {
       print(error);
     }

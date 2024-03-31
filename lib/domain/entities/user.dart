@@ -43,18 +43,18 @@ class User {
         address = user.address,
         role = user.role;
 
-  User.fromJson(Map<String, dynamic> map)
+User.fromJson(Map<String, dynamic> map)
       : id = map['id'],
-        createdAt = map['created_at'],
-        updatedAt = map['updated_at'],
+        createdAt = DateTime.parse(map['created_at']),
+        updatedAt = DateTime.parse(map['updated_at']),
         firstName = map['first_name'],
         lastName = map['last_name'],
         email = map['email'],
-        nickName = map['nick_name'],
+        nickName = map['nick_name']['String'], // Assuming nick_name is a String
         numberPhone = map['number_phone'],
-        dateOfBirth = map['date_of_birth'],
-        address = map['address'],
-        role = map['role'];
+        dateOfBirth = DateTime.parse(map['day_of_birth']['Time']), // Parsing nested time string
+        address = map['address']['String'], // Assuming address is a String
+        role = UserRole.values.firstWhere((e) => e.toString().split('.').last == map['role']);
 
   /// Convert [this] to a Json `Map<String, dynamic>`. Complex structures keep their initial
   /// types.

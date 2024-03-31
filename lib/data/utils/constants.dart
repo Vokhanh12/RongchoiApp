@@ -5,7 +5,7 @@ class Constants{
   static const String loginRouter = '$baseUrl/login';
 
   // APIs no prefix
-  static const String baseUrlNoPrefix = 'localhost:8080';
+  static const String baseUrlNoPrefix = '10.0.2.2:8080';
 
 
 }
