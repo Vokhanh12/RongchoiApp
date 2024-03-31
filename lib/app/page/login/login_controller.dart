@@ -4,7 +4,10 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/login/login_presenter.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
+import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/data/utils/http_helper.dart';
+import 'package:rongchoi_app/domain/entities/user.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
@@ -58,6 +61,7 @@ class LoginController extends clean_architecture.Controller {
     dismissLoading();
     showGenericSnackbar(getContext(), "Đăng nhập thành công", isError: false);
   }
+
   /// Login is error
   void _loginOnError(e) {
     dismissLoading();
@@ -109,8 +113,31 @@ class LoginController extends clean_architecture.Controller {
   }
 
   // Logs a [User] into the application
-  void loginWithGoogle() {
+  void loginWithGoogle() async {
     print("Clicked login with google");
+
+
+
+    Map<String, String> query = {
+      'Authorization':
+          'ApiKey 01b94fca0e4d7db88204f617cd5f5a77012239fbfb1f3f8e968b815bc0978f55',
+    };
+
+
+
+    try {
+      // Convert string URL to Uri object
+      Uri url = Uri.parse("http://10.0.2.2:8080/v1/users");
+
+      // Invoke http request to login and convert body to map
+      Map<String, dynamic> body =
+          await HttpHelper.invokeHttp(url, RequestType.get, headers: query);
+
+           User user = User.fromJson(body);
+      print('getUser Successful. $user');
+    } catch (error) {
+      print(error);
+    }
   }
 
   // Logs a [User] into the application

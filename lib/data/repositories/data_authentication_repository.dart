@@ -28,18 +28,9 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   Future<void> authenticate(
       {required String email, required String password}) async {
     // TODO: implement authenticate
+          // specifiy google api query parameters
+ 
 
-     try {
-      // invoke http request to login and convert body to map
-      await HttpHelper.invokeHttp("http://localhost:8080/v1/ready", RequestType.get);
-      _logger.finest('Login Successful.');
-
-   
-    } catch(error) {
-         Log.d("something bad happened runtimeType:", runtimeType);
-      _logger.warning(error.toString());
-      rethrow;
-    }
 
     /*
     try {
@@ -60,6 +51,8 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     }
     */
   }
+
+
 
   @override
   Future<void> forgotPassword(String email) {

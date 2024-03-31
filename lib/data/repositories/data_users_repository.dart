@@ -1,8 +1,23 @@
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/users_repository.dart';
 
+
+
 class DataUsersRepository extends UsersRepository {
   late List<User> users;
+  
+  @override
+  Future<List<User>> getAllUsers() {
+    // TODO: implement getAllUsers
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<User> getUser(String uid) {
+    // TODO: implement getUser
+    throw UnimplementedError();
+  }
+  /*
   // sigleton
   static final DataUsersRepository _instance = DataUsersRepository._internal();
   DataUsersRepository._internal() {
@@ -26,4 +41,6 @@ class DataUsersRepository extends UsersRepository {
 
     return users.firstWhere((user) => user.uid == uid);
   }
+
+  */
 }

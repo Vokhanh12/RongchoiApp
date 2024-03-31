@@ -58,6 +58,8 @@ class LoginPresenter extends Presenter {
     );
   }
 
+ 
+
   /// goToRegisterPage function called by the controller
   void goToRegisterPage({required BuildContext context}) {
     _navigateRegisterPageUseCase.execute(
