@@ -1,5 +1,4 @@
-import 'dart:js_interop';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/data/utils/constants.dart';
@@ -31,6 +30,7 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       {required String email, required String password}) async {
     // TODO: implement authenticate
 
+    /*
     try {
       // Convert string URL to Uri object
       Uri url = Uri.parse(Constants.loginRouter);
@@ -49,14 +49,18 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
       rethrow;
     }
+    */
 
-    /*
     try {
       await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform);
 
       final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+          .signInWithEmailAndPassword(
+              email: '', password: '');
+      // Lấy token
+      String? token = await userCredential.user!.getIdToken();
+      print("Token: $token");
       Log.d(userCredential.toString(), runtimeType);
       Log.d("success login", runtimeType);
       _logger.finest('Login Successful.');
@@ -67,7 +71,6 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       _logger.warning(ex.message);
       rethrow;
     }
-    */
   }
 
   @override

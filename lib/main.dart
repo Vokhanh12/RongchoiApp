@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:go_router/go_router.dart';
@@ -24,19 +24,24 @@ import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (_) => LanguageController(DataSettingRepository(),DataNavigationRepository())),
-        ChangeNotifierProvider(
-            create: (_) => LoginController(DataAuthenticationRepository(), DataNavigationRepository())),
-                 ChangeNotifierProvider(
-            create: (_) => RegisterController(DataAuthenticationRepository(), DataNavigationRepository())),
-        // Các provider khác nếu cần
-        Provider(create: (_) => LanguageCubit()),
-      ],
-      child: MyApp(),
-    ));
+void main() {
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+          create: (_) => LanguageController(
+              DataSettingRepository(), DataNavigationRepository())),
+      ChangeNotifierProvider(
+          create: (_) => LoginController(
+              DataAuthenticationRepository(), DataNavigationRepository())),
+      ChangeNotifierProvider(
+          create: (_) => RegisterController(
+              DataAuthenticationRepository(), DataNavigationRepository())),
+      // Các provider khác nếu cần
+      Provider(create: (_) => LanguageCubit()),
+    ],
+    child: MyApp(),
+  ));
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

@@ -116,14 +116,10 @@ class LoginController extends clean_architecture.Controller {
   void loginWithGoogle() async {
     print("Clicked login with google");
 
-
-
     Map<String, String> query = {
       'Authorization':
           'ApiKey 01b94fca0e4d7db88204f617cd5f5a77012239fbfb1f3f8e968b815bc0978f55',
     };
-
-
 
     try {
       // Convert string URL to Uri object
