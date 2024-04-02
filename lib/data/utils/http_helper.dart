@@ -95,15 +95,18 @@ class HttpHelper {
 enum RequestType { get, post, put, delete }
 
 void main() async {
+
+   Uri url = Uri.parse("http://10.0.2.2:8080/v1/login");
+
   Map<String, String> query = {
     'Authorization':
-        '01b94fca0e4d7db88204f617cd5f5a77012239fbfb1f3f8e968b815bc0978f55',
+        'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImJhNjI1OTZmNTJmNTJlZDQ0MDQ5Mzk2YmU3ZGYzNGQyYzY0ZjQ1M2UiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ2Nob2ktZTk2OTAiLCJhdWQiOiJyb25nY2hvaS1lOTY5MCIsImF1dGhfdGltZSI6MTcxMjA2NDA2NiwidXNlcl9pZCI6IlZabjY2T3BFa2pNeXprSFNUbzJCcUNQWlU3RjMiLCJzdWIiOiJWWm42Nk9wRWtqTXl6a0hTVG8yQnFDUFpVN0YzIiwiaWF0IjoxNzEyMDY0MDY2LCJleHAiOjE3MTIwNjc2NjYsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.F3ypgu83NMkEJtmqzCYPGsTbHBw60YgV0LPe0j2dBaOPAP_yICtMCQuqRyoQQjO8sjbwninteeflEG_RGEvNUl9RVMz0kJ-FsNC12K90V9ObqM0gvhJHh1jeJ9lWz3KSjjSRrFIYZypawNbqErSOR77ArYTru5ubq3ynoJKmOiuugQVsT_HAIoXHFVioJR0xciaf1lLk-Tx2Kx5qVP1Haw9avCTOJ5ro8QyDtSMoA9QZ0gFqMeCzk2iP9GGUfrrjrPqLtd9GqoPdF9AxNzjUCgGrxMGjvwksICkgBVWXuJkYyqOhQC_4tzejvR4ZPkXwRchf902oDG54OKUDntWZJA',
   };
 
   try {
     // Invoke http request to login and convert body to map
     Map<String, dynamic> body = await HttpHelper.invokeHttp(
-        "http://localhost:8080/v1/user", RequestType.get,
+        url, RequestType.get,
         headers: query);
     print('getUser Successful.');
   } catch (error) {

@@ -16,6 +16,7 @@ class User {
   final DateTime dateOfBirth;
   final String address;
   final UserRole role;
+  final String api_key;
 
   User(
       this.id,
@@ -28,7 +29,9 @@ class User {
       this.address,
       this.dateOfBirth,
       this.numberPhone,
-      this.role);
+      this.role,
+      this.api_key
+      );
 
   User.fromUser(User user)
       : id = user.id,
@@ -41,7 +44,8 @@ class User {
         numberPhone = user.numberPhone,
         dateOfBirth = user.dateOfBirth,
         address = user.address,
-        role = user.role;
+        role = user.role,
+        api_key = user.api_key;
 
 User.fromJson(Map<String, dynamic> map)
       : id = map['id'],
@@ -54,7 +58,8 @@ User.fromJson(Map<String, dynamic> map)
         numberPhone = map['number_phone'],
         dateOfBirth = DateTime.parse(map['day_of_birth']['Time']), // Parsing nested time string
         address = map['address']['String'], // Assuming address is a String
-        role = UserRole.values.firstWhere((e) => e.toString().split('.').last == map['role']);
+        role = UserRole.values.firstWhere((e) => e.toString().split('.').last == map['role']),
+        api_key = map['api_key'];
 
   /// Convert [this] to a Json `Map<String, dynamic>`. Complex structures keep their initial
   /// types.
@@ -70,6 +75,7 @@ User.fromJson(Map<String, dynamic> map)
         'date_of_birth': dateOfBirth,
         'address': address,
         'role': role,
+        'api_key' : api_key,
       };
 
   /// Convert [this] to a Json `Map<String, String>`. All complex structures
