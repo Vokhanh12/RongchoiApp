@@ -44,6 +44,9 @@ class LoginController extends clean_architecture.Controller {
 
     _loginPresenter.goToLanguagePageOnComplete = _goToLanguagePageOnComplete;
     _loginPresenter.goToLanguagePageOnError = _goToLanguagePageOnError;
+
+    _loginPresenter.goToHomePageOnComplete = _goToHomePageOnComplete;
+    _loginPresenter.goToHomePageOnError = _goToHomePageOnError;
   }
 
   // Logs a [User] into the application
@@ -60,6 +63,7 @@ class LoginController extends clean_architecture.Controller {
   void _loginOnComplete() {
     dismissLoading();
     showGenericSnackbar(getContext(), "Đăng nhập thành công", isError: false);
+    _loginPresenter.goToHomePage(context: getContext());
   }
 
   /// Login is error
@@ -76,6 +80,7 @@ class LoginController extends clean_architecture.Controller {
   /// go to RegisterPage is error
   void _goToRegisterPageOnError(e) {
     dismissLoading();
+    showGenericSnackbar(getContext(), e.message, isError: true);
   }
 
   /// go to LanguagePage is successful
@@ -86,6 +91,18 @@ class LoginController extends clean_architecture.Controller {
   /// go to LanguagePage is error
   void _goToLanguagePageOnError(e) {
     dismissLoading();
+    showGenericSnackbar(getContext(), e.message, isError: true);
+  }
+
+  /// go to HomePage is successful
+  void _goToHomePageOnComplete() {
+    dismissLoading();
+  }
+
+  /// go to LanguagePage is error
+  void _goToHomePageOnError(e) {
+    dismissLoading();
+    showGenericSnackbar(getContext(), e.message, isError: true);
   }
 
   // Logs a [User] into the application
@@ -129,7 +146,7 @@ class LoginController extends clean_architecture.Controller {
       Map<String, dynamic> body =
           await HttpHelper.invokeHttp(url, RequestType.get, headers: query);
 
-           User user = User.fromJson(body);
+      User user = User.fromJson(body);
       print('getUser Successful. ${user.toJson()}');
     } catch (error) {
       print(error);

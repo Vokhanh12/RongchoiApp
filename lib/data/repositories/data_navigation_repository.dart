@@ -19,7 +19,7 @@ class DataNavigationRepository extends NavigationRepository {
   factory DataNavigationRepository() => _instance;
 
   @override
-  Future<void> goToHomePage(BuildContext context) async {
+  Future<void> goToHomePage({required BuildContext context}) async {
     // TODO: implement goToHomePage
     // Go to Home Page
     GoRouter.of(context).push('/home');

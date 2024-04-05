@@ -5,10 +5,11 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/register_usecase.dart';
-import 'package:rongchoi_app/domain/usecases/page/navigate_language_page_usecase.dart';
-import 'package:rongchoi_app/domain/usecases/page/navigate_login_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_language_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_login_page_usecase.dart';
 
 class RegisterPresenter extends clean_architecture.Presenter {
+
   // Repository
   final AuthenticationRepository _authenticationRepository;
   final NavigationRepository _navigationRepository;
@@ -21,22 +22,17 @@ class RegisterPresenter extends clean_architecture.Presenter {
   // Observer Check status
   late Function registerOnComplete; // alternatively `void loginOnComplete();`
   late Function registerOnError;
-  late Function
-      registerOnNext; // not needed in the case of a Navigate Languagepresenter
+  late Function registerOnNext; // not needed in the case of a Navigate Language presenter
 
   // Observer Check status
-  late Function
-      goToLoginPageOnComplete; // alternatively `void goToLoginOnComplete();`
+  late Function goToLoginPageOnComplete; // alternatively `void goToLoginOnComplete();`
   late Function goToLoginPageOnError;
-  late Function
-      goToLoginPageOnNext; // not needed in the case of a login presenter
+  late Function goToLoginPageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status
-  late Function
-      goToLanguagePageOnComplete; // alternatively `void goToLanguageOnComplete();`
+  late Function goToLanguagePageOnComplete; // alternatively `void goToLanguageOnComplete();`
   late Function goToLanguagePageOnError;
-  late Function
-      goToLanguagePageOnNext; // not needed in the case of a Navigate Languagepresenter
+  late Function goToLanguagePageOnNext; // not needed in the case of a Navigate Language presenter
 
   // Constuctor
   // dependency injection from controller

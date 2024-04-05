@@ -28,9 +28,6 @@ class HomeController extends clean_architecture.Controller {
       print('User retrieved');
     };
 
- 
-
-
     // On error, show a snackbar, remove the user, and refresh the UI
     homePresenter.getUserOnError = (e) {
       print('Could not retrieve user.');

@@ -14,8 +14,9 @@ class SplashController extends clean_architecture.Controller {
   final SplashPresenter _splashPresenter;
   final LocationRepository _locationRepository;
 
-  SplashController(AuthenticationRepository authRepo,NavigationRepository navRepository, this._locationRepository)
-      : _splashPresenter = SplashPresenter(authRepo,navRepository) {
+  SplashController(AuthenticationRepository authRepo,
+      NavigationRepository navRepository, this._locationRepository)
+      : _splashPresenter = SplashPresenter(authRepo, navRepository) {
     getAuthStatus();
     handlePermissions();
   }
@@ -26,7 +27,7 @@ class SplashController extends clean_architecture.Controller {
     _splashPresenter.getAuthStatusOnNext = authStatusOnNext;
     _splashPresenter.getAuthStatusOnComplete = () => isLoading = false;
 
-    _splashPresenter.goToLoginPageError = _goToLoginPageOnError; 
+    _splashPresenter.goToLoginPageError = _goToLoginPageOnError;
     _splashPresenter.goToLoginPageOnComplete = _goToLoginPageOnComplete;
   }
 
@@ -48,31 +49,27 @@ class SplashController extends clean_architecture.Controller {
   }
 
   void authStatusOnNext(bool isAuth) {
-    
     const HOME_PAGE = '/home';
     const LOGIN_PAGE = '/login';
 
     String page = isAuth ? HOME_PAGE : LOGIN_PAGE;
 
-    if(page == HOME_PAGE) {
+    if (page == HOME_PAGE) {
       GoRouter.of(getContext()).go(HOME_PAGE);
-    } else{
-       _splashPresenter.goToLoginPage(context: getContext());
+    } else {
+      _splashPresenter.goToLoginPage(context: getContext());
     }
 
     // use go router
     //Navigator.of(getContext()).pushReplacementNamed(page);
   }
 
-
- 
-
-   /// Navigate is successful
+  /// Navigate is successful
   void _goToLoginPageOnComplete() {
     dismissLoading();
   }
 
-   /// Navigate is error
+  /// Navigate is error
   void _goToLoginPageOnError(e) {
     dismissLoading();
   }
@@ -83,14 +80,13 @@ class SplashController extends clean_architecture.Controller {
     Future.delayed(Duration(seconds: 3), _splashPresenter.getAuthStatus);
   }
 
-    void handlePermissions() {
+  void handlePermissions() {
     _locationRepository.enableDevice();
   }
 
-  void dispose(){
+  void dispose() {
     _splashPresenter.dispose();
   }
-
 
   void dismissLoading() {
     isLoading = false;

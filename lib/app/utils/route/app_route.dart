@@ -9,7 +9,7 @@ import 'package:rongchoi_app/app/page/register/register_view.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
-import 'package:rongchoi_app/domain/usecases/page/navigate_splash_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_splash_page_usecase.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 // AppRouter use Presenter
@@ -25,6 +25,20 @@ class AppRouter {
           return CustomTransitionPage(
             key: state.pageKey,
             child: const SplashPage(title: 'Splash'),
+            transitionDuration: const Duration(seconds: 1),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c),
+          );
+        },
+      ),
+            GoRoute(
+        name:
+            'home', // Optional, add name to your routes. Allows you navigate by name instead of path
+        path: '/home',
+        pageBuilder: (_, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: const HomePage(title: 'Splash'),
             transitionDuration: const Duration(seconds: 1),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),

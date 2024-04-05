@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import '../entities/user.dart';
-import '../repositories/users_repository.dart';
+import '../../entities/user.dart';
+import '../../repositories/users_repository.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart' as clean_architecture;
 
 class GetUserUseCase

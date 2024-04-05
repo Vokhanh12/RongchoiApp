@@ -14,7 +14,7 @@ abstract class AuthenticationRepository{
   Future<void> forgotPassword(String email);
 
   /// Returns the current authenticated [User].
-  //Future<User> getCurrentUser();
+  Future<User?> getCurrentUser();
 
 
   Future<void> logout();

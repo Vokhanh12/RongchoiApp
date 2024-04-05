@@ -16,76 +16,35 @@ class HomePage extends clean_architecture.View {
 }
 
 class HomePageState
-    extends clean_architecture.ViewState<HomePage, HomeController> {
+    extends clean_architecture.ResponsiveViewState<HomePage, HomeController> {
   HomePageState() : super(HomeController(DataUsersRepository()));
 
-  @override
-  Widget get view {
+  Widget HomeScaffold({Widget? child}) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Scaffold(
-        key:
-            globalKey, // built in global key for the ViewState for easy access in the controller
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              clean_architecture.ControlledWidgetBuilder<HomeController>(
-                builder: (context, controller) {
-                  return Text(
-                    'Button pressed ${controller.counter} times.',
-                  );
-                },
-              ),
-              const Text(
-                'The current user is',
-              ),
-              clean_architecture.ControlledWidgetBuilder<HomeController>(
-                builder: (context, controller) {
-                  return Text(
-                    controller.user == null ? '' : '${controller.user}',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  );
-                },
-              ),
-              clean_architecture.ControlledWidgetBuilder<HomeController>(
-                builder: (context, controller) {
-                  return ElevatedButton(
-                    onPressed: controller.getUser,
-                    child: const Text(
-                      'Get User',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  );
-                },
-              ),
-              clean_architecture.ControlledWidgetBuilder<HomeController>(
-                builder: (context, controller) {
-                  return ElevatedButton(
-                    onPressed: controller.getUserwithError,
-                    child: const Text(
-                      'Get User Error',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton:
-          clean_architecture.ControlledWidgetBuilder<HomeController>(
-        builder: (context, controller) {
-          return FloatingActionButton(
-            onPressed: () => controller.buttonPressed(),
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          );
-        },
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      key: globalKey,
+      body: child,
     );
   }
+
+  Widget _buildHomeFormWidget() {
+    return Scaffold(
+      body: SingleChildScrollView(),
+    );
+  }
+
+  @override
+  // TODO: implement desktopView
+  Widget get desktopView => throw UnimplementedError();
+
+  @override
+  // TODO: implement mobileView
+  Widget get mobileView =>  HomeScaffold(child: _buildHomeFormWidget());
+
+  @override
+  // TODO: implement tabletView
+  Widget get tabletView => throw UnimplementedError();
+
+  @override
+  // TODO: implement watchView
+  Widget get watchView => throw UnimplementedError();
 }

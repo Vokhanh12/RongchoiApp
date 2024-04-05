@@ -40,22 +40,6 @@ class LanguagePageResponsiveViewState extends clean_architecture
     );
   }
 
-  @override
-  // TODO: implement desktopView
-  Widget get desktopView => throw UnimplementedError();
-
-  @override
-  // TODO: implement mobileView
-  Widget get mobileView => LanguageScaffold(child: _buildLanguageFormWidget());
-
-  @override
-  // TODO: implement tabletView
-  Widget get tabletView => throw UnimplementedError();
-
-  @override
-  // TODO: implement watchView
-  Widget get watchView => throw UnimplementedError();
-
   Widget _buildLanguageFormWidget() {
     return Scaffold(
       body: SingleChildScrollView(
@@ -80,6 +64,23 @@ class LanguagePageResponsiveViewState extends clean_architecture
       ),
     );
   }
+
+
+  @override
+  // TODO: implement desktopView
+  Widget get desktopView => throw UnimplementedError();
+
+  @override
+  // TODO: implement mobileView
+  Widget get mobileView => LanguageScaffold(child: _buildLanguageFormWidget());
+
+  @override
+  // TODO: implement tabletView
+  Widget get tabletView => throw UnimplementedError();
+
+  @override
+  // TODO: implement watchView
+  Widget get watchView => throw UnimplementedError();
 
   // Language Cards
   Widget get getLanguageCards =>

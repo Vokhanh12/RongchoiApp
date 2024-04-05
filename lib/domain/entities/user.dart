@@ -30,8 +30,7 @@ class User {
       this.dateOfBirth,
       this.numberPhone,
       this.role,
-      this.api_key
-      );
+      this.api_key);
 
   User.fromUser(User user)
       : id = user.id,
@@ -47,7 +46,7 @@ class User {
         role = user.role,
         api_key = user.api_key;
 
-User.fromJson(Map<String, dynamic> map)
+  User.fromJson(Map<String, dynamic> map)
       : id = map['id'],
         createdAt = DateTime.parse(map['created_at']),
         updatedAt = DateTime.parse(map['updated_at']),
@@ -56,26 +55,28 @@ User.fromJson(Map<String, dynamic> map)
         email = map['email'],
         nickName = map['nick_name']['String'], // Assuming nick_name is a String
         numberPhone = map['number_phone'],
-        dateOfBirth = DateTime.parse(map['day_of_birth']['Time']), // Parsing nested time string
+        dateOfBirth = DateTime.parse(
+            map['day_of_birth']['Time']), // Parsing nested time string
         address = map['address']['String'], // Assuming address is a String
-        role = UserRole.values.firstWhere((e) => e.toString().split('.').last == map['role']),
+        role = UserRole.values
+            .firstWhere((e) => e.toString().split('.').last == map['role']),
         api_key = map['api_key'];
 
   /// Convert [this] to a Json `Map<String, dynamic>`. Complex structures keep their initial
   /// types.
   Map<String, dynamic> toJson() => {
         'id': id,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
+        'created_at': createdAt.toIso8601String(),
+        'updated_at': updatedAt.toIso8601String(),
         'first_name': firstName,
         'last_name': lastName,
         'email': email,
         'nick_name': nickName,
         'number_phone': numberPhone,
-        'date_of_birth': dateOfBirth,
+        'date_of_birth': dateOfBirth.toIso8601String(),
         'address': address,
-        'role': role,
-        'api_key' : api_key,
+        'role': role.toString().split('.').last,
+        'api_key': api_key,
       };
 
   /// Convert [this] to a Json `Map<String, String>`. All complex structures
@@ -87,7 +88,5 @@ User.fromJson(Map<String, dynamic> map)
         'uid': uid,
         'email': email
       };
-   */   
-
-
+   */
 }

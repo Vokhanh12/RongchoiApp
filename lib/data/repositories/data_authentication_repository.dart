@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
@@ -7,6 +9,7 @@ import 'package:rongchoi_app/domain/repositories/authentication_repository.dart'
 import 'package:flutter/material.dart';
 import 'package:rongchoi_app/firebase_options.dart';
 import 'package:logging/logging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:rongchoi_app/domain/entities/user.dart' as en;
 
@@ -57,16 +60,17 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     try {
       // If user credentials are successful, then retrieve the token from Firebase.
       var token = await userCredential.user!.getIdToken();
-
+      Log.d("Bearer $token", runtimeType);
       Map<String, String> query = {
         'Authorization': 'Bearer $token',
       };
       // Invoke http request to login and convert body to map
       body = await HttpHelper.invokeHttp(url, RequestType.get, headers: query);
-      
+
       // en = entity package
-      en.User user = en.User.fromJson(body);
+      en.User user = en.User.fromJson(body['user']);
       print('getUser Successful. ${user.toJson()}');
+      _saveCredentials(user: user);
     } catch (ex) {
       print('bug:$ex');
     }
@@ -78,10 +82,19 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     throw UnimplementedError();
   }
 
+  /// Returns whether the current `User` is authenticated.
   @override
-  Future<bool> isAuthenticated() {
+  Future<bool> isAuthenticated() async {
     // TODO: implement isAuthenticated
-    throw UnimplementedError();
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      bool isAuthenticated =
+          preferences.getBool(Constants.isAuthenticatedKey) ?? false;
+      return isAuthenticated;
+    } catch (error) {
+      _logger.warning('Error fetching authentication status: $error');
+      return false;
+    }
   }
 
   @override
@@ -94,5 +107,33 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   Future<void> register() {
     // TODO: implement register
     throw UnimplementedError();
+  }
+
+  /// Returns the current authenticated `User` from `SharedPreferences`.
+  @override
+  Future<en.User?> getCurrentUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? userJson = preferences.getString(Constants.userKey);
+    if (userJson != null) {
+      en.User user = en.User.fromJson(jsonDecode(userJson));
+      return user;
+    } else {
+      // Trả về null hoặc xử lý tùy theo logic của ứng dụng
+      return null;
+    }
+  }
+
+  /// Saves the [token] and the [user] in `SharedPreferences`.
+  void _saveCredentials({required en.User user}) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      await Future.wait([
+        preferences.setBool(Constants.isAuthenticatedKey, true),
+        preferences.setString(Constants.userKey, jsonEncode(user))
+      ]);
+      _logger.finest('Credentials successfully stored.');
+    } catch (error) {
+      _logger.warning('Credentials could not be stored. $error');
+    }
   }
 }

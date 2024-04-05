@@ -4,9 +4,10 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/login_usecase.dart';
-import 'package:rongchoi_app/domain/usecases/page/navigate_language_page_usecase.dart';
-import 'package:rongchoi_app/domain/usecases/page/navigate_login_page_usecase.dart';
-import 'package:rongchoi_app/domain/usecases/page/navigate_register_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_home_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_language_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_login_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_register_page_usecase.dart';
 
 class LoginPresenter extends Presenter {
   // Data Repository
@@ -17,6 +18,7 @@ class LoginPresenter extends Presenter {
   late LoginUseCase _loginUseCase;
   late NavigateRegisterPageUseCase _navigateRegisterPageUseCase;
   late NavigateLanguagePageUseCase _navigateLanguagePageUseCase;
+  late NavigateHomePageUseCase _navigateHomePageUseCase;
 
   // Observer Check status login
   late Function loginOnComplete; // alternatively `void loginOnComplete();`
@@ -37,6 +39,13 @@ class LoginPresenter extends Presenter {
   late Function
       goToLanguagePageOnNext; // not needed in the case of a login presenter
 
+  // Observer Check status goToHomePage
+  late Function
+      goToHomePageOnComplete; // alternatively `void goToHomePageOnComplete();`
+  late Function goToHomePageOnError;
+  late Function
+      goToHomePageOnNext; // not needed in the case of a login presenter
+
   // dependency injection from controller
   LoginPresenter(this._authenticationRepository, this._navigationRepository) {
     // Initialize the [UseCase] with the appropriate repository
@@ -48,6 +57,8 @@ class LoginPresenter extends Presenter {
     // Navigate Language UseCase
     _navigateLanguagePageUseCase =
         NavigateLanguagePageUseCase(_navigationRepository);
+    // Navigate Home UseCase
+    _navigateHomePageUseCase = NavigateHomePageUseCase(_navigationRepository);
   }
 
   /// login function called by the controller
@@ -58,8 +69,6 @@ class LoginPresenter extends Presenter {
     );
   }
 
- 
-
   /// goToRegisterPage function called by the controller
   void goToRegisterPage({required BuildContext context}) {
     _navigateRegisterPageUseCase.execute(
@@ -67,10 +76,17 @@ class LoginPresenter extends Presenter {
         NavigateRegisterPageUseCaseParams(context));
   }
 
+  /// goToLanguagePage function called by the controller
   void goToLanguagePage({required BuildContext context}) {
     _navigateLanguagePageUseCase.execute(
         _NavigateLanguagePageUseCaseObserver(this),
         NavigateLanguagePageUseCaseParams(context));
+  }
+
+  /// goToHomePage function called by the controller
+  void goToHomePage({required BuildContext context}) {
+    _navigateHomePageUseCase.execute(_NavigateHomePageUseCaseObserver(this),
+        NavigateHomePageUseCaseParams(context));
   }
 
   /// Disposes of the [LoginUseCase] and unsubscribes
@@ -79,6 +95,7 @@ class LoginPresenter extends Presenter {
     _loginUseCase.dispose();
     _navigateLanguagePageUseCase.dispose();
     _navigateRegisterPageUseCase.dispose();
+    _navigateHomePageUseCase.dispose();
   }
 }
 
@@ -146,6 +163,34 @@ class _NavigateLanguagePageUseCaseObserver implements Observer<void> {
   final LoginPresenter _loginPresenter;
 
   _NavigateLanguagePageUseCaseObserver(this._loginPresenter);
+
+  /// implement if the `Stream` emits a value
+  // in this case, unnecessary
+  void onNext(_) {}
+
+  /// Login is successful, trigger event in [LoginController]
+  void onComplete() {
+    // any cleaning or preparation goes here
+    _loginPresenter.goToLanguagePageOnComplete();
+  }
+
+  /// Login was unsuccessful, trigger event in [LoginController]
+  void onError(e) {
+    // any cleaning or preparation goes here
+    if (_loginPresenter.goToLanguagePageOnError != null) {
+      _loginPresenter.goToLanguagePageOnError(e);
+    }
+  }
+}
+
+/// The [Observer] used to observe the `Stream` of the [NavigateHomePageUseCase]
+class _NavigateHomePageUseCaseObserver implements Observer<void> {
+  // The above presenter
+  // This is not optimal, but it is a workaround due to dart limitations. Dart does
+  // not support inner classes or anonymous classes.
+  final LoginPresenter _loginPresenter;
+
+  _NavigateHomePageUseCaseObserver(this._loginPresenter);
 
   /// implement if the `Stream` emits a value
   // in this case, unnecessary
