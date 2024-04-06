@@ -14,12 +14,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rongchoi_app/domain/entities/user.dart' as en;
 
 class DataAuthenticationRepository extends AuthenticationRepository {
+  // Variables
+  late Logger _logger;
+
+  late UserCredential _userCredential;
+
+  // Convert string URL to Uri object
+  final Uri _url = Uri.parse(Constants.baseUrl);
+
   // Members
   /// Singleton object of `DataAuthenticationRepository`
-  static DataAuthenticationRepository _instance =
+  static final DataAuthenticationRepository _instance =
       DataAuthenticationRepository._internal();
-
-  late Logger _logger;
 
   // Constructors
   DataAuthenticationRepository._internal() {
@@ -29,29 +35,24 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   factory DataAuthenticationRepository() => _instance;
 
   @override
-  Future<void> authenticate(
-      {required String email, required String password}) async {
-    // TODO: implement authenticate
-
-    // Convert string URL to Uri object
-    Uri url = Uri.parse("http://10.0.2.2:8080/v1/login");
-    UserCredential userCredential;
-    Map<String, dynamic> body;
-
+  Future<void> authenticate({
+    required String email,
+    required String password,
+  }) async {
     // handle firebase
     try {
       // Initialize Firebase
       await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform);
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
       // Sign with email and password to Firebase
-      userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'test@gmail.com', password: 'Aa@123456789');
+      _userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: 'test@gmail.com',
+        password: 'Aa@123456789',
+      );
       _logger.finest('Login firebase Successful.');
     } on FirebaseAuthException catch (ex) {
-      Log.d("something bad happened runtimeType:ex.runtimeType", runtimeType);
-      Log.d("$ex", runtimeType);
-
       _logger.warning(ex);
       rethrow;
     }
@@ -59,17 +60,24 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     // handle server
     try {
       // If user credentials are successful, then retrieve the token from Firebase.
-      var token = await userCredential.user!.getIdToken();
+      var token = await _userCredential.user!.getIdToken();
       Log.d("Bearer $token", runtimeType);
+
       Map<String, String> query = {
         'Authorization': 'Bearer $token',
       };
+
       // Invoke http request to login and convert body to map
-      body = await HttpHelper.invokeHttp(url, RequestType.get, headers: query);
+      Map<String, dynamic> body = await HttpHelper.invokeHttp(
+        _url,
+        RequestType.get,
+        headers: query,
+      );
 
       // en = entity package
-      en.User user = en.User.fromJson(body['user']);
+      en.User user = en.User.fromJson(body!['user']);
       print('getUser Successful. ${user.toJson()}');
+
       _saveCredentials(user: user);
     } catch (ex) {
       print('bug:$ex');
@@ -78,14 +86,12 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
   @override
   Future<void> forgotPassword(String email) {
-    // TODO: implement forgotPassword
     throw UnimplementedError();
   }
 
   /// Returns whether the current `User` is authenticated.
   @override
   Future<bool> isAuthenticated() async {
-    // TODO: implement isAuthenticated
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       bool isAuthenticated =
@@ -99,13 +105,11 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
   @override
   Future<void> logout() {
-    // TODO: implement logout
     throw UnimplementedError();
   }
 
   @override
   Future<void> register() {
-    // TODO: implement register
     throw UnimplementedError();
   }
 
@@ -128,12 +132,23 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await Future.wait([
-        preferences.setBool(Constants.isAuthenticatedKey, true),
-        preferences.setString(Constants.userKey, jsonEncode(user))
+        preferences.setBool(
+          Constants.isAuthenticatedKey,
+          true,
+        ),
+        preferences.setString(
+          Constants.userKey,
+          jsonEncode(user),
+        )
       ]);
       _logger.finest('Credentials successfully stored.');
     } catch (error) {
       _logger.warning('Credentials could not be stored. $error');
     }
+  }
+
+  @override
+  Future<void> veritySMS({required int code}) {
+    throw UnimplementedError();
   }
 }

@@ -16,6 +16,7 @@ abstract class AuthenticationRepository{
   /// Returns the current authenticated [User].
   Future<User?> getCurrentUser();
 
+  Future<void> veritySMS({required int code});
 
   Future<void> logout();
 

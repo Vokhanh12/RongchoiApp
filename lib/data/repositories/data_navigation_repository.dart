@@ -78,4 +78,10 @@ class DataNavigationRepository extends NavigationRepository {
     // TODO: implement backNavigationPage
     Navigator.of(context).pop();
   }
+  
+  @override
+  Future<void> goToConfirmRegistration({required BuildContext context}) {
+    // TODO: implement goToConfirmRegistration
+    throw UnimplementedError();
+  }
 }

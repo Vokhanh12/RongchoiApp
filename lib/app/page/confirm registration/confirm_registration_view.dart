@@ -1,3 +1,4 @@
+/*
 import 'dart:html';
 
 import 'package:flutter/material.dart';
@@ -74,3 +75,4 @@ class ConfirmRegistrationPageResponsiveViewState extends clean_architecture
   // TODO: implement watchView
   Widget get watchView => throw UnimplementedError();
 }
+*/

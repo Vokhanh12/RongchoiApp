@@ -28,7 +28,10 @@ class HomePageState
 
   Widget _buildHomeFormWidget() {
     return Scaffold(
-      body: SingleChildScrollView(),
+      body:  Align(
+          alignment: Alignment.center,
+          child: Text("RongChoi Hello World!"),
+        ),
     );
   }
 
