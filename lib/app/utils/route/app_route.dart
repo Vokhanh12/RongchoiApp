@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rongchoi_app/app/page/confirm%20registration/confirm_registration_view.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
@@ -81,6 +82,21 @@ class AppRouter {
               key: ValueKey('unique_key'),
               title: 'Register',
             ),
+            transitionDuration: const Duration(seconds: 1),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c),
+          );
+        },
+      ),
+
+        GoRoute(
+        name:
+            'confirm-registration', // Optional, add name to your routes. Allows you navigate by name instead of path
+        path: '/confirm-registration',
+        pageBuilder: (_, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: const ConfirmRegistrationPage(title: "confirm-registration"),
             transitionDuration: const Duration(seconds: 1),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),

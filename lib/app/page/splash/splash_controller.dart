@@ -49,7 +49,7 @@ class SplashController extends clean_architecture.Controller {
   }
 
   void authStatusOnNext(bool isAuth) {
-    const HOME_PAGE = '/home';
+    const HOME_PAGE = '/confirm-registration';
     const LOGIN_PAGE = '/login';
 
     String page = isAuth ? HOME_PAGE : LOGIN_PAGE;

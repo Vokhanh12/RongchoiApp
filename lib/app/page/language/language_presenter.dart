@@ -20,18 +20,14 @@ class LanguagePresenter extends Presenter {
   late BackNavigationPageUseCase _backNavigationPageUseCase;
 
   // Check status Observer [ChangLanguageUsecase]
-  late Function
-      changeLanguageOnComplete; // alternatively `void changeLanguageOnComplete();`
+  late Function changeLanguageOnComplete; // alternatively `void changeLanguageOnComplete();`
   late Function changeLanguageOnError;
-  late Function
-      changeLanguageOnNext; // not needed in the case of a changeLanguage presenter
+  late Function changeLanguageOnNext; // not needed in the case of a changeLanguage presenter
 
   // Check status Observer [BackNavigationUseCase]
-  late Function
-      backNavigationPageOnComplete; // alternatively `void changeLanguageOnComplete();`
+  late Function backNavigationPageOnComplete; // alternatively `void changeLanguageOnComplete();`
   late Function backNavigationPageOnError;
-  late Function
-      backNavigationPageOnNext; // not needed in the case of a changeLanguage presenter
+  late Function backNavigationPageOnNext; // not needed in the case of a changeLanguage presenter
 
   // constructor
   LanguagePresenter(this._settingRepository, this._navigationRepository) {

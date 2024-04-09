@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rongchoi_app/domain/entities/user.dart';
 
-abstract class AuthenticationRepository{
-
-  Future<void> authenticate(
-      {required String email, required String password});
+abstract class AuthenticationRepository {
+  Future<void> authenticate({required String email, required String password});
 
   Future<void> register();
 
@@ -18,6 +16,7 @@ abstract class AuthenticationRepository{
 
   Future<void> veritySMS({required int code});
 
-  Future<void> logout();
+  Future<int> resendSMS();
 
+  Future<void> logout();
 }

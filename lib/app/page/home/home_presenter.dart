@@ -1,5 +1,6 @@
 import '../../../domain/usecases/user/get_user_usecase.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart' as clean_architecture;
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
+    as clean_architecture;
 
 class HomePresenter extends clean_architecture.Presenter {
   late Function getUserOnNext;
@@ -12,7 +13,9 @@ class HomePresenter extends clean_architecture.Presenter {
   void getUser(String uid) {
     // execute getUseruserCase
     getUserUseCase.execute(
-        _GetUserUseCaseObserver(this), GetUserUseCaseParams(uid),);
+      _GetUserUseCaseObserver(this),
+      GetUserUseCaseParams(uid),
+    );
   }
 
   @override

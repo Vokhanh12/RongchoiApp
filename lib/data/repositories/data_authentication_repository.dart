@@ -19,6 +19,8 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
   late UserCredential _userCredential;
 
+
+
   // Convert string URL to Uri object
   final Uri _url = Uri.parse(Constants.baseUrl);
 
@@ -151,4 +153,11 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   Future<void> veritySMS({required int code}) {
     throw UnimplementedError();
   }
+  
+  @override
+  Future<int> resendSMS() async{
+    return 1233;
+  }
+  
+ 
 }

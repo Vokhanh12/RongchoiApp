@@ -1,9 +1,8 @@
-/*
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rongchoi_app/app/page/confirm%20registration/confirm_registration_controller.dart';
 import 'package:rongchoi_app/app/page/splash/splash_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/widgets/custom_image.dart';
@@ -26,23 +25,22 @@ class ConfirmRegistrationPage extends clean_architecture.View {
       ConfirmRegistrationPageResponsiveViewState();
 }
 
-class ConfirmRegistrationPageResponsiveViewState extends clean_architecture
-    .ResponsiveViewState<ConfirmRegistrationPage, ConfirmRegistrationController>
- {
-
-
+class ConfirmRegistrationPageResponsiveViewState
+    extends clean_architecture.ResponsiveViewState<ConfirmRegistrationPage,
+        ConfirmRegistrationController> {
   ConfirmRegistrationPageResponsiveViewState()
-      : super(ConfirmRegistrationController());
+      : super(ConfirmRegistrationController(
+          DataAuthenticationRepository(),
+          DataNavigationRepository(),
+        ));
 
   @override
   void initState() {
     super.initState();
- 
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
     super.dispose();
   }
 
@@ -54,14 +52,31 @@ class ConfirmRegistrationPageResponsiveViewState extends clean_architecture
   }
 
   Widget _buildRegisterFormWidget() {
-    return SingleChildScrollView();
+    return clean_architecture.ControlledWidgetBuilder<
+        ConfirmRegistrationController>(builder: (context, controller) {
+      return Center(
+        child: TextButton(
+          child: Text('getSMS'),
+          onPressed: () {
+            controller.retrieveData();
+            print("" + controller.currentCodeSMS.toString());
+          },
+        ),
+      );
+    });
   }
 
   @override
   // TODO: implement mobileView
-  Widget get mobileView => confirmRegistrationScaffold(
-    child: _buildRegisterFormWidget()
-  )
+  Widget get mobileView =>
+      clean_architecture.ControlledWidgetBuilder<ConfirmRegistrationController>(
+          builder: (context, controller) {
+        return ModalProgressHUD(
+            inAsyncCall: controller.isLoading,
+            child: confirmRegistrationScaffold(
+              child: _buildRegisterFormWidget(),
+            ));
+      });
 
   @override
   // TODO: implement desktopView
@@ -75,4 +90,3 @@ class ConfirmRegistrationPageResponsiveViewState extends clean_architecture
   // TODO: implement watchView
   Widget get watchView => throw UnimplementedError();
 }
-*/
