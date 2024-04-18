@@ -66,7 +66,7 @@ class RegisterPresenter extends clean_architecture.Presenter {
 
   void goToLoginPage({required BuildContext context}) {
     _navigateLoginPageUseCase.execute(
-        _NavigateLanguagePageUseCaseObserver(this),
+        _NavigateLoginPageUseCaseObserver(this),
         NavigateLoginPageUseCaseParams(context));
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/domain/entities/language.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/back_navagation_page_usecase.dart';
@@ -19,7 +20,7 @@ class LanguagePresenter extends Presenter {
   late ChangeLanguageUseCase _changeLanguageUseCase;
   late BackNavigationPageUseCase _backNavigationPageUseCase;
 
-  // Check status Observer [ChangLanguageUsecase]
+    // Check status Observer [ChangLanguageUsecase]
   late Function changeLanguageOnComplete; // alternatively `void changeLanguageOnComplete();`
   late Function changeLanguageOnError;
   late Function changeLanguageOnNext; // not needed in the case of a changeLanguage presenter
@@ -72,14 +73,14 @@ class _ChangeLanguageUseCaseObserver implements Observer<void> {
   /// change language is successful, trigger event in [ChangeLanguageController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _languagePresenter.changeLanguageOnComplete();
+    _languagePresenter.changeLanguageOnComplete!();
   }
 
   /// change language was unsuccessful, trigger event in [ChangeLanguageController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_languagePresenter.changeLanguageOnError != null) {
-      _languagePresenter.changeLanguageOnError(e);
+      _languagePresenter.changeLanguageOnError!(e);
     }
   }
 }

@@ -106,8 +106,16 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   }
 
   @override
-  Future<void> logout() {
-    throw UnimplementedError();
+  Future<bool> logout() async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.remove(Constants.isAuthenticatedKey);
+      _logger.finest('Logout successful.');
+      return true;
+    } catch (error) {
+      _logger.warning('Could not log out.', error);
+      return false;
+    }
   }
 
   @override

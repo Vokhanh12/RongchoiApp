@@ -9,11 +9,15 @@ class HomeController extends clean_architecture.Controller {
   User? _user;
   int get counter => _counter;
   User? get user => _user; // data used by the View
+  
+  late bool isLogout;
+
+
   final HomePresenter homePresenter;
   // Presenter should always be initialized this way
-  HomeController(usersRepo)
+  HomeController(usersRepo, authRepo, navRepo)
       : _counter = 0,
-        homePresenter = HomePresenter(usersRepo),
+        homePresenter = HomePresenter(usersRepo, authRepo, navRepo),
         super();
 
   @override
@@ -36,10 +40,40 @@ class HomeController extends clean_architecture.Controller {
       _user = null;
       refreshUI(); // Refreshes the UI manually
     };
+
+    homePresenter.logoutOnNext = (bool status){
+
+      if(status){
+        goToLoginPage();
+      }
+
+      refreshUI();
+    };
+
+    homePresenter.logoutOnComplete = (){
+      print('logout retrieved');
+    };
+
+    homePresenter.logoutOnError = (e){
+       print('Could not retrieve logout.');
+          ScaffoldMessenger.of(getContext())
+          .showSnackBar(SnackBar(content: Text(e.message)));
+      _user = null;
+    };
+
+
   }
 
   void getUser() => homePresenter.getUser('test-uid');
   void getUserwithError() => homePresenter.getUser('test-uid231243');
+
+  void logout() {
+    homePresenter.logout();
+  }
+
+  void goToLoginPage(){
+    homePresenter.goToLoginPage(context: getContext());
+  }
 
   void buttonPressed() {
     _counter++;
@@ -61,3 +95,5 @@ class HomeController extends clean_architecture.Controller {
     super.onDisposed();
   }
 }
+
+

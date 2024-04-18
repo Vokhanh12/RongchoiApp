@@ -1,3 +1,6 @@
+import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
+
 import './home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
@@ -17,7 +20,9 @@ class HomePage extends clean_architecture.View {
 
 class HomePageState
     extends clean_architecture.ResponsiveViewState<HomePage, HomeController> {
-  HomePageState() : super(HomeController(DataUsersRepository()));
+  HomePageState()
+      : super(HomeController(
+            DataUsersRepository(), DataAuthenticationRepository(), DataNavigationRepository()));
 
   Widget HomeScaffold({Widget? child}) {
     return Scaffold(
@@ -27,11 +32,23 @@ class HomePageState
   }
 
   Widget _buildHomeFormWidget() {
-    return Scaffold(
-      body:  Align(
-          alignment: Alignment.center,
-          child: Text("RongChoi Hello World!"),
-        ),
+    return clean_architecture.ControlledWidgetBuilder<HomeController>(
+      builder: (context, controller) {
+        return Scaffold(
+          body: Align(
+            alignment: Alignment.center,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.blue,
+              ),
+              onPressed: () {
+                controller.logout();
+              },
+              child: Text('Logout'),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -41,7 +58,7 @@ class HomePageState
 
   @override
   // TODO: implement mobileView
-  Widget get mobileView =>  HomeScaffold(child: _buildHomeFormWidget());
+  Widget get mobileView => HomeScaffold(child: _buildHomeFormWidget());
 
   @override
   // TODO: implement tabletView

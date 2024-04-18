@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:go_router/go_router.dart';
+import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
@@ -19,6 +20,8 @@ import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_setting_repository.dart';
+import 'package:rongchoi_app/data/repositories/data_users_repository.dart';
+import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +40,9 @@ void main() {
           create: (_) => RegisterController(
               DataAuthenticationRepository(), DataNavigationRepository())),
       // Các provider khác nếu cần
+      ChangeNotifierProvider(
+          create: (_) => HomeController(DataUsersRepository(),
+              DataAuthenticationRepository(), DataNavigationRepository())),
       Provider(create: (_) => LanguageCubit()),
     ],
     child: MyApp(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/login_usecase.dart';
@@ -45,7 +46,6 @@ class LoginPresenter extends Presenter {
   late Function goToHomePageOnError;
   late Function
       goToHomePageOnNext; // not needed in the case of a login presenter
-
   // dependency injection from controller
   LoginPresenter(this._authenticationRepository, this._navigationRepository) {
     // Initialize the [UseCase] with the appropriate repository
@@ -115,14 +115,14 @@ class _LoginUseCaseObserver implements Observer<void> {
   /// Login is successful, trigger event in [LoginController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _loginPresenter.loginOnComplete();
+    _loginPresenter.loginOnComplete!();
   }
 
   /// Login was unsuccessful, trigger event in [LoginController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_loginPresenter.loginOnError != null) {
-      _loginPresenter.loginOnError(e);
+      _loginPresenter.loginOnError!(e);
     }
   }
 }
@@ -143,14 +143,14 @@ class _NavigateRegisterPageUseCaseObserver implements Observer<void> {
   /// Login is successful, trigger event in [LoginController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _loginPresenter.loginOnComplete();
+    _loginPresenter.loginOnComplete!();
   }
 
   /// Login was unsuccessful, trigger event in [LoginController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_loginPresenter.goToRegisterPageOnError != null) {
-      _loginPresenter.goToRegisterPageOnError(e);
+      _loginPresenter.goToRegisterPageOnError!(e);
     }
   }
 }
@@ -171,14 +171,14 @@ class _NavigateLanguagePageUseCaseObserver implements Observer<void> {
   /// Login is successful, trigger event in [LoginController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _loginPresenter.goToLanguagePageOnComplete();
+    _loginPresenter.goToLanguagePageOnComplete!();
   }
 
   /// Login was unsuccessful, trigger event in [LoginController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_loginPresenter.goToLanguagePageOnError != null) {
-      _loginPresenter.goToLanguagePageOnError(e);
+      _loginPresenter.goToLanguagePageOnError!(e);
     }
   }
 }
@@ -199,14 +199,14 @@ class _NavigateHomePageUseCaseObserver implements Observer<void> {
   /// Login is successful, trigger event in [LoginController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _loginPresenter.goToLanguagePageOnComplete();
+    _loginPresenter.goToLanguagePageOnComplete!();
   }
 
   /// Login was unsuccessful, trigger event in [LoginController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_loginPresenter.goToLanguagePageOnError != null) {
-      _loginPresenter.goToLanguagePageOnError(e);
+      _loginPresenter.goToLanguagePageOnError!(e);
     }
   }
 }

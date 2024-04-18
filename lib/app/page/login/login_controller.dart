@@ -21,8 +21,7 @@ class LoginController extends clean_architecture.Controller {
   final LoginPresenter _loginPresenter;
 
   // Construstor
-  LoginController(
-      AuthenticationRepository authRepo, NavigationRepository navRepository)
+  LoginController(authRepo, navRepository)
       : _loginPresenter = LoginPresenter(authRepo, navRepository) {
     // email used to for textfield
     emailTextController = TextEditingController();

@@ -18,5 +18,5 @@ abstract class AuthenticationRepository {
 
   Future<int> resendSMS();
 
-  Future<void> logout();
+  Future<bool> logout();
 }
