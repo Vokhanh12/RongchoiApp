@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
@@ -5,43 +6,58 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/register_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_confirm_registration_usecase.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/navigate_language_page_usecase.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/navigate_login_page_usecase.dart';
 
 class RegisterPresenter extends clean_architecture.Presenter {
-
   // Repository
   final AuthenticationRepository _authenticationRepository;
   final NavigationRepository _navigationRepository;
 
   // UseCase
   late final RegisterUseCase _registerUseCase;
-  late final NavigateLoginPageUseCase _navigateLoginPageUseCase;
-  late final NavigateLanguagePageUseCase _navigateLanguagePageUseCase;
+  late final NavigateLoginPageUseCase _navLoginPageUseCase;
+  late final NavigateLanguagePageUseCase _navLanguagePageUseCase;
+  late final NavigateConfirmRegistrationPageUseCase _navConRegisPageUseCase;
 
   // Observer Check status
   late Function registerOnComplete; // alternatively `void loginOnComplete();`
   late Function registerOnError;
-  late Function registerOnNext; // not needed in the case of a Navigate Language presenter
+  late Function
+      registerOnNext; // not needed in the case of a Navigate Language presenter
 
   // Observer Check status
-  late Function goToLoginPageOnComplete; // alternatively `void goToLoginOnComplete();`
+  late Function
+      goToLoginPageOnComplete; // alternatively `void goToLoginOnComplete();`
   late Function goToLoginPageOnError;
-  late Function goToLoginPageOnNext; // not needed in the case of a login presenter
+  late Function
+      goToLoginPageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status
-  late Function goToLanguagePageOnComplete; // alternatively `void goToLanguageOnComplete();`
+  late Function
+      goToLanguagePageOnComplete; // alternatively `void goToLanguageOnComplete();`
   late Function goToLanguagePageOnError;
-  late Function goToLanguagePageOnNext; // not needed in the case of a Navigate Language presenter
+  late Function
+      goToLanguagePageOnNext; // not needed in the case of a Navigate Language presenter
+
+  // Observer Check status
+  late Function
+      goToConRegisPageOnComplete; // alternatively `void goToLanguageOnComplete();`
+  late Function goToConRegisPageOnError;
+  late Function
+      goToConRegisPageOnNext; // not needed in the case of a Navigate Language presenter
 
   // Constuctor
   // dependency injection from controller
   RegisterPresenter(
       this._authenticationRepository, this._navigationRepository) {
     _registerUseCase = RegisterUseCase(_authenticationRepository);
-    _navigateLanguagePageUseCase =
+    _navLanguagePageUseCase =
         NavigateLanguagePageUseCase(_navigationRepository);
-    _navigateLoginPageUseCase = NavigateLoginPageUseCase(_navigationRepository);
+    _navLoginPageUseCase = NavigateLoginPageUseCase(_navigationRepository);
+    _navConRegisPageUseCase =
+        NavigateConfirmRegistrationPageUseCase(_navigationRepository);
   }
 
   /// Navigate Languagefunction called by the controller
@@ -59,15 +75,18 @@ class RegisterPresenter extends clean_architecture.Presenter {
   }
 
   void goToLanguagePage({required BuildContext context}) {
-    _navigateLanguagePageUseCase.execute(
-        _NavigateLanguagePageUseCaseObserver(this),
+    _navLanguagePageUseCase.execute(_NavigateLanguagePageUseCaseObserver(this),
         NavigateLanguagePageUseCaseParams(context));
   }
 
   void goToLoginPage({required BuildContext context}) {
-    _navigateLoginPageUseCase.execute(
-        _NavigateLoginPageUseCaseObserver(this),
+    _navLoginPageUseCase.execute(_NavigateLoginPageUseCaseObserver(this),
         NavigateLoginPageUseCaseParams(context));
+  }
+
+  void goToConRegisPage({required BuildContext context}){
+    _navConRegisPageUseCase.execute(_NavConRegisPageUseCaseObserver(this),
+    NavConRegisPageUseCaseParams(context));
   }
 
   /// Initializes [Presenter] listeners
@@ -75,8 +94,8 @@ class RegisterPresenter extends clean_architecture.Presenter {
   void dispose() {
     // TODO: implement dispose
     _registerUseCase.dispose();
-    _navigateLanguagePageUseCase.dispose();
-    _navigateLoginPageUseCase.dispose();
+    _navLanguagePageUseCase.dispose();
+    _navLoginPageUseCase.dispose();
   }
 }
 
@@ -162,6 +181,35 @@ class _NavigateLoginPageUseCaseObserver
     // any cleaning or preparation goes here
     if (_registerPresenter.registerOnError != null) {
       _registerPresenter.goToLoginPageOnError(e);
+    }
+  }
+}
+
+// The [Observer] used to observe the `Stream` of the [NavigateLoginPageUseCase]
+class _NavConRegisPageUseCaseObserver
+    implements clean_architecture.Observer<void> {
+  // The above presenter
+  // This is not optimal, but it is a workaround due to dart limitations. Dart does
+  // not support inner classes or anonymous classes.
+  final RegisterPresenter _registerPresenter;
+
+  _NavConRegisPageUseCaseObserver(this._registerPresenter);
+
+  /// implement if the `Stream` emits a value
+  // in this case, unnecessary
+  void onNext(_) {}
+
+  /// Navigate Language is successful, trigger event in [RegisterController]
+  void onComplete() {
+    // any cleaning or preparation goes here
+    _registerPresenter.goToConRegisPageOnComplete;
+  }
+
+  /// Navigate Language is unsuccessful, trigger event in [RegisterController]
+  void onError(e) {
+    // any cleaning or preparation goes here
+    if (_registerPresenter.goToConRegisPageOnComplete != null) {
+      _registerPresenter.goToConRegisPageOnError(e);
     }
   }
 }

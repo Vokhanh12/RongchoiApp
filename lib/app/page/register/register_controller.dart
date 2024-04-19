@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/register/register_presenter.dart';
@@ -52,6 +54,10 @@ class RegisterController extends clean_architecture.Controller {
     _registerPresenter.registerOnComplete = _registerOnComplete;
     _registerPresenter.registerOnError = _registerOnError;
     _registerPresenter.registerOnNext = _registerOnNext;
+
+    _registerPresenter.goToConRegisPageOnComplete = _goToConRegisPageOnComplete;
+    _registerPresenter.goToConRegisPageOnError = _goToConRegisPageOnError;
+    _registerPresenter.goToConRegisPageOnNext = _goToConRegisPageOnNext;
   }
 
   // Navigate to login page
@@ -62,6 +68,10 @@ class RegisterController extends clean_architecture.Controller {
   // Navigate to login page
   void goToLanguagePage() {
     _registerPresenter.goToLanguagePage(context: getContext());
+  }
+
+  void goToConRegisPage(){
+    _registerPresenter.goToConRegisPage(context: getContext());
   }
 
   /// Navigate is successful
@@ -86,6 +96,23 @@ class RegisterController extends clean_architecture.Controller {
 
   void _registerOnComplete() {
     dismissLoading();
+
+    goToConRegisPage();
+
+  }
+
+  void _goToConRegisPageOnComplete() {
+    dismissLoading();
+  }
+
+  void _goToConRegisPageOnError() {
+    dismissLoading();
+  }
+
+  void _goToConRegisPageOnNext(String numberPhone) {
+
+    
+
   }
 
   void _registerOnError(e) {

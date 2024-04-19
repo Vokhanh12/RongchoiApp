@@ -29,6 +29,8 @@ class ConfigFontSize {
   static double sizeConfirmRegisNoSentLabel = 0.0;
 
   static double sizeLanguageSelectLabel = 0.0;
+  static double sizeNotGotCodeLabel = 0.0;
+  static double sizeResendCode = 0.0;
 
   // Method to initialize screen size
   static void init(double screenWidth, double screenHeight) {
@@ -53,10 +55,11 @@ class ConfigFontSize {
 
       registerLoginClickText = 15.0;
       registerHaveAccountLabel = 15.0;
-       sizeRegisterTitle = 35.0;
+      sizeRegisterTitle = 35.0;
 
-       sizeConfirmRegisNoSentLabel = 15.0;
-
+      sizeConfirmRegisNoSentLabel = 15.0;
+      sizeNotGotCodeLabel = 15.0;
+      sizeResendCode = 15.0;
 
       sizeLanguageSelectLabel = 20.0;
     } else if (_instance._screenWidth >= 360 && _instance._screenWidth <= 428) {
@@ -78,7 +81,8 @@ class ConfigFontSize {
       registerHaveAccountLabel = 14.0;
 
       sizeConfirmRegisNoSentLabel = 14.0;
-
+      sizeNotGotCodeLabel = 14.0;
+      sizeResendCode = 15.0;
 
       sizeLanguageSelectLabel = 20.0;
     } else if (_instance._screenWidth >= 428 && _instance._screenWidth <= 768) {
@@ -97,6 +101,8 @@ class ConfigFontSize {
       registerLoginClickText = 0.0;
 
       sizeConfirmRegisNoSentLabel = 18.0;
+      sizeNotGotCodeLabel = 18.0;
+      sizeResendCode = 18.0;
     }
   }
 }

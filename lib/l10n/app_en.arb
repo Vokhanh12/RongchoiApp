@@ -23,5 +23,7 @@
   "firstNameLabel": "First name",
   "lastNameLabel": "Last name",
   "numberPhoneLabel": "Number phone",
-  "confirmRegisNoSentLabel": "Chúng tôi vừa gửi một mã xác minh đế số điện thoại của bạn"
+  "confirmRegisNoSentLabel": "Chúng tôi vừa gửi một mã xác minh đế số điện thoại của bạn",
+  "notGotCodeLabel" : "Not receiving SMS? ",
+  "resendCode" : "Resend code"
 }

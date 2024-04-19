@@ -78,10 +78,9 @@ class DataNavigationRepository extends NavigationRepository {
     // TODO: implement backNavigationPage
     Navigator.of(context).pop();
   }
-  
+
   @override
-  Future<void> goToConfirmRegistration({required BuildContext context}) {
-    // TODO: implement goToConfirmRegistration
-    throw UnimplementedError();
+  Future<void> goToConRegisPage({required BuildContext context}) async {
+    GoRouter.of(context).push('/confirm-registration');
   }
 }

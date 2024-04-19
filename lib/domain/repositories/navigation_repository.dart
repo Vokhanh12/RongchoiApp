@@ -10,7 +10,7 @@ abstract class NavigationRepository {
 
   Future<void> goToHomePage({required BuildContext context});
 
-  Future<void> goToConfirmRegistration({required BuildContext context});
+  Future<void> goToConRegisPage({required BuildContext context});
 
   Future<void> backNavigationPage({required BuildContext context});
 

@@ -1,6 +1,7 @@
 import 'package:ensure_visible_when_focused/ensure_visible_when_focused.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -64,38 +65,42 @@ class ConfirmRegistrationPageResponsiveViewState
   Widget _buildRegisterFormWidget() {
     return clean_architecture.ControlledWidgetBuilder<
         ConfirmRegistrationController>(builder: (context, controller) {
-      return SingleChildScrollView(
-          // Wrap with SingleChildScrollView
-          child: Stack(
+      return Stack(
         children: [
           Align(
             alignment: Alignment.topLeft,
-            child: iconBackButton,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, top: 25.0, right: 0.0, bottom: 0.0),
+              child: iconBackButton,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(30.0),
-            child: Column(
-              children: [
-                mailAnimation,
-                notiSentRichText,
-                SizedBox(
-                  height: 25,
-                ),
-                tfContainNumPhone,
-                SizedBox(
-                  height: 60,
-                ),
-                inputSMSBox,
-                  SizedBox(
-                  height: 100,
-                ),
-
-                confirmButton,
-              ],
+            child: SizedBox(
+              child: Column(
+                children: [
+                  mailAnimation,
+                  Flexible(
+                    flex: 1,
+                    child: notiSentRichText,
+                  ),
+                  SizedBox(height: 5.0,),
+                  Flexible(
+                    flex: 1,
+                    child: Center(child: tfContainNumPhone),
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: Center(child: inputSMSBox),
+                  ),
+                ],
+              ),
             ),
-          )
+          ),
+          Align(alignment: Alignment.bottomCenter, child: notGotcodeRichText)
         ],
-      ));
+      );
     });
   }
 
@@ -136,8 +141,8 @@ class ConfirmRegistrationPageResponsiveViewState
   Widget get mailAnimation => Lottie.asset(
         "assets/animation/mail.json",
         fit: BoxFit.contain,
-        width: 300,
-        height: 300,
+        width: 260,
+        height: 260,
         repeat: true,
       );
 
@@ -146,6 +151,7 @@ class ConfirmRegistrationPageResponsiveViewState
         ConfirmRegistrationController>(
       builder: (context, controller) {
         return IconButton(
+            iconSize: 30.0,
             // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
             icon: const FaIcon(FontAwesomeIcons.angleLeft),
             onPressed: () {
@@ -158,18 +164,20 @@ class ConfirmRegistrationPageResponsiveViewState
   Widget get notiSentRichText {
     final appLocalization = AppLocalizations.of(context);
     if (appLocalization != null) {
-      return RichText(
-          text: TextSpan(
-        children: <TextSpan>[
-          TextSpan(
-            style: TextStyle(
-                color: const Color(0xFFA3A9AC),
-                fontSize: ConfigFontSize.sizeConfirmRegisNoSentLabel,
-                fontWeight: FontWeight.w500),
-            text: appLocalization.confirmRegisNoSentLabel,
-          ),
-        ],
-      ));
+      return Container(
+        child: RichText(
+            text: TextSpan(
+          children: <TextSpan>[
+            TextSpan(
+              style: TextStyle(
+                  color: const Color(0xFFA3A9AC),
+                  fontSize: ConfigFontSize.sizeConfirmRegisNoSentLabel,
+                  fontWeight: FontWeight.w500),
+              text: appLocalization.confirmRegisNoSentLabel,
+            ),
+          ],
+        )),
+      );
     } else {
       return const Text("Error notiSentRichText");
     }
@@ -206,29 +214,69 @@ class ConfirmRegistrationPageResponsiveViewState
     final defaultPinTheme = PinTheme(
       width: 65,
       height: 65,
-      textStyle: TextStyle(
+        constraints: const BoxConstraints(
+          maxWidth: 65,
+            maxHeight: 65, // Set the maximum height
+          ),
+      textStyle: const TextStyle(
           fontSize: 28,
           color: Color.fromRGBO(30, 60, 87, 1),
           fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        border: Border.all(width: 2.5,color: Color(0xFFD2D9DD)),
-        
+        border: Border.all(width: 2.5, color:const  Color(0xFFD2D9DD)),
         borderRadius: BorderRadius.circular(12),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(width: 3.0,color: Color(0xFFFF8C00)),
+      border: Border.all(width: 3.0, color:const Color(0xFFFF8C00)),
       borderRadius: BorderRadius.circular(8),
     );
 
-    return Pinput(
-      length: 4,
-      defaultPinTheme: defaultPinTheme,
-      focusedPinTheme: focusedPinTheme,
-      onCompleted: (pin) => debugPrint(pin),
+    return Container(
+      child: Pinput(
+        length: 4,
+        defaultPinTheme: defaultPinTheme,
+        focusedPinTheme: focusedPinTheme,
+        onCompleted: (pin) => debugPrint(pin),
+      ),
     );
   }
+
+  Widget get notGotcodeRichText =>
+      clean_architecture.ControlledWidgetBuilder<ConfirmRegistrationController>(
+          builder: (context, controller) {
+        final appLocalization = AppLocalizations.of(context);
+        if (appLocalization != null) {
+          return Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: RichText(
+                text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  style: TextStyle(
+                      color: const Color(0xFFA3A9AC),
+                      fontSize: ConfigFontSize.sizeNotGotCodeLabel,
+                      fontWeight: FontWeight.w500),
+                  text: appLocalization.notGotCodeLabel,
+                ),
+                TextSpan(
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: ConfigFontSize.sizeResendCode,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    text: appLocalization.resendCode,
+                    recognizer: TapGestureRecognizer()..onTap = () {}),
+              ],
+            )),
+          );
+        } else {
+          return const Text("Error  notGotcodeRichText");
+        }
+      });
+
+  /*
 
     // LoginButton
   Widget get confirmButton =>
@@ -244,10 +292,6 @@ class ConfirmRegistrationPageResponsiveViewState
           return Container();
         }
       });
-
-
-  /*
-
 
   Widget get notGotcodeRichText {}
   */
