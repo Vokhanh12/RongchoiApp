@@ -27,18 +27,14 @@ class LoginPresenter extends Presenter {
   late Function loginOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToRegisterPage
-  late Function
-      goToRegisterPageOnComplete; // alternatively `void goToRegisterPageOnComplete();`
+  late Function goToRegisterPageOnComplete; // alternatively `void goToRegisterPageOnComplete();`
   late Function goToRegisterPageOnError;
-  late Function
-      goToRegisterPageOnNext; // not needed in the case of a login presenter
+  late Function goToRegisterPageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToLanguagePage
-  late Function
-      goToLanguagePageOnComplete; // alternatively `void goToLanguagePageOnComplete();`
+  late Function goToLanguagePageOnComplete; // alternatively `void goToLanguagePageOnComplete();`
   late Function goToLanguagePageOnError;
-  late Function
-      goToLanguagePageOnNext; // not needed in the case of a login presenter
+  late Function goToLanguagePageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToHomePage
   late Function
@@ -143,14 +139,14 @@ class _NavigateRegisterPageUseCaseObserver implements Observer<void> {
   /// Login is successful, trigger event in [LoginController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _loginPresenter.loginOnComplete!();
+    _loginPresenter.goToHomePageOnComplete();
   }
 
   /// Login was unsuccessful, trigger event in [LoginController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_loginPresenter.goToRegisterPageOnError != null) {
-      _loginPresenter.goToRegisterPageOnError!(e);
+      _loginPresenter.goToRegisterPageOnError(e);
     }
   }
 }
@@ -171,14 +167,14 @@ class _NavigateLanguagePageUseCaseObserver implements Observer<void> {
   /// Login is successful, trigger event in [LoginController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _loginPresenter.goToLanguagePageOnComplete!();
+    _loginPresenter.goToLanguagePageOnComplete();
   }
 
   /// Login was unsuccessful, trigger event in [LoginController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_loginPresenter.goToLanguagePageOnError != null) {
-      _loginPresenter.goToLanguagePageOnError!(e);
+      _loginPresenter.goToLanguagePageOnError(e);
     }
   }
 }
@@ -199,14 +195,14 @@ class _NavigateHomePageUseCaseObserver implements Observer<void> {
   /// Login is successful, trigger event in [LoginController]
   void onComplete() {
     // any cleaning or preparation goes here
-    _loginPresenter.goToLanguagePageOnComplete!();
+    _loginPresenter.goToHomePageOnComplete();
   }
 
   /// Login was unsuccessful, trigger event in [LoginController]
   void onError(e) {
     // any cleaning or preparation goes here
     if (_loginPresenter.goToLanguagePageOnError != null) {
-      _loginPresenter.goToLanguagePageOnError!(e);
+      _loginPresenter.goToHomePageOnError(e);
     }
   }
 }

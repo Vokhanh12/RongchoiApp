@@ -1,3 +1,4 @@
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 
@@ -52,13 +53,22 @@ class HomePageState
     );
   }
 
+
+ 
   @override
   // TODO: implement desktopView
   Widget get desktopView => throw UnimplementedError();
 
   @override
   // TODO: implement mobileView
-  Widget get mobileView => HomeScaffold(child: _buildHomeFormWidget());
+  Widget get mobileView => HomeScaffold(child:   clean_architecture.ControlledWidgetBuilder<HomeController>(
+          builder: (context, controller) {
+            return ModalProgressHUD(
+                inAsyncCall: controller.isLoading,
+                child: _buildHomeFormWidget());
+          },
+        ),
+);
 
   @override
   // TODO: implement tabletView

@@ -1,7 +1,7 @@
 class Constants {
   // APIs
   static const String baseUrl = 'http://$baseUrlNoPrefix';
-  static const String loginRouter = '$baseUrl/login';
+  static const String loginRouter = '$baseUrl/v1/login';
 
   // APIs no prefix
   static const String baseUrlNoPrefix = '10.0.2.2:8080';

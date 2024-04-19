@@ -26,6 +26,8 @@ class ConfigFontSize {
   static double registerHaveAccountLabel = 0.0;
   static double sizeRegisterTitle = 0.0;
 
+  static double sizeConfirmRegisNoSentLabel = 0.0;
+
   static double sizeLanguageSelectLabel = 0.0;
 
   // Method to initialize screen size
@@ -53,6 +55,8 @@ class ConfigFontSize {
       registerHaveAccountLabel = 15.0;
        sizeRegisterTitle = 35.0;
 
+       sizeConfirmRegisNoSentLabel = 15.0;
+
 
       sizeLanguageSelectLabel = 20.0;
     } else if (_instance._screenWidth >= 360 && _instance._screenWidth <= 428) {
@@ -73,6 +77,8 @@ class ConfigFontSize {
       registerLoginClickText = 14.0;
       registerHaveAccountLabel = 14.0;
 
+      sizeConfirmRegisNoSentLabel = 14.0;
+
 
       sizeLanguageSelectLabel = 20.0;
     } else if (_instance._screenWidth >= 428 && _instance._screenWidth <= 768) {
@@ -89,6 +95,8 @@ class ConfigFontSize {
       loginHaveAccountLabel = 0.0;
       loginRegisterClickText = 0.0;
       registerLoginClickText = 0.0;
+
+      sizeConfirmRegisNoSentLabel = 18.0;
     }
   }
 }

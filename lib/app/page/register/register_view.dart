@@ -322,7 +322,7 @@ class RegisterPageResponsiveViewState extends clean_architecture
           return EnsureVisibleWhenFocused(
             focusNode: _usernameFocus,
             child: CustomTextField(
-              TextHint: appLocalization.usernameLabel,
+              TextHint: appLocalization.emailLabel,
               keyboardType: TextInputType.emailAddress,
               enableSuggestions: false,
               autocorrect: false,

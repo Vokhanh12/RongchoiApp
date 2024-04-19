@@ -68,6 +68,8 @@ class HomePresenter extends clean_architecture.Presenter {
   @override
   void dispose() {
     getUserUseCase.dispose();
+    logoutUseCase.dispose();
+    navigateLoginPageUseCase.dispose();
   }
 }
 

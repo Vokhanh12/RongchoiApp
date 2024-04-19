@@ -1,6 +1,7 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:rongchoi_app/app/page/register/register_presenter.dart';
+import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/register_usecase.dart';
@@ -13,7 +14,8 @@ class RegisterController extends clean_architecture.Controller {
 
   // Constructor
 
-  RegisterController(AuthenticationRepository authRepo, NavigationRepository navRepository)
+  RegisterController(
+      AuthenticationRepository authRepo, NavigationRepository navRepository)
       : _registerPresenter = RegisterPresenter(authRepo, navRepository) {
     initListeners();
   }
@@ -47,45 +49,57 @@ class RegisterController extends clean_architecture.Controller {
     _registerPresenter.goToLoginPageOnComplete = _goToLoginPageOnComplete;
     _registerPresenter.goToLoginPageOnError = _goToLoginPageOnError;
 
-  }
-
-
-  // Navigate to login page
-  void goToLoginPage(){
-      _registerPresenter.goToLoginPage(context: getContext());
+    _registerPresenter.registerOnComplete = _registerOnComplete;
+    _registerPresenter.registerOnError = _registerOnError;
+    _registerPresenter.registerOnNext = _registerOnNext;
   }
 
   // Navigate to login page
-  void goToLanguagePage(){
+  void goToLoginPage() {
+    _registerPresenter.goToLoginPage(context: getContext());
+  }
+
+  // Navigate to login page
+  void goToLanguagePage() {
     _registerPresenter.goToLanguagePage(context: getContext());
   }
 
-
-   /// Navigate is successful
+  /// Navigate is successful
   void _goToLoginPageOnComplete() {
     dismissLoading();
   }
 
-   /// Navigate is error
+  /// Navigate is error
   void _goToLoginPageOnError(e) {
     dismissLoading();
   }
 
-
-   /// Navigate is successful
+  /// Navigate is successful
   void _goToLanguagePageOnComplete() {
     dismissLoading();
   }
 
-   /// Navigate is error
+  /// Navigate is error
   void _goToLanguagePageOnError(e) {
     dismissLoading();
   }
 
+  void _registerOnComplete() {
+    dismissLoading();
+  }
+
+  void _registerOnError(e) {
+    // any cleaning or preparation goes here
+    if (_registerPresenter.registerOnError != null) {
+      dismissLoading();
+      showGenericSnackbar(getContext(), e.message, isError: true);
+    }
+  }
+
+  void _registerOnNext() {}
 
   void dismissLoading() {
     isLoading = false;
     refreshUI();
   }
-
 }

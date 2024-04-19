@@ -16,7 +16,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 // AppRouter use Presenter
 class AppRouter {
   static var Router = GoRouter(
-    initialLocation: "/",
+    initialLocation: "/confirm-registration",
     routes: [
       GoRoute(
         name:

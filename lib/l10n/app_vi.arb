@@ -7,7 +7,7 @@
   "orLabel": "Hoặc",
   "passwordLabel": "Mật khẩu",
   "rePasswordLabel": "Nhập lại mật khẩu",
-  "usernameLabel": "Tên tài khoản",
+  "usernameLabel": "Số điện thoại hoặc email",
   "loginButtonLabel": "Đăng nhập",
   "registerButtonLabel": "Đăng ký",
   "loginRegisterButtonLabel": "Đăng ký",
@@ -20,8 +20,9 @@
   "loginLanguageLabel": "Ngôn ngữ:",
   "languageSelectLanguage": "Lựa chọn ngôn ngữ",
   "languageChangeNotification": "Thay đổi ngôn ngữ thành công",
-  "registerTitle": "Đăng ký",
+  "emailLabel" : "Email",
   "firstNameLabel": "Họ",
   "lastNameLabel": "Tên",
-  "numberPhoneLabel": "Số điện thoại"
+  "numberPhoneLabel": "Số điện thoại",
+  "confirmRegisNoSentLabel": "Chúng tôi vừa gửi một mã xác minh đế số điện thoại của bạn"
 }

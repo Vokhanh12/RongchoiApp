@@ -19,10 +19,8 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
   late UserCredential _userCredential;
 
-
-
   // Convert string URL to Uri object
-  final Uri _url = Uri.parse(Constants.baseUrl);
+  final Uri _url = Uri.parse(Constants.loginRouter);
 
   // Members
   /// Singleton object of `DataAuthenticationRepository`
@@ -77,7 +75,7 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       );
 
       // en = entity package
-      en.User user = en.User.fromJson(body!['user']);
+      en.User user = en.User.fromJson(body['user']);
       print('getUser Successful. ${user.toJson()}');
 
       _saveCredentials(user: user);
@@ -118,11 +116,6 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     }
   }
 
-  @override
-  Future<void> register() {
-    throw UnimplementedError();
-  }
-
   /// Returns the current authenticated `User` from `SharedPreferences`.
   @override
   Future<en.User?> getCurrentUser() async {
@@ -161,11 +154,32 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   Future<void> veritySMS({required int code}) {
     throw UnimplementedError();
   }
-  
+
   @override
-  Future<int> resendSMS() async{
+  Future<int> resendSMS() async {
     return 1233;
   }
-  
- 
+
+  @override
+  Future<void> register(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String password,
+      required String repassword,
+      required String numberPhone}) async {
+    try {
+      // Initialize Firebase
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      _userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: "khanhtest@gmail.com", password: "123456789");
+      _logger.finest('Register firebase Successful.');
+    } on FirebaseAuthException catch (ex) {
+      _logger.warning(ex);
+      rethrow;
+    }
+  }
 }
