@@ -35,15 +35,20 @@ class LoginController extends clean_architecture.Controller {
   void initListeners() {
     // Initialize presenter listeners here
     // These will be called upon success, failure, or data retrieval after usecase execution
+
+    // Initialize [login]
     _loginPresenter.loginOnComplete = _loginOnComplete;
     _loginPresenter.loginOnError = _loginOnError;
 
+    // Initialize [goToRegisterPage]
     _loginPresenter.goToRegisterPageOnComplete = _goToRegisterPageOnComplete;
     _loginPresenter.goToRegisterPageOnError = _goToRegisterPageOnError;
 
+    // Initialize [goToLanguagePage]
     _loginPresenter.goToLanguagePageOnComplete = _goToLanguagePageOnComplete;
     _loginPresenter.goToLanguagePageOnError = _goToLanguagePageOnError;
 
+    // Initialize [goToHomePage]
     _loginPresenter.goToHomePageOnComplete = _goToHomePageOnComplete;
     _loginPresenter.goToHomePageOnError = _goToHomePageOnError;
   }

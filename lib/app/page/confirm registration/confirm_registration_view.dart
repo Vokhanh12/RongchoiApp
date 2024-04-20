@@ -5,10 +5,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pinput/pinput.dart';
 import 'package:rongchoi_app/app/page/confirm%20registration/confirm_registration_controller.dart';
+import 'package:rongchoi_app/app/page/register/form_cubit.dart';
+import 'package:rongchoi_app/app/page/register/register_controller.dart';
 import 'package:rongchoi_app/app/page/splash/splash_controller.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
@@ -19,9 +22,11 @@ import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/device/repositories/device_location_repository.dart';
+import 'package:rongchoi_app/domain/entities/form_register.dart';
 import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class ConfirmRegistrationPage extends clean_architecture.View {
   const ConfirmRegistrationPage({
@@ -40,10 +45,12 @@ class ConfirmRegistrationPageResponsiveViewState
     extends clean_architecture.ResponsiveViewState<ConfirmRegistrationPage,
         ConfirmRegistrationController> {
   ConfirmRegistrationPageResponsiveViewState()
-      : super(ConfirmRegistrationController(
-          DataAuthenticationRepository(),
-          DataNavigationRepository(),
-        ));
+      : super(
+          ConfirmRegistrationController(
+            DataAuthenticationRepository(),
+            DataNavigationRepository(),
+          ),
+        );
 
   @override
   void initState() {
@@ -85,7 +92,9 @@ class ConfirmRegistrationPageResponsiveViewState
                     flex: 1,
                     child: notiSentRichText,
                   ),
-                  SizedBox(height: 5.0,),
+                  SizedBox(
+                    height: 5.0,
+                  ),
                   Flexible(
                     flex: 1,
                     child: Center(child: tfContainNumPhone),
@@ -184,8 +193,8 @@ class ConfirmRegistrationPageResponsiveViewState
   }
 
   Widget get tfContainNumPhone {
-    return clean_architecture.ControlledWidgetBuilder<
-        ConfirmRegistrationController>(builder: (context, controller) {
+    return clean_architecture.ControlledWidgetBuilder<RegisterController>(
+        builder: (context, controller) {
       final appLocalization = AppLocalizations.of(context);
       if (appLocalization != null) {
         return Container(
@@ -195,13 +204,18 @@ class ConfirmRegistrationPageResponsiveViewState
             border: Border.all(width: 3.5, color: Color(0xFFD2D9DD)),
             borderRadius: BorderRadius.circular(15.0),
           ),
-          child: Text(
-            "0965558473",
-            style: TextStyle(
-                color: Color(0xFF727070),
-                fontSize: 26.0,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 12.0),
+          child: Selector<FormRegisterCubit, String>(
+            selector: (context, cubit) => cubit.state.numberPhone,
+            builder: (context, numberPhone, child) {
+              return Text(
+                numberPhone,
+                style: TextStyle(
+                    color: Color(0xFF727070),
+                    fontSize: 26.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 12.0),
+              );
+            },
           ),
         );
       } else {
@@ -214,22 +228,22 @@ class ConfirmRegistrationPageResponsiveViewState
     final defaultPinTheme = PinTheme(
       width: 65,
       height: 65,
-        constraints: const BoxConstraints(
-          maxWidth: 65,
-            maxHeight: 65, // Set the maximum height
-          ),
+      constraints: const BoxConstraints(
+        maxWidth: 65,
+        maxHeight: 65, // Set the maximum height
+      ),
       textStyle: const TextStyle(
           fontSize: 28,
           color: Color.fromRGBO(30, 60, 87, 1),
           fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        border: Border.all(width: 2.5, color:const  Color(0xFFD2D9DD)),
+        border: Border.all(width: 2.5, color: const Color(0xFFD2D9DD)),
         borderRadius: BorderRadius.circular(12),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(width: 3.0, color:const Color(0xFFFF8C00)),
+      border: Border.all(width: 3.0, color: const Color(0xFFFF8C00)),
       borderRadius: BorderRadius.circular(8),
     );
 
@@ -244,7 +258,7 @@ class ConfirmRegistrationPageResponsiveViewState
   }
 
   Widget get notGotcodeRichText =>
-      clean_architecture.ControlledWidgetBuilder<ConfirmRegistrationController>(
+      clean_architecture.ControlledWidgetBuilder<RegisterController>(
           builder: (context, controller) {
         final appLocalization = AppLocalizations.of(context);
         if (appLocalization != null) {

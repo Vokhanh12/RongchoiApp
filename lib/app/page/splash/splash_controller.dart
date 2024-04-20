@@ -22,11 +22,16 @@ class SplashController extends clean_architecture.Controller {
   }
 
   @override
+  // this is called automatically by the parent class
   void initListeners() {
-    // TODO: implement initListeners
+    // Initialize presenter listeners here
+    // These will be called upon success, failure, or data retrieval after usecase execution
+
+    // Initialize [getAuthStatus]
     _splashPresenter.getAuthStatusOnNext = authStatusOnNext;
     _splashPresenter.getAuthStatusOnComplete = () => isLoading = false;
 
+    // Initialize [goToLoginPage]
     _splashPresenter.goToLoginPageError = _goToLoginPageOnError;
     _splashPresenter.goToLoginPageOnComplete = _goToLoginPageOnComplete;
   }
@@ -86,6 +91,7 @@ class SplashController extends clean_architecture.Controller {
 
   void dispose() {
     _splashPresenter.dispose();
+    super.dispose();
   }
 
   void dismissLoading() {

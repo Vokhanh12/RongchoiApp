@@ -371,6 +371,7 @@ class LoginPageResponsiveViewState
           return EnsureVisibleWhenFocused(
               focusNode: _emailFocus,
               child: CustomTextField(
+                controller: controller.emailTextController,
                 TextHint: appLocalization.usernameLabel,
                 keyboardType: TextInputType.emailAddress,
                 enableSuggestions: false,
@@ -401,6 +402,7 @@ class LoginPageResponsiveViewState
               child: Stack(
                 children: [
                   CustomTextField(
+                    controller: controller.passwordTextController,
                     TextHint: appLocalization.passwordLabel,
                     enableSuggestions: false,
                     autocorrect: false,

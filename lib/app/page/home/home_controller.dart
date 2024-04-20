@@ -24,11 +24,13 @@ class HomeController extends clean_architecture.Controller {
   @override
   // this is called automatically by the parent class
   void initListeners() {
+    
+    // Initialize [getUser]
     homePresenter.getUserOnNext = _getUserOnNext;
     homePresenter.getUserOnComplete = _getUserOnComplete;
-    // On error, show a snackbar, remove the user, and refresh the UI
     homePresenter.getUserOnError = _getUserOnError;
 
+    // Initialize [logout]
     homePresenter.logoutOnNext = _logoutOnNext;
     homePresenter.logoutOnComplete = _logoutOnComplete;
     homePresenter.logoutOnError = _logoutOnError;

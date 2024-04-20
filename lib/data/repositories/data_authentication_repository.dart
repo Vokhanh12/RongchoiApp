@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:rongchoi_app/app/page/register/form_cubit.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/data/utils/constants.dart';
 import 'package:rongchoi_app/data/utils/http_helper.dart';
+import 'package:rongchoi_app/domain/entities/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rongchoi_app/firebase_options.dart';
@@ -161,12 +163,12 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   }
 
   @override
-  Future<void> register(
+  Future<FormRegister> register(
       {required String firstName,
       required String lastName,
       required String email,
       required String password,
-      required String repassword,
+      required String rePassword,
       required String numberPhone}) async {
     try {
       // Initialize Firebase
@@ -175,8 +177,14 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       );
 
       _userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: "khanhtest@gmail.com", password: "123456789");
+          .createUserWithEmailAndPassword(email: "test24@gmail.com", password: "123456789");  
       _logger.finest('Register firebase Successful.');
+
+
+
+      return FormRegister(firstName, lastName, email, password, rePassword, numberPhone);
+
+
     } on FirebaseAuthException catch (ex) {
       _logger.warning(ex);
       rethrow;

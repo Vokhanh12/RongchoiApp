@@ -80,7 +80,8 @@ class DataNavigationRepository extends NavigationRepository {
   }
 
   @override
-  Future<void> goToConRegisPage({required BuildContext context}) async {
-    GoRouter.of(context).push('/confirm-registration');
+  Future<void> goToConRegisPage(
+      {required BuildContext context}) async {
+      GoRouter.of(context).push("/confirm-registration");
   }
 }

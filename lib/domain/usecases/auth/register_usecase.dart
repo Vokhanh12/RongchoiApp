@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:rongchoi_app/domain/entities/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 
-class RegisterUseCase extends CompletableUseCase<RegisterUseCaseParams> {
+class RegisterUseCase extends UseCase<RegisterUseCaseResponse,RegisterUseCaseParams> {
   final AuthenticationRepository _authenticationRepository;
 
   RegisterUseCase(this._authenticationRepository);
 
   @override
-  Future<Stream<void>> buildUseCaseStream(RegisterUseCaseParams? params) async {
-    final StreamController controller = StreamController();
+   Future<Stream<RegisterUseCaseResponse?>> buildUseCaseStream(RegisterUseCaseParams? params) async {
+    final controller = StreamController<RegisterUseCaseResponse>();
     try {
       /*
       // assuming you pass credentials here
@@ -20,14 +21,17 @@ class RegisterUseCase extends CompletableUseCase<RegisterUseCaseParams> {
       // triggers onComplete
       */
 
-      await _authenticationRepository.register(
-          firstName: params!.firstName,
-          lastName: params!.lastName,
-          email: params!.email,
-          password: params!.password,
-          repassword: params!.repassword,
-          numberPhone: params!.numberPhone);
-          logger.finest('RegisterUseCase successful.');
+       final formRegister = await _authenticationRepository.register(
+          firstName: params!.formRegister.firstName,
+          lastName: params!.formRegister.lastName,
+          email: params!.formRegister.email,
+          password: params!.formRegister.password,
+          rePassword: params!.formRegister.rePassword,
+          numberPhone: params!.formRegister.numberPhone);
+
+      controller.add(RegisterUseCaseResponse(formRegister));
+
+      logger.finest('RegisterUseCase successful.');
 
       controller.close();
     } catch (e) {
@@ -41,15 +45,16 @@ class RegisterUseCase extends CompletableUseCase<RegisterUseCaseParams> {
 }
 
 class RegisterUseCaseParams {
-  // variable
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String password;
-  final String repassword;
-  final String numberPhone;
+  final FormRegister formRegister;
 
   // constructor
-  RegisterUseCaseParams(this.firstName, this.lastName, this.email,
-      this.password, this.repassword, this.numberPhone);
+  RegisterUseCaseParams(this.formRegister);
 }
+
+class RegisterUseCaseResponse {
+  final FormRegister formRegister;
+
+  // constructor
+  RegisterUseCaseResponse(this.formRegister);
+}
+

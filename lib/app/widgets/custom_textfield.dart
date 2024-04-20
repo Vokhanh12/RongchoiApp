@@ -91,6 +91,7 @@ class _LoginTextFieldState extends State<CustomTextField> {
 }
 
 */
+
 class CustomTextField extends StatefulWidget {
   final String TextHint;
   final VoidCallback? onTap;
@@ -99,6 +100,7 @@ class CustomTextField extends StatefulWidget {
   final bool enableSuggestions;
   final bool autocorrect;
   final bool obscureText;
+  final TextEditingController controller;
 
   CustomTextField({
     Key? key,
@@ -106,6 +108,7 @@ class CustomTextField extends StatefulWidget {
     required this.enableSuggestions,
     required this.autocorrect,
     required this.obscureText,
+    required this.controller,
     this.keyboardType = TextInputType.emailAddress,
     this.onTap,
     this.onChanged,
@@ -127,6 +130,7 @@ class _MyTextFieldState extends State<CustomTextField> {
         });
         widget.onTap?.call();
       },
+      controller: widget.controller,
       onChanged: widget.onChanged,
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText,
@@ -140,7 +144,7 @@ class _MyTextFieldState extends State<CustomTextField> {
         labelStyle: TextStyle(
           color: _isChangeToActive
               ? Colors.orange.withOpacity(1)
-              :  Color(0xFFA3A9AC).withOpacity(1),
+              : Color(0xFFA3A9AC).withOpacity(1),
           fontSize: 16,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w500,

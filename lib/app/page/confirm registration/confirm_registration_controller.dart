@@ -20,7 +20,7 @@ class ConfirmRegistrationController extends clean_architecture.Controller {
   int get currentCodeSMS => _currentCodeSMS;
 
   late bool codeSMSRetrieved;
-  bool isLoading = false;
+  late bool isLoading;
 
   // Constructor
   ConfirmRegistrationController(
@@ -28,7 +28,9 @@ class ConfirmRegistrationController extends clean_architecture.Controller {
     NavigationRepository navRepo,
   ) : _confirmRegistrationPresenter =
             ConfirmRegistrationPresenter(authRepo, navRepo) {
+              
     codeSMSRetrieved = false;
+    isLoading = false;
 
   }
 

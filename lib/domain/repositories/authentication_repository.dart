@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rongchoi_app/domain/entities/form_register.dart';
 import 'package:rongchoi_app/domain/entities/user.dart';
 
 abstract class AuthenticationRepository {
   Future<void> authenticate({required String email, required String password});
 
-  Future<void> register(
+  Future<FormRegister> register(
       {required String firstName,
       required String lastName,
       required String email,
       required String password,
-      required String repassword,
+      required String rePassword,
       required String numberPhone});
 
   /// Returns whether the [User] is authenticated.

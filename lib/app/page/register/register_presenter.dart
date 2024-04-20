@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
+import 'package:http/http.dart';
+import 'package:rongchoi_app/domain/entities/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/register_usecase.dart';
@@ -70,8 +72,7 @@ class RegisterPresenter extends clean_architecture.Presenter {
       required String numberPhone}) {
     _registerUseCase.execute(
         _RegisterUseCaseObserver(this),
-        RegisterUseCaseParams(
-            firstName, lastName, username, password, rePassword, numberPhone));
+        RegisterUseCaseParams(FormRegister(firstName,lastName, username, password, rePassword, numberPhone)));
   }
 
   void goToLanguagePage({required BuildContext context}) {
@@ -92,15 +93,15 @@ class RegisterPresenter extends clean_architecture.Presenter {
   /// Initializes [Presenter] listeners
   @override
   void dispose() {
-    // TODO: implement dispose
     _registerUseCase.dispose();
     _navLanguagePageUseCase.dispose();
     _navLoginPageUseCase.dispose();
+    _navConRegisPageUseCase.dispose();
   }
 }
 
 /// The [Observer] used to observe the `Stream` of the [RegisterUseCase]
-class _RegisterUseCaseObserver implements clean_architecture.Observer<void> {
+class _RegisterUseCaseObserver implements clean_architecture.Observer<RegisterUseCaseResponse> {
   // The above presenter
   // This is not optimal, but it is a workaround due to dart limitations. Dart does
   // not support inner classes or anonymous classes.
@@ -110,7 +111,9 @@ class _RegisterUseCaseObserver implements clean_architecture.Observer<void> {
 
   /// implement if the `Stream` emits a value
   // in this case, unnecessary
-  void onNext(_) {}
+  void onNext(response) {
+      _registerPresenter.registerOnNext(response!.formRegister);
+  }
 
   /// Navigate Languageis successful, trigger event in [RegisterController]
   void onComplete() {
@@ -178,7 +181,7 @@ class _NavigateLoginPageUseCaseObserver
 
   /// Navigate Language is unsuccessful, trigger event in [RegisterController]
   void onError(e) {
-    // any cleaning or preparation goes here
+    // any cleaning or preparation goes rere
     if (_registerPresenter.registerOnError != null) {
       _registerPresenter.goToLoginPageOnError(e);
     }

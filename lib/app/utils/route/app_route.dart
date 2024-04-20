@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +15,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 // AppRouter use Presenter
 class AppRouter {
   static var Router = GoRouter(
-    initialLocation: "/confirm-registration",
+    initialLocation: "/",
     routes: [
       GoRoute(
         name:
@@ -32,7 +31,7 @@ class AppRouter {
           );
         },
       ),
-            GoRoute(
+      GoRoute(
         name:
             'home', // Optional, add name to your routes. Allows you navigate by name instead of path
         path: '/home',
@@ -88,15 +87,19 @@ class AppRouter {
           );
         },
       ),
-
-        GoRoute(
+      GoRoute(
         name:
             'confirm-registration', // Optional, add name to your routes. Allows you navigate by name instead of path
         path: '/confirm-registration',
+
         pageBuilder: (_, state) {
+         
           return CustomTransitionPage(
             key: state.pageKey,
-            child: const ConfirmRegistrationPage(title: "confirm-registration"),
+            child: ConfirmRegistrationPage(
+              title: "confirm-registration",
+            
+            ),
             transitionDuration: const Duration(seconds: 1),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),

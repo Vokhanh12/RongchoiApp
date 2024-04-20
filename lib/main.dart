@@ -7,6 +7,7 @@ import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
+import 'package:rongchoi_app/app/page/register/form_cubit.dart';
 import 'package:rongchoi_app/app/page/register/register_controller.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 import 'package:rongchoi_app/app/utils/route/app_route.dart';
@@ -44,6 +45,7 @@ void main() {
           create: (_) => HomeController(DataUsersRepository(),
               DataAuthenticationRepository(), DataNavigationRepository())),
       Provider(create: (_) => LanguageCubit()),
+      Provider(create: (_) => FormRegisterCubit()),
     ],
     child: MyApp(),
   ));
