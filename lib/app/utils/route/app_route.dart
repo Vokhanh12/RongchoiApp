@@ -88,17 +88,14 @@ class AppRouter {
         },
       ),
       GoRoute(
-        name:
-            'confirm-registration', // Optional, add name to your routes. Allows you navigate by name instead of path
-        path: '/confirm-registration',
+        name: 'confirm-registration', // Tên của tuyến đi
+        path: '/confirm-registration', // Đường dẫn của tuyến đi
 
         pageBuilder: (_, state) {
-         
           return CustomTransitionPage(
             key: state.pageKey,
-            child: ConfirmRegistrationPage(
+            child: const ConfirmRegistrationPage(
               title: "confirm-registration",
-            
             ),
             transitionDuration: const Duration(seconds: 1),
             transitionsBuilder: (_, a, __, c) =>

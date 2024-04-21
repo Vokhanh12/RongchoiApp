@@ -22,7 +22,7 @@ class RegisterController extends clean_architecture.Controller {
 
   FormRegister? _formRegister;
 
-  FormRegister? get getFormRegister => _formRegister;
+  FormRegister? get getFrmRegis => _formRegister;
 
   // Presenter
   final RegisterPresenter _registerPresenter;
@@ -101,16 +101,16 @@ class RegisterController extends clean_architecture.Controller {
 
   // Navigate to login page
   void goToLoginPage() {
-    _registerPresenter.goToLoginPage(context: getContext());
+    _registerPresenter.goToLoginPage(getContext());
   }
 
   // Navigate to login page
   void goToLanguagePage() {
-    _registerPresenter.goToLanguagePage(context: getContext());
+    _registerPresenter.goToLanguagePage(getContext());
   }
 
   void goToConRegisPage() {
-    _registerPresenter.goToConRegisPage(context: getContext());
+    _registerPresenter.goToConRegisPage(getContext(), getFrmRegis!);
   }
 
   /// Navigate is successful
@@ -135,23 +135,27 @@ class RegisterController extends clean_architecture.Controller {
 
   void _registerOnComplete() {
     dismissLoading();
-    // save to use provider
-
-    print(_formRegister!.numberPhone.toString());
-
-    print("formRegister retrieve");
-
-    getContext().read<FormRegisterCubit>().changeForm(_formRegister!);
-
-      // Đợi 3 giây và sau đó hiển thị widget
-    Future.delayed(Duration(seconds: 1), () {
+    
+    Future.delayed(const Duration(seconds: 1), () {
          goToConRegisPage();
     });
 
-
   }
 
+  void _registerOnError(e) {
+    // any cleaning or preparation goes here
+    if (_registerPresenter.registerOnError != null) {
+      dismissLoading();
+      showGenericSnackbar(getContext(), e.message, isError: true);
+      
+       _formRegister = null;
+
+    }
+  }
+  
   void _registerOnNext(frmRegister) {
+
+    // if register success so get return form register to next
     _formRegister = frmRegister;
 
     refreshUI(); // Refreshes the UI manually
@@ -164,17 +168,11 @@ class RegisterController extends clean_architecture.Controller {
 
   void _goToConRegisPageOnError() {
     dismissLoading();
+    
   }
 
   void _goToConRegisPageOnNext(String numberPhone) {}
 
-  void _registerOnError(e) {
-    // any cleaning or preparation goes here
-    if (_registerPresenter.registerOnError != null) {
-      dismissLoading();
-      showGenericSnackbar(getContext(), e.message, isError: true);
-    }
-  }
 
   void dismissLoading() {
     isLoading = false;

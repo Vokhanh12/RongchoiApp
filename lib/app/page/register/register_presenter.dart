@@ -75,19 +75,19 @@ class RegisterPresenter extends clean_architecture.Presenter {
         RegisterUseCaseParams(FormRegister(firstName,lastName, username, password, rePassword, numberPhone)));
   }
 
-  void goToLanguagePage({required BuildContext context}) {
+  void goToLanguagePage(BuildContext context) {
     _navLanguagePageUseCase.execute(_NavigateLanguagePageUseCaseObserver(this),
         NavigateLanguagePageUseCaseParams(context));
   }
 
-  void goToLoginPage({required BuildContext context}) {
+  void goToLoginPage(BuildContext context) {
     _navLoginPageUseCase.execute(_NavigateLoginPageUseCaseObserver(this),
         NavigateLoginPageUseCaseParams(context));
   }
 
-  void goToConRegisPage({required BuildContext context}){
+  void goToConRegisPage(BuildContext context, FormRegister formRegis){
     _navConRegisPageUseCase.execute(_NavConRegisPageUseCaseObserver(this),
-    NavConRegisPageUseCaseParams(context));
+    NavConRegisPageUseCaseParams(context, formRegis));
   }
 
   /// Initializes [Presenter] listeners
@@ -111,16 +111,19 @@ class _RegisterUseCaseObserver implements clean_architecture.Observer<RegisterUs
 
   /// implement if the `Stream` emits a value
   // in this case, unnecessary
+  @override
   void onNext(response) {
       _registerPresenter.registerOnNext(response!.formRegister);
   }
 
+  @override
   /// Navigate Languageis successful, trigger event in [RegisterController]
   void onComplete() {
     // any cleaning or preparation goes here
     _registerPresenter.registerOnComplete();
   }
 
+  @override
   /// Navigate Languagewas unsuccessful, trigger event in [RegisterController]
   void onError(e) {
     // any cleaning or preparation goes here

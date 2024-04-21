@@ -78,7 +78,7 @@ class ConfirmRegistrationPageResponsiveViewState
             alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, top: 25.0, right: 0.0, bottom: 0.0),
+                  left: 10.0, top: 25.0, right: 0.0, bottom: 0.0),
               child: iconBackButton,
             ),
           ),
@@ -92,7 +92,7 @@ class ConfirmRegistrationPageResponsiveViewState
                     flex: 1,
                     child: notiSentRichText,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5.0,
                   ),
                   Flexible(
@@ -197,29 +197,26 @@ class ConfirmRegistrationPageResponsiveViewState
         builder: (context, controller) {
       final appLocalization = AppLocalizations.of(context);
       if (appLocalization != null) {
+        final FormRegister form =
+            GoRouterState.of(context).extra! as FormRegister;
         return Container(
-          height: 55,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            border: Border.all(width: 3.5, color: Color(0xFFD2D9DD)),
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: Selector<FormRegisterCubit, String>(
-            selector: (context, cubit) => cubit.state.numberPhone,
-            builder: (context, numberPhone, child) {
-              return Text(
-                numberPhone,
-                style: TextStyle(
-                    color: Color(0xFF727070),
-                    fontSize: 26.0,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 12.0),
-              );
-            },
-          ),
-        );
+            height: 55,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: Border.all(width: 3.5, color: const Color(0xFFD2D9DD)),
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: Text(
+              form.numberPhone,
+              style: const TextStyle(
+                  color: Color(0xFF727070),
+                  fontSize: 26.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 12.0),
+            ));
       } else {
-        return Container();
+        // Xử lý trường hợp args không hợp lệ
+        return const Text('Invalid data passed');
       }
     });
   }

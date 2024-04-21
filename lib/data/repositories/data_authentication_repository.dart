@@ -177,13 +177,10 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       );
 
       _userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: "test24@gmail.com", password: "123456789");  
+          .createUserWithEmailAndPassword(email: "test2@gmail.com", password: "123456789");  
       _logger.finest('Register firebase Successful.');
 
-
-
       return FormRegister(firstName, lastName, email, password, rePassword, numberPhone);
-
 
     } on FirebaseAuthException catch (ex) {
       _logger.warning(ex);

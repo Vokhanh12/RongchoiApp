@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rongchoi_app/domain/entities/form_register.dart';
 
 abstract class NavigationRepository {
   Future<void> goToLoginPage({required BuildContext context});
@@ -10,7 +11,7 @@ abstract class NavigationRepository {
 
   Future<void> goToHomePage({required BuildContext context});
 
-  Future<void> goToConRegisPage({required BuildContext context});
+  Future<void> goToConRegisPage({required BuildContext context, required FormRegister formRegister});
 
   Future<void> backNavigationPage({required BuildContext context});
 
