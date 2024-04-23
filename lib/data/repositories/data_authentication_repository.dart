@@ -6,12 +6,14 @@ import 'package:rongchoi_app/app/page/register/form_cubit.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/data/utils/constants.dart';
 import 'package:rongchoi_app/data/utils/http_helper.dart';
+import 'package:rongchoi_app/domain/entities/api.dart';
 import 'package:rongchoi_app/domain/entities/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rongchoi_app/firebase_options.dart';
 import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 import 'package:rongchoi_app/domain/entities/user.dart' as en;
 
@@ -51,7 +53,7 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       // Sign with email and password to Firebase
       _userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: 'test@gmail.com',
-        password: 'Aa@123456789',
+        password: '12345678',
       );
       _logger.finest('Login firebase Successful.');
     } on FirebaseAuthException catch (ex) {
@@ -62,7 +64,10 @@ class DataAuthenticationRepository extends AuthenticationRepository {
     // handle server
     try {
       // If user credentials are successful, then retrieve the token from Firebase.
-      var token = await _userCredential.user!.getIdToken();
+
+      String? token = await _userCredential.user!.getIdToken();
+
+      Map<String, dynamic> decodedToken = JwtDecoder.decode(token!);
       Log.d("Bearer $token", runtimeType);
 
       Map<String, String> query = {
@@ -78,7 +83,11 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
       // en = entity package
       en.User user = en.User.fromJson(body['user']);
+      API apiKey = APIKey.fromJson(body['api_key']);
+      API refAPIKey = RefreshAPIKey.fromJson(body['refresh_api_key']);
       print('getUser Successful. ${user.toJson()}');
+      print('apiKey Successful. ${apiKey.toJson()}');
+      print('refresh api key Successful. ${refAPIKey.toJson()}');
 
       _saveCredentials(user: user);
     } catch (ex) {
@@ -177,11 +186,12 @@ class DataAuthenticationRepository extends AuthenticationRepository {
       );
 
       _userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: "test2@gmail.com", password: "123456789");  
+          .createUserWithEmailAndPassword(
+              email: "test2@gmail.com", password: "123456789");
       _logger.finest('Register firebase Successful.');
 
-      return FormRegister(firstName, lastName, email, password, rePassword, numberPhone);
-
+      return FormRegister(
+          firstName, lastName, email, password, rePassword, numberPhone);
     } on FirebaseAuthException catch (ex) {
       _logger.warning(ex);
       rethrow;

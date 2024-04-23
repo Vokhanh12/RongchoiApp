@@ -55,6 +55,8 @@ dependencies:
   http: ^1.2.1
   lottie: ^3.1.0
   pinput: ^4.0.0
+  jwt_decode: ^0.3.1
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_clean_architecture: ^5.0.4

@@ -1,3 +1,5 @@
+import 'package:rongchoi_app/domain/entities/api.dart';
+
 enum UserRole {
   buyer,
   seller,
@@ -16,8 +18,7 @@ class User {
   final DateTime dateOfBirth;
   final String address;
   final UserRole role;
-  final String api_key;
-
+ 
   User(
       this.id,
       this.createdAt,
@@ -30,7 +31,8 @@ class User {
       this.dateOfBirth,
       this.numberPhone,
       this.role,
-      this.api_key);
+
+      );
 
   User.fromUser(User user)
       : id = user.id,
@@ -43,8 +45,7 @@ class User {
         numberPhone = user.numberPhone,
         dateOfBirth = user.dateOfBirth,
         address = user.address,
-        role = user.role,
-        api_key = user.api_key;
+        role = user.role;
 
   User.fromJson(Map<String, dynamic> map)
       : id = map['id'],
@@ -59,8 +60,7 @@ class User {
             map['day_of_birth']['Time']), // Parsing nested time string
         address = map['address']['String'], // Assuming address is a String
         role = UserRole.values
-            .firstWhere((e) => e.toString().split('.').last == map['role']),
-        api_key = map['api_key'];
+            .firstWhere((e) => e.toString().split('.').last == map['role']);
 
   /// Convert [this] to a Json `Map<String, dynamic>`. Complex structures keep their initial
   /// types.
@@ -76,7 +76,6 @@ class User {
         'date_of_birth': dateOfBirth.toIso8601String(),
         'address': address,
         'role': role.toString().split('.').last,
-        'api_key': api_key,
       };
 
   /// Convert [this] to a Json `Map<String, String>`. All complex structures
