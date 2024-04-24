@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:rongchoi_app/domain/entities/form_register.dart';
+import 'package:rongchoi_app/domain/utils/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 
 class RegisterUseCase extends UseCase<RegisterUseCaseResponse,RegisterUseCaseParams> {

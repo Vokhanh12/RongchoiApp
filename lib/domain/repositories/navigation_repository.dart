@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rongchoi_app/domain/entities/form_register.dart';
+import 'package:rongchoi_app/domain/utils/form_register.dart';
 
 abstract class NavigationRepository {
   Future<void> goToLoginPage({required BuildContext context});

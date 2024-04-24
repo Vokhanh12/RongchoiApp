@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:rongchoi_app/domain/entities/form_register.dart';
+import 'package:rongchoi_app/domain/utils/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
 class DataNavigationRepository extends NavigationRepository {

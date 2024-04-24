@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:rongchoi_app/domain/entities/language.dart';
+import 'package:rongchoi_app/domain/utils/language.dart';
 
 
 

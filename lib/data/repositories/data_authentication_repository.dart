@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rongchoi_app/app/page/register/form_cubit.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
 import 'package:rongchoi_app/data/utils/constants.dart';
 import 'package:rongchoi_app/data/utils/http_helper.dart';
-import 'package:rongchoi_app/domain/entities/api.dart';
-import 'package:rongchoi_app/domain/entities/form_register.dart';
+import 'package:rongchoi_app/domain/utils/api.dart';
+import 'package:rongchoi_app/domain/utils/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rongchoi_app/firebase_options.dart';
@@ -15,7 +16,7 @@ import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import 'package:rongchoi_app/domain/entities/user.dart' as en;
+import 'package:rongchoi_app/domain/entities/user.dart' as entity;
 
 class DataAuthenticationRepository extends AuthenticationRepository {
   // Variables
@@ -37,13 +38,16 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   }
 
   factory DataAuthenticationRepository() => _instance;
-
   @override
   Future<void> authenticate({
     required String email,
     required String password,
   }) async {
     // handle firebase
+    UserCredential? _userCredential;
+    String? token;
+    Map<String, String>? query; // Declare query here
+
     try {
       // Initialize Firebase
       await Firebase.initializeApp(
@@ -52,46 +56,49 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
       // Sign with email and password to Firebase
       _userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: 'test@gmail.com',
-        password: '12345678',
+        email: 'test@gmail.com', // Use the parameter value
+        password: '12345678', // Use the parameter value
       );
       _logger.finest('Login firebase Successful.');
-    } on FirebaseAuthException catch (ex) {
-      _logger.warning(ex);
-      rethrow;
-    }
 
-    // handle server
-    try {
-      // If user credentials are successful, then retrieve the token from Firebase.
+      // Retrieve the token from Firebase after successful sign-in
+      token = await _userCredential.user!.getIdToken();
 
-      String? token = await _userCredential.user!.getIdToken();
-
-      Map<String, dynamic> decodedToken = JwtDecoder.decode(token!);
-      Log.d("Bearer $token", runtimeType);
-
-      Map<String, String> query = {
-        'Authorization': 'Bearer $token',
+      // Set the Authorization header for the HTTP request
+      query = {
+        'Authorization': 'Bearer $token', // Use the retrieved token
       };
 
       // Invoke http request to login and convert body to map
-      Map<String, dynamic> body = await HttpHelper.invokeHttp(
+      var body = await HttpHelper.invokeHttp(
         _url,
         RequestType.get,
         headers: query,
       );
 
-      // en = entity package
-      en.User user = en.User.fromJson(body['user']);
-      API apiKey = APIKey.fromJson(body['api_key']);
-      API refAPIKey = RefreshAPIKey.fromJson(body['refresh_api_key']);
-      print('getUser Successful. ${user.toJson()}');
-      print('apiKey Successful. ${apiKey.toJson()}');
-      print('refresh api key Successful. ${refAPIKey.toJson()}');
+      // Parse response body into User, APIKey, and RefreshAPIKey objects
+      entity.User user = entity.User.fromJson(body['user']);
+      APIKey apiKey = APIKey.fromJson(body['api_key']);
+      RefreshAPIKey refAPIKey = RefreshAPIKey.fromJson(body['refresh_api_key']);
 
-      _saveCredentials(user: user);
+      print(
+          'getUser Successful. ${user.toJson()}'); // Use safe navigation operator
+      print(
+          'apiKey Successful. ${apiKey.toJson()}'); // Use safe navigation operator
+      print(
+          'refresh api key Successful. ${refAPIKey.toJson()}'); // Use safe navigation operator
+
+      // Save user credentials
+      _saveCredentials(
+          email: email,
+          password: password,
+          user: user,
+          token: token!,
+          apiKey: apiKey,
+          refAPIKey: refAPIKey);
     } catch (ex) {
-      print('bug:$ex');
+      _logger.warning(ex);
+      rethrow;
     }
   }
 
@@ -118,6 +125,14 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   Future<bool> logout() async {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
+      FlutterSecureStorage sercureStorage = new FlutterSecureStorage();
+
+      // delete the infomation
+      sercureStorage.delete(key: Constants.token);
+      sercureStorage.delete(key: Constants.email);
+      sercureStorage.delete(key: Constants.password);
+      sercureStorage.delete(key: Constants.apiKey);
+      sercureStorage.delete(key: Constants.refAPIKey);
       preferences.remove(Constants.isAuthenticatedKey);
       _logger.finest('Logout successful.');
       return true;
@@ -129,11 +144,11 @@ class DataAuthenticationRepository extends AuthenticationRepository {
 
   /// Returns the current authenticated `User` from `SharedPreferences`.
   @override
-  Future<en.User?> getCurrentUser() async {
+  Future<entity.User?> getCurrentUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? userJson = preferences.getString(Constants.userKey);
     if (userJson != null) {
-      en.User user = en.User.fromJson(jsonDecode(userJson));
+      entity.User user = entity.User.fromJson(jsonDecode(userJson));
       return user;
     } else {
       // Trả về null hoặc xử lý tùy theo logic của ứng dụng
@@ -142,9 +157,16 @@ class DataAuthenticationRepository extends AuthenticationRepository {
   }
 
   /// Saves the [token] and the [user] in `SharedPreferences`.
-  void _saveCredentials({required en.User user}) async {
+  void _saveCredentials(
+      {required entity.User user,
+      required String token,
+      required APIKey apiKey,
+      required RefreshAPIKey refAPIKey,
+      required String email,
+      required String password}) async {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
+      FlutterSecureStorage sercureStorage = new FlutterSecureStorage();
       await Future.wait([
         preferences.setBool(
           Constants.isAuthenticatedKey,
@@ -153,7 +175,13 @@ class DataAuthenticationRepository extends AuthenticationRepository {
         preferences.setString(
           Constants.userKey,
           jsonEncode(user),
-        )
+        ),
+        sercureStorage.write(key: Constants.token, value: token),
+        sercureStorage.write(key: Constants.apiKey, value: jsonEncode(apiKey)),
+        sercureStorage.write(
+            key: Constants.refAPIKey, value: jsonEncode(refAPIKey)),
+        sercureStorage.write(key: Constants.email, value: email),
+        sercureStorage.write(key: Constants.password, value: password),
       ]);
       _logger.finest('Credentials successfully stored.');
     } catch (error) {

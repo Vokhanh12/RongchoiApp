@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:rongchoi_app/domain/entities/language.dart';
+import 'package:rongchoi_app/domain/utils/language.dart';
 import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
 import 'package:rongchoi_app/main.dart';
 

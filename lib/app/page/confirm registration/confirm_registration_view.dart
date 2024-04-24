@@ -22,7 +22,7 @@ import 'package:rongchoi_app/app/widgets/custom_textfield.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 import 'package:rongchoi_app/device/repositories/device_location_repository.dart';
-import 'package:rongchoi_app/domain/entities/form_register.dart';
+import 'package:rongchoi_app/domain/utils/form_register.dart';
 import 'package:rongchoi_app/shared/build_config/config_font_size.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

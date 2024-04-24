@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/language/language_presenter.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
-import 'package:rongchoi_app/domain/entities/language.dart';
+import 'package:rongchoi_app/domain/utils/language.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
