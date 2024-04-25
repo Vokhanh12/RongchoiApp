@@ -47,7 +47,7 @@ void main() {
       Provider(create: (_) => LanguageCubit()),
       Provider(create: (_) => FormRegisterCubit()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 

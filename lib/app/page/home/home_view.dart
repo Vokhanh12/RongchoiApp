@@ -10,38 +10,21 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import '../../../data/repositories/data_users_repository.dart';
 
 class HomePage extends clean_architecture.View {
-  final StatefulNavigationShell navigationShell;
-
-  const HomePage({Key? key, required this.title, required this.navigationShell})
-      : super(key: key);
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
   HomePageState createState() =>
       // inject dependencies inwards
-      HomePageState(navigationShell);
+      HomePageState();
 }
 
 class HomePageState
     extends clean_architecture.ResponsiveViewState<HomePage, HomeController> {
-  final StatefulNavigationShell navigationShell;
-
-  HomePageState(StatefulNavigationShell navigationShell)
-      : navigationShell = navigationShell,
-        super(HomeController(DataUsersRepository(),
+  HomePageState()
+      : super(HomeController(DataUsersRepository(),
             DataAuthenticationRepository(), DataNavigationRepository()));
-
-  void _goBranch(int index) {
-    navigationShell.goBranch(
-      index,
-      // A common pattern when using bottom navigation bars is to support
-      // navigating to the initial location when tapping the item that is
-      // already active. This example demonstrates how to support this behavior,
-      // using the initialLocation parameter of goBranch.
-      initialLocation: index == navigationShell.currentIndex,
-    );
-  }
 
   Widget HomeScaffold({Widget? child}) {
     return Scaffold(
@@ -51,34 +34,18 @@ class HomePageState
   }
 
   Widget _buildHomeFormWidget() {
+    const labelStyle = TextStyle(fontFamily: 'Roboto');
     return clean_architecture.ControlledWidgetBuilder<HomeController>(
-      builder: (context, controller) {
-        return Scaffold(
-          body: Align(
-            alignment: Alignment.center,
-            child: TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.blue,
-              ),
-              onPressed: () {
-                controller.logout();
-              },
-              child: Text('Logout'),
-            ),
-          ),
-          bottomNavigationBar: NavigationBar(
-            destinations: const [
-              // the appearance of each tab is defined with a [NavigationDestination] widget
-              NavigationDestination(label: 'Section A', icon: Icon(Icons.home)),
-              NavigationDestination(
-                  label: 'Section B', icon: Icon(Icons.settings)),
-            ],
-            onDestinationSelected: _goBranch,
-          ),
-        );
-      },
-    );
+        builder: (context, controller) {
+      return Scaffold(
+        body: Center(
+          child: TextButton(child: Text("Logout"),
+          onPressed: () => controller.logout(),),
+        ),
+      );
+    });
   }
+
 
   @override
   // TODO: implement desktopView

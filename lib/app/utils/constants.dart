@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:rongchoi_app/app/widgets/custom_bottom_nav_bar_item.dart';
 import 'package:rongchoi_app/domain/utils/language.dart';
-
-
 
 class Resources {
   static const String background = 'none';
@@ -56,8 +55,34 @@ class Resources {
       iconUrl: 'assets/svg/icon-language/icon-united-kingdom.svg',
     ),
   ];
-} 
 
+  static const List<MyCustomBottomNavBarItem> tabs = [
+    MyCustomBottomNavBarItem(
+      icon: Icon(Icons.home),
+      activeIcon: Icon(Icons.home),
+      label: 'HOME',
+      initialLocation: Routes.homeNamePage,
+    ),
+    MyCustomBottomNavBarItem(
+      icon: Icon(Icons.explore_outlined),
+      activeIcon: Icon(Icons.explore),
+      label: 'STORE',
+      initialLocation: Routes.storeNamePage,
+    ),
+    MyCustomBottomNavBarItem(
+      icon: Icon(Icons.storefront_outlined),
+      activeIcon: Icon(Icons.storefront),
+      label: 'JOBS',
+      initialLocation: Routes.jobsNamePage,
+    ),
+    MyCustomBottomNavBarItem(
+      icon: Icon(Icons.account_circle_outlined),
+      activeIcon: Icon(Icons.account_circle),
+      label: Routes.mediaSocialNamePage,
+      initialLocation: '/media-social',
+    ),
+  ];
+}
 
 class Routes {
   static const root = '/';
@@ -65,6 +90,10 @@ class Routes {
   static const registerNamePage = '/register';
   static const homeNamePage = '/home';
   static const languageNamePage = '/language';
+  static const storeNamePage = '/store';
+  static const jobsNamePage = '/jobs';
+  static const mediaSocialNamePage = '/media-social';
+  static const confirmRegisNamePage = '/confirm-registration';
 
   /*
   static const homeNamedPage = '/home';
