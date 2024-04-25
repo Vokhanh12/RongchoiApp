@@ -15,7 +15,7 @@ class NavigateHomePageUseCase extends CompletableUseCase<NavigateHomePageUseCase
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToHomePage(context: params!.context);
+      await _navigationRepository.goToHomePage(params!.context);
       logger.finest('NavigateHomePageUseCase successful.');
       // triggers onComplete
       controller.close();

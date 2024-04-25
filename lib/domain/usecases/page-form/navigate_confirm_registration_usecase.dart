@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:rongchoi_app/domain/utils/form_register.dart';
+import 'package:rongchoi_app/shared/utils/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/repositories/users_repository.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
@@ -16,7 +16,7 @@ class NavigateConfirmRegistrationPageUseCase extends CompletableUseCase< NavConR
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToConRegisPage(context: params!.context, formRegister: params!.form);
+      await _navigationRepository.goToConRegisPage(params!.context,params!.form);
       logger.finest('NavigateConfirmRegistrationPageUseCase successful.');
       // triggers onComplete
       controller.close();

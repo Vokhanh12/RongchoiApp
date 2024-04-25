@@ -1,4 +1,4 @@
-import 'package:rongchoi_app/domain/utils/location.dart';
+import 'package:rongchoi_app/shared/utils/location.dart';
 
 /// Handles operations related to location services.
 abstract class LocationRepository {

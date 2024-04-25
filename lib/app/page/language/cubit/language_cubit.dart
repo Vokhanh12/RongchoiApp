@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
-import 'package:rongchoi_app/domain/utils/language.dart';
+import 'package:rongchoi_app/shared/utils/language.dart';
 
 class LanguageCubit extends Cubit<Language>{
 

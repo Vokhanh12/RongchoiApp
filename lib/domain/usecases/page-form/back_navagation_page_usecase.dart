@@ -15,7 +15,7 @@ class BackNavigationPageUseCase extends CompletableUseCase<BackNavigationPageUse
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.backNavigationPage(context: params!.context);
+      await _navigationRepository.backNavigationPage(params!.context);
       logger.finest('BackNavigationPageUseCase successful.');
       // triggers onComplete
       controller.close();

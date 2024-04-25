@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 
+
 class HomeWithNavBarController extends clean_architecture.Controller {
   bool isLoading = false;
   int _currentIndex = 0;
@@ -23,4 +24,36 @@ class HomeWithNavBarController extends clean_architecture.Controller {
     _currentIndex = index;
     router.go(location);
   }
+
+
+  void _goToJobsPage(){
+
+  }
+
+
+  void _goToStorePage(){
+
+  }
+
+  void _goToMediaSocialPage(){
+  }
+
+
+  void _goToLanguagePage(){
+
+  }
+
+  void _goToSettingPage(){
+
+  }
+    
+
+
+
+
+
+
+
+
+
 }

@@ -1,5 +1,5 @@
 import 'package:rongchoi_app/app/utils/constants.dart';
-import 'package:rongchoi_app/domain/utils/language.dart';
+import 'package:rongchoi_app/shared/utils/language.dart';
 
 class SystemConfig {
 

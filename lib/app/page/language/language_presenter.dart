@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
-import 'package:rongchoi_app/domain/utils/language.dart';
+import 'package:rongchoi_app/shared/utils/language.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/back_navagation_page_usecase.dart';
 import 'package:rongchoi_app/shared/build_config/system_config.dart';

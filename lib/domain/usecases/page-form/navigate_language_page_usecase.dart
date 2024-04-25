@@ -15,7 +15,7 @@ class NavigateLanguagePageUseCase extends CompletableUseCase<NavigateLanguagePag
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToLanguagePage(context: params!.context);
+      await _navigationRepository.goToLanguagePage(params!.context);
       logger.finest('NavigateLanguagePageUseCase successful.');
       // triggers onComplete
       controller.close();

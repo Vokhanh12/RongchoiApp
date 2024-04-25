@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:rongchoi_app/domain/utils/form_register.dart';
+import 'package:rongchoi_app/shared/utils/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
 class DataNavigationRepository extends NavigationRepository {
@@ -20,7 +20,7 @@ class DataNavigationRepository extends NavigationRepository {
   factory DataNavigationRepository() => _instance;
 
   @override
-  Future<void> goToHomePage({required BuildContext context}) async {
+  Future<void> goToHomePage(BuildContext context) async {
     // TODO: implement goToHomePage
     // Go to Home Page
     GoRouter.of(context).push('/home');
@@ -34,7 +34,7 @@ class DataNavigationRepository extends NavigationRepository {
   }
 
   @override
-  Future<void> goToLoginPage({required BuildContext context}) async {
+  Future<void> goToLoginPage(BuildContext context) async {
     // TODO: implement goToLoginPage
     // Go to Jobs Page
     GoRouter.of(context).push('/login');
@@ -47,15 +47,9 @@ class DataNavigationRepository extends NavigationRepository {
     GoRouter.of(context).push('/map');
   }
 
-  @override
-  Future<void> goToMediaSocialPage(BuildContext context) async {
-    // TODO: implement goToMediaSocialPage
-    // Go to Jobs Page
-    GoRouter.of(context).push('/MediaSocial');
-  }
 
   @override
-  Future<void> goToRegisterPage({required BuildContext context}) async {
+  Future<void> goToRegisterPage(BuildContext context) async {
     // TODO: implement goToRegisterPage
     // Go to Jobs Page
     GoRouter.of(context).push('/register');
@@ -69,22 +63,48 @@ class DataNavigationRepository extends NavigationRepository {
   }
 
   @override
-  Future<void> goToLanguagePage({required BuildContext context}) async {
+  Future<void> goToLanguagePage(BuildContext context) async {
     // TODO: implement goToLanguagePage
     GoRouter.of(context).push('/language');
   }
 
   @override
-  Future<void> backNavigationPage({required BuildContext context}) async {
+  Future<void> backNavigationPage(BuildContext context) async {
     // TODO: implement backNavigationPage
     Navigator.of(context).pop();
   }
 
   @override
-  Future<void> goToConRegisPage({
-    required BuildContext context,
-    required FormRegister formRegister,
-  }) async {
+  Future<void> goToConRegisPage(
+    BuildContext context,
+    FormRegister formRegister,
+  ) async {
     context.go('/confirm-registration', extra: formRegister);
   }
+
+  @override
+  Future<void> goToOtherTab(BuildContext context, String name) async {
+    switch (name) {
+      case "STORE":
+        goToStorePage(context);
+        break;
+      case "MEDIASOCIAL":
+        goToMediaSocialPage(context);
+        break;
+    }
+  }
+
+  @override
+  Future<void> goToStorePage(BuildContext context) {
+    // TODO: implement goToStorePage
+    throw UnimplementedError();
+  }
+
+    @override
+  Future<void> goToMediaSocialPage(BuildContext context) async {
+    // TODO: implement goToMediaSocialPage
+    // Go to Jobs Page
+    GoRouter.of(context).push('/MediaSocial');
+  }
+
 }

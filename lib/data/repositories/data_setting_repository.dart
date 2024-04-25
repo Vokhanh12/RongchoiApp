@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
 import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
-import 'package:rongchoi_app/domain/utils/language.dart';
+import 'package:rongchoi_app/shared/utils/language.dart';
 import 'package:rongchoi_app/domain/repositories/setting_repository.dart';
 import 'package:logging/logging.dart';
 import 'package:rongchoi_app/main.dart';

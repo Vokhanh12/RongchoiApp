@@ -10,7 +10,7 @@ import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
 import 'package:rongchoi_app/app/page/register/form_cubit.dart';
 import 'package:rongchoi_app/app/page/register/register_controller.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
-import 'package:rongchoi_app/app/utils/route/app_route.dart';
+import 'package:rongchoi_app/app/utils/app_route.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';

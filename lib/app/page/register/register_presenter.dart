@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:http/http.dart';
-import 'package:rongchoi_app/domain/utils/form_register.dart';
+import 'package:rongchoi_app/shared/utils/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/authentication_repository.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/usecases/auth/register_usecase.dart';

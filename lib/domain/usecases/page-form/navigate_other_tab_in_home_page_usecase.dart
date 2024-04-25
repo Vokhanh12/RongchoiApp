@@ -5,17 +5,17 @@ import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 import 'package:rongchoi_app/domain/repositories/users_repository.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
-class NavigateOtherTabInHomePageUseCase extends UseCase<NavigateOtherTabInHomePageUseCaseUseCaseParams> {
+class NavigateOtherTabInHomePageUseCase extends UseCase<NavOtherTabInHomePageUseCaseParams> {
   final NavigationRepository _navigationRepository;
 
   NavigateOtherTabInHomePageUseCase(this._navigationRepository);
 
   @override
-  Future<Stream<void>> buildUseCaseStream(NavigateOtherTabInHomePageUseCaseUseCaseParams? params) async {
+  Future<Stream<void>> buildUseCaseStream(NavOtherTabInHomePageUseCaseParams? params) async {
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToOtherTab(context: params!.context, name: params!.name);
+      await _navigationRepository.goToOtherTab(params!.context,params!.name);
       logger.finest('NavigateOtherTabInHomePage successful.');
       // triggers onComplete
       controller.close();
@@ -29,23 +29,22 @@ class NavigateOtherTabInHomePageUseCase extends UseCase<NavigateOtherTabInHomePa
   }
 }
 
-class NavigateOtherTabInHomePageUseCaseUseCaseParams {
+class NavOtherTabInHomePageUseCaseParams {
 
   final BuildContext context;
 
   final String name;
 
 
-  NavigateOtherTabInHomePageUseCaseUseCaseParams(this.context, this.name);
+  NavOtherTabInHomePageUseCaseParams(this.context, this.name);
 
 }
 
-abstract class NavigatePage{
 
   
 
 
-}
+
 
 
 

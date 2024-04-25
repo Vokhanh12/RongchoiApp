@@ -15,7 +15,7 @@ class NavigateRegisterPageUseCase extends CompletableUseCase<NavigateRegisterPag
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToRegisterPage(context: params!.context);
+      await _navigationRepository.goToRegisterPage(params!.context);
       logger.finest('NavigateRegisterPageUseCase successful.');
       // triggers onComplete
       controller.close();

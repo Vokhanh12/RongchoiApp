@@ -1,5 +1,5 @@
 
-import 'package:rongchoi_app/domain/utils/location.dart';
+import 'package:rongchoi_app/shared/utils/location.dart';
 import 'package:rongchoi_app/domain/repositories/location_repository.dart';
 import 'package:location/location.dart' as LocationLib;
 

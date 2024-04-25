@@ -52,7 +52,7 @@ class HomeWithNavBarPageResponsiveViewState extends clean_architecture
   Widget _buildHomeWithNavBarFormWidget() {
     return clean_architecture.ControlledWidgetBuilder<HomeWithNavBarController>(
         builder: (context, controller) {
-      return ScaffoldWithNavBar(onTap: widget.onTap,child: widget.child,);
+      return ScaffoldWithNavBar(onTap: controller.     ,child: widget.child,);
     });
   }
 

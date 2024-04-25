@@ -15,7 +15,7 @@ class NavigateLoginPageUseCase extends CompletableUseCase<NavigateLoginPageUseCa
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToLoginPage(context: params!.context);
+      await _navigationRepository.goToLoginPage(params!.context);
       logger.finest('NavigateLoginPageUseCase successful.');
       // triggers onComplete
       controller.close();

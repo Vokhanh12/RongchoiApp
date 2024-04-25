@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:rongchoi_app/app/widgets/custom_bottom_nav_bar_item.dart';
-import 'package:rongchoi_app/domain/utils/language.dart';
+import 'package:rongchoi_app/shared/utils/language.dart';
+import 'package:rongchoi_app/shared/utils/tab.dart' as TabUtil;
 
 class Resources {
   static const String background = 'none';
@@ -56,31 +57,27 @@ class Resources {
     ),
   ];
 
-  static const List<MyCustomBottomNavBarItem> tabs = [
-    MyCustomBottomNavBarItem(
-      icon: Icon(Icons.home),
-      activeIcon: Icon(Icons.home),
-      label: 'HOME',
-      initialLocation: Routes.homeNamePage,
-    ),
-    MyCustomBottomNavBarItem(
-      icon: Icon(Icons.explore_outlined),
-      activeIcon: Icon(Icons.explore),
-      label: 'STORE',
-      initialLocation: Routes.storeNamePage,
-    ),
-    MyCustomBottomNavBarItem(
-      icon: Icon(Icons.storefront_outlined),
-      activeIcon: Icon(Icons.storefront),
-      label: 'JOBS',
-      initialLocation: Routes.jobsNamePage,
-    ),
-    MyCustomBottomNavBarItem(
-      icon: Icon(Icons.account_circle_outlined),
-      activeIcon: Icon(Icons.account_circle),
-      label: Routes.mediaSocialNamePage,
-      initialLocation: '/media-social',
-    ),
+  static const List<TabUtil.Tab> tabs = [
+    TabUtil.Tab(
+        urlIcon: '',
+        urlActiveIcon: '',
+        name: 'Home',
+        route: Routes.loginNamePage),
+    TabUtil.Tab(
+        urlIcon: '',
+        urlActiveIcon: '',
+        name: 'MediaSocial',
+        route: Routes.mediaSocialNamePage),
+    TabUtil.Tab(
+        urlIcon: '',
+        urlActiveIcon: '',
+        name: 'Jobs',
+        route: Routes.homeNamePage),
+    TabUtil.Tab(
+        urlIcon: '',
+        urlActiveIcon: '',
+        name: 'Store',
+        route: Routes.storeNamePage),
   ];
 }
 

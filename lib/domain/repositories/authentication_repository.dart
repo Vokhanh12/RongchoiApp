@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rongchoi_app/domain/utils/form_register.dart';
+import 'package:rongchoi_app/shared/utils/form_register.dart';
 import 'package:rongchoi_app/domain/entities/user.dart';
 
 abstract class AuthenticationRepository {
