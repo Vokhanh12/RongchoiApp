@@ -19,7 +19,7 @@ abstract class NavigationRepository {
 
   Future<void> goToMediaSocialPage(BuildContext context);
 
-  Future<void> goToOtherTab(BuildContext context, String name);
+  Future<dynamic> goToOtherTab(BuildContext context, int index);
 
   Future<void> goToConRegisPage(
       BuildContext context, FormRegister formRegister);

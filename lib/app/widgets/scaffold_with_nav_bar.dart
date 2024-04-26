@@ -18,6 +18,29 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
 
   final tabs = Resources.tabs;
 
+  late List<BottomNavigationBarItem> bottomNavigationBarItems;
+
+  @override
+  void initState() {
+    bottomNavigationBarItems = []; // Initialize the list here
+    tabs.forEach((element) {
+      var currentNavBarItem = BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        activeIcon: Icon(Icons.home),
+        label: element.name,
+      );
+
+      bottomNavigationBarItems.add(currentNavBarItem);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     const labelStyle = TextStyle(fontFamily: 'Roboto');
@@ -33,22 +56,8 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
         type: BottomNavigationBarType.fixed,
         onTap: widget.onTap,
         currentIndex: _currentIndex,
-        items: tabs,
+        items: bottomNavigationBarItems,
       ),
     );
-  }
-
-  void _goOtherTab(BuildContext context, int index) {
-    if (index == _currentIndex) return;
-    GoRouter router = GoRouter.of(context);
-    String location = tabs[index].initialLocation;
-    if (index == 3) {
-      router.push(location);
-    }
-
-    setState(() {
-      _currentIndex = index;
-      router.go(location);
-    });
   }
 }

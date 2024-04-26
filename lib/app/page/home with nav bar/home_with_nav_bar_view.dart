@@ -12,14 +12,13 @@ class HomeWithNavBarPage extends clean_architecture.View {
     Key? key,
     required this.title,
     required this.child,
-  
   }) : super(key: key);
 
   final String title;
   final Widget child;
   @override
- HomeWithNavBarPageResponsiveViewState createState() =>
-     HomeWithNavBarPageResponsiveViewState();
+  HomeWithNavBarPageResponsiveViewState createState() =>
+      HomeWithNavBarPageResponsiveViewState();
 }
 
 class HomeWithNavBarPageResponsiveViewState extends clean_architecture
@@ -52,7 +51,15 @@ class HomeWithNavBarPageResponsiveViewState extends clean_architecture
   Widget _buildHomeWithNavBarFormWidget() {
     return clean_architecture.ControlledWidgetBuilder<HomeWithNavBarController>(
         builder: (context, controller) {
-      return ScaffoldWithNavBar(onTap: controller.     ,child: widget.child,);
+      return ScaffoldWithNavBar(
+        onTap: (index) {
+          
+          print(index.toString());
+
+          controller.goToOtherTab(context: context, index: index);
+        },
+        child: widget.child,
+      );
     });
   }
 

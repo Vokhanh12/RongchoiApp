@@ -62,22 +62,22 @@ class Resources {
         urlIcon: '',
         urlActiveIcon: '',
         name: 'Home',
-        route: Routes.loginNamePage),
+        initialLocation: Routes.loginNamePage),
     TabUtil.Tab(
         urlIcon: '',
         urlActiveIcon: '',
         name: 'MediaSocial',
-        route: Routes.mediaSocialNamePage),
+        initialLocation: Routes.mediaSocialNamePage),
     TabUtil.Tab(
         urlIcon: '',
         urlActiveIcon: '',
         name: 'Jobs',
-        route: Routes.homeNamePage),
+        initialLocation: Routes.homeNamePage),
     TabUtil.Tab(
         urlIcon: '',
         urlActiveIcon: '',
         name: 'Store',
-        route: Routes.storeNamePage),
+        initialLocation: Routes.storeNamePage),
   ];
 }
 

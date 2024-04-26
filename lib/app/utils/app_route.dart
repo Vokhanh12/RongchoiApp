@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/confirm%20registration/confirm_registration_view.dart';
+import 'package:rongchoi_app/app/page/home%20with%20nav%20bar/home_with_nav_bar_view.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
 import 'package:rongchoi_app/app/page/job/jobs_view.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
@@ -41,7 +42,7 @@ class AppRouter {
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
-        return ScaffoldWithNavBar(child: child);
+        return HomeWithNavBarPage( title: "HomeWithNavBarPage" ,child: child);
       },
       routes: [
         GoRoute(

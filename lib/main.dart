@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:go_router/go_router.dart';
+import 'package:rongchoi_app/app/page/home%20with%20nav%20bar/home_with_nav_bar_controller.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
@@ -44,6 +45,7 @@ void main() {
       ChangeNotifierProvider(
           create: (_) => HomeController(DataUsersRepository(),
               DataAuthenticationRepository(), DataNavigationRepository())),
+              ChangeNotifierProvider(create: (_) => HomeWithNavBarController(DataNavigationRepository())),
       Provider(create: (_) => LanguageCubit()),
       Provider(create: (_) => FormRegisterCubit()),
     ],

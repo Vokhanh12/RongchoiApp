@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:rongchoi_app/app/utils/constants.dart';
 import 'package:rongchoi_app/shared/utils/form_register.dart';
 import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
@@ -47,7 +48,6 @@ class DataNavigationRepository extends NavigationRepository {
     GoRouter.of(context).push('/map');
   }
 
-
   @override
   Future<void> goToRegisterPage(BuildContext context) async {
     // TODO: implement goToRegisterPage
@@ -83,28 +83,25 @@ class DataNavigationRepository extends NavigationRepository {
   }
 
   @override
-  Future<void> goToOtherTab(BuildContext context, String name) async {
-    switch (name) {
-      case "STORE":
-        goToStorePage(context);
-        break;
-      case "MEDIASOCIAL":
-        goToMediaSocialPage(context);
-        break;
+  Future<dynamic> goToOtherTab(BuildContext context, int index) async {
+    try {
+      return [context, index];
+    } catch (ex) {
+      return ex.toString();
     }
   }
 
   @override
-  Future<void> goToStorePage(BuildContext context) {
+  Future<void> goToStorePage(BuildContext context) async {
     // TODO: implement goToStorePage
-    throw UnimplementedError();
+    GoRouter router = GoRouter.of(context);
+    router.go(Routes.storeNamePage);
   }
 
-    @override
+  @override
   Future<void> goToMediaSocialPage(BuildContext context) async {
     // TODO: implement goToMediaSocialPage
     // Go to Jobs Page
-    GoRouter.of(context).push('/MediaSocial');
+    GoRouter.of(context).push(Routes.mediaSocialNamePage);
   }
-
 }
