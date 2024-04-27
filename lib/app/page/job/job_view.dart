@@ -2,28 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:rongchoi_app/app/page/home%20with%20nav%20bar/home_with_nav_bar_controller.dart';
 import 'package:rongchoi_app/app/page/job/job_controller.dart';
 import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
-import 'package:rongchoi_app/app/widgets/scaffold_with_nav_bar.dart';
 
-class HomeWithNavBarPage extends clean_architecture.View {
-  const HomeWithNavBarPage({
+class JobPage extends clean_architecture.View {
+  const JobPage({
     Key? key,
     required this.title,
-    required this.child,
   }) : super(key: key);
 
   final String title;
-  final Widget child;
+
   @override
-  HomeWithNavBarPageResponsiveViewState createState() =>
-      HomeWithNavBarPageResponsiveViewState();
+  JobsPageResponsiveViewState createState() =>
+      JobsPageResponsiveViewState();
 }
 
-class HomeWithNavBarPageResponsiveViewState extends clean_architecture
-    .ResponsiveViewState<HomeWithNavBarPage, JobController> {
-  HomeWithNavBarPageResponsiveViewState()
+class JobsPageResponsiveViewState extends clean_architecture
+    .ResponsiveViewState<JobPage, JobController> {
+  JobsPageResponsiveViewState()
       : super(
           JobController(
               // DataAuthenticationRepository(),
@@ -41,24 +38,18 @@ class HomeWithNavBarPageResponsiveViewState extends clean_architecture
     super.dispose();
   }
 
-  Widget homeWithNavBarScaffold({Widget? child}) {
+  Widget jobsScaffold({Widget? child}) {
     return Scaffold(
       key: globalKey,
       body: child, // Provide a default value for child
     );
   }
 
-  Widget _buildHomeWithNavBarFormWidget() {
-    return clean_architecture.ControlledWidgetBuilder<HomeWithNavBarController>(
+  Widget _buildJobsFormWidget() {
+    return clean_architecture.ControlledWidgetBuilder<JobController>(
         builder: (context, controller) {
-      return ScaffoldWithNavBar(
-        onTap: (index) {
-          
-          print(index.toString());
-
-          controller.goToOtherTab(context: context, index: index);
-        },
-        child: widget.child,
+      return Center(
+        child: Text("JobPage"),
       );
     });
   }
@@ -66,12 +57,12 @@ class HomeWithNavBarPageResponsiveViewState extends clean_architecture
   @override
   // TODO: implement mobileView
   Widget get mobileView =>
-      clean_architecture.ControlledWidgetBuilder<HomeWithNavBarController>(
+      clean_architecture.ControlledWidgetBuilder<JobController>(
           builder: (context, controller) {
         return ModalProgressHUD(
             inAsyncCall: controller.isLoading,
-            child: homeWithNavBarScaffold(
-              child: _buildHomeWithNavBarFormWidget(),
+            child: jobsScaffold(
+              child: _buildJobsFormWidget(),
             ));
       });
 

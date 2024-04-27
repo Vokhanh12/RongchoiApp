@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rongchoi_app/app/widgets/scaffold_with_nav_bar.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 
@@ -10,9 +11,10 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import '../../../data/repositories/data_users_repository.dart';
 
 class HomePage extends clean_architecture.View {
-  const HomePage({Key? key, required this.title}) : super(key: key);
+  const HomePage({Key? key, required this.title, required this.child}) : super(key: key);
 
   final String title;
+  final Widget child;
 
   @override
   HomePageState createState() =>
@@ -26,7 +28,7 @@ class HomePageState
       : super(HomeController(DataUsersRepository(),
             DataAuthenticationRepository(), DataNavigationRepository()));
 
-  Widget HomeScaffold({Widget? child}) {
+  Widget homeScaffold({Widget? child}) {
     return Scaffold(
       key: globalKey,
       body: child,
@@ -37,15 +39,15 @@ class HomePageState
     const labelStyle = TextStyle(fontFamily: 'Roboto');
     return clean_architecture.ControlledWidgetBuilder<HomeController>(
         builder: (context, controller) {
-      return Scaffold(
-        body: Center(
-          child: TextButton(child: Text("Logout"),
-          onPressed: () => controller.logout(),),
-        ),
+      return ScaffoldWithNavBar(
+        onTap: (index) async {
+          print(index.toString());
+          controller.goToOtherTab(context: context, index: index);
+        },
+        child: widget.child,
       );
     });
   }
-
 
   @override
   // TODO: implement desktopView
@@ -53,15 +55,14 @@ class HomePageState
 
   @override
   // TODO: implement mobileView
-  Widget get mobileView => HomeScaffold(
-        child: clean_architecture.ControlledWidgetBuilder<HomeController>(
+  Widget get mobileView =>  clean_architecture.ControlledWidgetBuilder<HomeController>(
           builder: (context, controller) {
             return ModalProgressHUD(
-                inAsyncCall: controller.isLoading,
-                child: _buildHomeFormWidget());
-          },
-        ),
-      );
+            inAsyncCall: controller.isLoading,
+            child: homeScaffold(
+              child: _buildHomeFormWidget(),
+            ),);
+      });
 
   @override
   // TODO: implement tabletView

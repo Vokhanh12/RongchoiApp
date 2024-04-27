@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/confirm%20registration/confirm_registration_view.dart';
 import 'package:rongchoi_app/app/page/home%20with%20nav%20bar/home_with_nav_bar_view.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
-import 'package:rongchoi_app/app/page/job/jobs_view.dart';
+import 'package:rongchoi_app/app/page/job/job_view.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:rongchoi_app/app/page/media%20social/media_social_view.dart';
@@ -42,21 +42,32 @@ class AppRouter {
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
-        return HomeWithNavBarPage( title: "HomeWithNavBarPage" ,child: child);
+        return HomePage(
+          title: 'HomePage',
+          child: child,
+        );
       },
       routes: [
         GoRoute(
-          name: 'home',
-          path: '/home', // Thêm ký tự '/' ở đầu đường dẫn
-          builder: (context, state) {
-            return const HomePage(title: 'HomePage');
-          },
-        ),
-        GoRoute(
           name: 'jobs',
           path: '/jobs',
-          builder: (context, state) {
-            return const JobsPage(title: 'JobPage');
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: JobPage(title: 'JobPage'),
+              transitionsBuilder: (context, animation, secondaryAnimation,
+                      child) =>
+                  SlideTransition(
+                      position: animation.drive(
+                        Tween<Offset>(
+                          begin: Offset(0.75, 0),
+                          end: Offset.zero,
+                        ).chain(CurveTween(curve: Curves.easeIn)),
+                      ),
+                      // textDirection:
+                      //    leftToRight ? TextDirection.ltr : TextDirection.rtl,
+                      child: child),
+            );
           },
         ),
         GoRoute(

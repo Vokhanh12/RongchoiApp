@@ -61,23 +61,23 @@ class Resources {
     TabUtil.Tab(
         urlIcon: '',
         urlActiveIcon: '',
-        name: 'Home',
-        initialLocation: Routes.loginNamePage),
-    TabUtil.Tab(
-        urlIcon: '',
-        urlActiveIcon: '',
         name: 'MediaSocial',
         initialLocation: Routes.mediaSocialNamePage),
     TabUtil.Tab(
         urlIcon: '',
         urlActiveIcon: '',
-        name: 'Jobs',
-        initialLocation: Routes.homeNamePage),
+        name: 'Store',
+        initialLocation: Routes.storeNamePage),
     TabUtil.Tab(
         urlIcon: '',
         urlActiveIcon: '',
-        name: 'Store',
-        initialLocation: Routes.storeNamePage),
+        name: 'Jobs',
+        initialLocation: Routes.jobsNamePage),
+    TabUtil.Tab(
+        urlIcon: '',
+        urlActiveIcon: '',
+        name: 'Personal',
+        initialLocation: Routes.personalNamePage),
   ];
 }
 
@@ -91,6 +91,7 @@ class Routes {
   static const jobsNamePage = '/jobs';
   static const mediaSocialNamePage = '/media-social';
   static const confirmRegisNamePage = '/confirm-registration';
+  static const personalNamePage = '/personal';
 
   /*
   static const homeNamedPage = '/home';

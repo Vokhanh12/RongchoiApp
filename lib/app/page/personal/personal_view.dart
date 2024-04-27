@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:rongchoi_app/app/page/job/jobs_controller.dart';
+import 'package:rongchoi_app/app/page/job/job_controller.dart';
 import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
+import 'package:rongchoi_app/app/page/personal/personal_controller.dart';
 
-class JobsPage extends clean_architecture.View {
-  const JobsPage({
+class PersonalPage extends clean_architecture.View {
+  const PersonalPage({
     Key? key,
     required this.title,
   }) : super(key: key);
@@ -14,15 +15,15 @@ class JobsPage extends clean_architecture.View {
   final String title;
 
   @override
-  JobsPageResponsiveViewState createState() =>
-      JobsPageResponsiveViewState();
+  PersonalPageResponsiveViewState createState() =>
+      PersonalPageResponsiveViewState();
 }
 
-class JobsPageResponsiveViewState extends clean_architecture
-    .ResponsiveViewState<JobsPage, JobsController> {
-  JobsPageResponsiveViewState()
+class PersonalPageResponsiveViewState extends clean_architecture
+    .ResponsiveViewState<PersonalPage, PersonalController> {
+  PersonalPageResponsiveViewState()
       : super(
-          JobsController(
+          PersonalController(
               // DataAuthenticationRepository(),
               //DataNavigationRepository(),
               ),
@@ -46,10 +47,10 @@ class JobsPageResponsiveViewState extends clean_architecture
   }
 
   Widget _buildJobsFormWidget() {
-    return clean_architecture.ControlledWidgetBuilder<JobsController>(
+    return clean_architecture.ControlledWidgetBuilder<JobController>(
         builder: (context, controller) {
-      return Center(
-        child: Text("JobPage"),
+      return const Center(
+        child: Text("PersonalPage"),
       );
     });
   }
@@ -57,7 +58,7 @@ class JobsPageResponsiveViewState extends clean_architecture
   @override
   // TODO: implement mobileView
   Widget get mobileView =>
-      clean_architecture.ControlledWidgetBuilder<JobsController>(
+      clean_architecture.ControlledWidgetBuilder<JobController>(
           builder: (context, controller) {
         return ModalProgressHUD(
             inAsyncCall: controller.isLoading,

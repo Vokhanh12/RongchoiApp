@@ -34,6 +34,11 @@ class SplashController extends clean_architecture.Controller {
     // Initialize [goToLoginPage]
     _splashPresenter.goToLoginPageError = _goToLoginPageOnError;
     _splashPresenter.goToLoginPageOnComplete = _goToLoginPageOnComplete;
+
+    // Initialize [goToMediaSocial]
+    _splashPresenter.goToMediaSocialPageOnComplete = _goToMediaSocialOnComplete;
+    _splashPresenter.goToMediaSocialPageOnError = _goToMediaSocialOnError;
+    _splashPresenter.goToMediaSocialPageOnNext = _goToMediaSocialOnNext;
   }
 
   /// Initializes [animation] for the view using a given [controller]
@@ -54,13 +59,14 @@ class SplashController extends clean_architecture.Controller {
   }
 
   void authStatusOnNext(bool isAuth) {
-    const HOME_PAGE = '/home';
+    // In the home page, setting up the social media tab is the first page.
+    const HOME_PAGE = '/media-social';
     const LOGIN_PAGE = '/login';
 
     String page = isAuth ? HOME_PAGE : LOGIN_PAGE;
 
     if (page == HOME_PAGE) {
-      GoRouter.of(getContext()).go(HOME_PAGE);
+        GoRouter.of(getContext()).go(HOME_PAGE);
     } else {
       _splashPresenter.goToLoginPage(context: getContext());
     }
@@ -98,4 +104,10 @@ class SplashController extends clean_architecture.Controller {
     isLoading = false;
     refreshUI();
   }
+
+  void _goToMediaSocialOnComplete() {}
+
+  void _goToMediaSocialOnError(e) {}
+
+  void _goToMediaSocialOnNext(bool status) {}
 }

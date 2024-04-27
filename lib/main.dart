@@ -5,12 +5,16 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import 'package:go_router/go_router.dart';
 import 'package:rongchoi_app/app/page/home%20with%20nav%20bar/home_with_nav_bar_controller.dart';
 import 'package:rongchoi_app/app/page/home/home_controller.dart';
+import 'package:rongchoi_app/app/page/job/job_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
+import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
+import 'package:rongchoi_app/app/page/personal/personal_controller.dart';
 import 'package:rongchoi_app/app/page/register/form_cubit.dart';
 import 'package:rongchoi_app/app/page/register/register_controller.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
+import 'package:rongchoi_app/app/page/store/store_controller.dart';
 import 'package:rongchoi_app/app/utils/app_route.dart';
 import 'package:rongchoi_app/app/page/home/home_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -45,7 +49,17 @@ void main() {
       ChangeNotifierProvider(
           create: (_) => HomeController(DataUsersRepository(),
               DataAuthenticationRepository(), DataNavigationRepository())),
-              ChangeNotifierProvider(create: (_) => HomeWithNavBarController(DataNavigationRepository())),
+      ChangeNotifierProvider(
+          create: (_) => HomeWithNavBarController(DataNavigationRepository())),
+      ChangeNotifierProvider(create: (_) => PersonalController()),
+      ChangeNotifierProvider(
+          create: (_) => JobController()),
+              ChangeNotifierProvider(
+          create: (_) => MediaSocialController()),
+                ChangeNotifierProvider(
+          create: (_) => JobController()),
+              ChangeNotifierProvider(
+          create: (_) => StoreController()),
       Provider(create: (_) => LanguageCubit()),
       Provider(create: (_) => FormRegisterCubit()),
     ],

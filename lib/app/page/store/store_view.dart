@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:rongchoi_app/app/page/job/jobs_controller.dart';
+import 'package:rongchoi_app/app/page/job/job_controller.dart';
 import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
 import 'package:rongchoi_app/app/page/store/store_controller.dart';
 

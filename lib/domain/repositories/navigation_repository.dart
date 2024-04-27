@@ -13,7 +13,7 @@ abstract class NavigationRepository {
 
   Future<void> goToHomePage(BuildContext context);
 
-  Future<void> goToJobsPage(BuildContext context);
+  Future<void> goToJobPage(BuildContext context);
 
   Future<void> goToStorePage(BuildContext context);
 
@@ -29,6 +29,9 @@ abstract class NavigationRepository {
   Future<void> goToSplashPage(BuildContext context);
 
   Future<void> goToMapPage(BuildContext context);
+
+  Future<void> goToPersonalPage(BuildContext context);
+
 
   // more .....
 }

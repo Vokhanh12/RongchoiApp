@@ -1,7 +1,7 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 
-class JobsController extends clean_architecture.Controller {
+class JobController extends clean_architecture.Controller {
     bool isLoading = false;
 
 

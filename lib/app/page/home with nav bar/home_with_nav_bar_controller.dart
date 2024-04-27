@@ -40,9 +40,6 @@ class HomeWithNavBarController extends clean_architecture.Controller {
         _goToOtherTabInHomePageOnNext;
   }
 
-  void goToOtherTab({required BuildContext context, required int index}) {
-    _homeWithNavBarPresenter.goToOtherTab(context, index);
-  }
 
   void _goToOtherTabInHomePageOnComplete() {}
 
@@ -62,6 +59,11 @@ class HomeWithNavBarController extends clean_architecture.Controller {
         break;
     }
   }
+
+    void goToOtherTab({required BuildContext context, required int index}) {
+    _homeWithNavBarPresenter.goToOtherTab(context, index);
+  }
+
 
   void _goToJobsPage({required BuildContext context}) {}
 

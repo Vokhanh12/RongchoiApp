@@ -94,14 +94,21 @@ class DataNavigationRepository extends NavigationRepository {
   @override
   Future<void> goToStorePage(BuildContext context) async {
     // TODO: implement goToStorePage
-    GoRouter router = GoRouter.of(context);
-    router.go(Routes.storeNamePage);
+    GoRouter.of(context).go(Routes.storeNamePage);
   }
 
   @override
   Future<void> goToMediaSocialPage(BuildContext context) async {
-    // TODO: implement goToMediaSocialPage
-    // Go to Jobs Page
-    GoRouter.of(context).push(Routes.mediaSocialNamePage);
+    GoRouter.of(context).go(Routes.mediaSocialNamePage);
+  }
+
+  @override
+  Future<void> goToJobPage(BuildContext context) async {
+    GoRouter.of(context).go(Routes.jobsNamePage);
+  }
+
+  @override
+  Future<void> goToPersonalPage(BuildContext context) async {
+    GoRouter.of(context).go(Routes.personalNamePage);
   }
 }
