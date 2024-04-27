@@ -59,23 +59,23 @@ class Resources {
 
   static const List<TabUtil.Tab> tabs = [
     TabUtil.Tab(
-        urlIcon: '',
-        urlActiveIcon: '',
+       icon: Icon(Icons.home),
+      activeIcon: Icon(Icons.home),
         name: 'MediaSocial',
         initialLocation: Routes.mediaSocialNamePage),
     TabUtil.Tab(
-        urlIcon: '',
-        urlActiveIcon: '',
+        icon: Icon(Icons.explore_outlined),
+      activeIcon: Icon(Icons.explore),
         name: 'Store',
         initialLocation: Routes.storeNamePage),
     TabUtil.Tab(
-        urlIcon: '',
-        urlActiveIcon: '',
+          icon: Icon(Icons.storefront_outlined),
+      activeIcon: Icon(Icons.storefront),
         name: 'Jobs',
         initialLocation: Routes.jobsNamePage),
     TabUtil.Tab(
-        urlIcon: '',
-        urlActiveIcon: '',
+       icon: Icon(Icons.account_circle_outlined),
+      activeIcon: Icon(Icons.account_circle),
         name: 'Personal',
         initialLocation: Routes.personalNamePage),
   ];

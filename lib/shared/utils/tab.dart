@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
+
 class Tab {
-  final String urlIcon;
-  final String urlActiveIcon;
+  final Widget icon;
+  final Widget? activeIcon;
   final String name;
   final String initialLocation;
 
   const Tab(
-      {required this.urlIcon,
-      required this.urlActiveIcon,
+      {required this.icon,
+      required this.activeIcon,
       required this.name,
       required this.initialLocation});
 }

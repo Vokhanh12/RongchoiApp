@@ -5,6 +5,8 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 
 class HomeController extends clean_architecture.Controller {
+
+  
   late int currentIndex;
 
   bool isLoading = false;
@@ -93,7 +95,7 @@ class HomeController extends clean_architecture.Controller {
     _homePresenter.goToPersonal(context);
   }
 
-  void goToOtherTab({required BuildContext context, required int index}) {
+  void goToOtherTab({required BuildContext context, required int index}){
     _homePresenter.goToOtherTab(context, index);
   }
 
@@ -101,7 +103,7 @@ class HomeController extends clean_architecture.Controller {
 
   void _goToOtherTabInHomePageOnError(e) {}
 
-  void _goToOtherTabInHomePageOnNext(BuildContext context, int index) async {
+  void _goToOtherTabInHomePageOnNext(BuildContext context, int index) {
     // Make sure the language has been completely changed before displaying the message
 
  // Update currentIndex before navigating
@@ -131,6 +133,8 @@ class HomeController extends clean_architecture.Controller {
         _goToPersonalPage(context);
         break;
     }
+
+    refreshUI();
   }
 
   void _goToMediaSocialPage(BuildContext context) {

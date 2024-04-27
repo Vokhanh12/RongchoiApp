@@ -31,6 +31,8 @@ class HomeWithNavBarPageResponsiveViewState extends clean_architecture
               ),
         );
 
+  int _currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -52,13 +54,20 @@ class HomeWithNavBarPageResponsiveViewState extends clean_architecture
     return clean_architecture.ControlledWidgetBuilder<HomeWithNavBarController>(
         builder: (context, controller) {
       return ScaffoldWithNavBar(
+        child: widget.child,
+        
         onTap: (index) {
           
-          print(index.toString());
 
           controller.goToOtherTab(context: context, index: index);
+
+          setState(() {
+            _currentIndex = index;
+          });
+
         },
-        child: widget.child,
+
+        currentIndex: _currentIndex,
       );
     });
   }

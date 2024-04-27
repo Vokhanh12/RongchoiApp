@@ -99,7 +99,7 @@ class HomePresenter extends clean_architecture.Presenter {
   }
 
   // Function
-  void goToOtherTab(BuildContext context, int index) {
+  void goToOtherTab(BuildContext context, int index){
     _navOtherTabInHomePageUseCase.execute(
         _NavOtherTabInHomePageUseCaseObserver(this),
         NavOtherTabInHomePageUseCaseParams(context, index));
