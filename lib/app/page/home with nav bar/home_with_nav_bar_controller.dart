@@ -10,69 +10,73 @@ import 'package:rongchoi_app/domain/repositories/navigation_repository.dart';
 
 class HomeWithNavBarController extends clean_architecture.Controller {
   bool isLoading = false;
-  int _currentIndex = 0;
+  int currentIndex = 0;
 
-  final HomeWithNavBarPresenter _homeWithNavBarPresenter;
+  final HomeWithNavBarPresenter _presenter;
 
   // Presenter should always be initialized this way
   HomeWithNavBarController(NavigationRepository navRepo)
-      : _homeWithNavBarPresenter = HomeWithNavBarPresenter(navRepo);
+      : _presenter = HomeWithNavBarPresenter(navRepo);
 
   @override
   void initListeners() {
     // TODO: implement initListeners
 
-    _homeWithNavBarPresenter.goToMediaSocialPageOnComplete =
-        _goToMediaSocialOnComplete;
-    _homeWithNavBarPresenter.goToMediaSocialPageOnError =
-        _goToMediaSocialOnError;
-    _homeWithNavBarPresenter.goToMediaSocialPageOnNext = _goToMediaSocialOnNext;
+    _presenter.goToMediaSocialPageOnComplete = _goToMediaSocialOnComplete;
+    _presenter.goToMediaSocialPageOnError = _goToMediaSocialOnError;
+    _presenter.goToMediaSocialPageOnNext = _goToMediaSocialOnNext;
 
-    _homeWithNavBarPresenter.goToStorePageOnComplete = _goToStorePageOnComplete;
-    _homeWithNavBarPresenter.goToStorePageOnError = _goToStorePageOnError;
-    _homeWithNavBarPresenter.goToStorePageOnNext = _goToStorePageOnNext;
+    _presenter.goToStorePageOnComplete = _goToStorePageOnComplete;
+    _presenter.goToStorePageOnError = _goToStorePageOnError;
+    _presenter.goToStorePageOnNext = _goToStorePageOnNext;
 
-    _homeWithNavBarPresenter.goToOtherTabInHomePageOnComplete =
+    _presenter.goToOtherTabInHomePageOnComplete =
         _goToOtherTabInHomePageOnComplete;
-    _homeWithNavBarPresenter.goToOtherTabInHomePageOnError =
-        _goToOtherTabInHomePageOnError;
-    _homeWithNavBarPresenter.goToOtherTabInHomePageOnNext =
-        _goToOtherTabInHomePageOnNext;
+    _presenter.goToOtherTabInHomePageOnError = _goToOtherTabInHomePageOnError;
+    _presenter.goToOtherTabInHomePageOnNext = _goToOtherTabInHomePageOnNext;
   }
-
 
   void _goToOtherTabInHomePageOnComplete() {}
 
   void _goToOtherTabInHomePageOnError(e) {}
 
   void _goToOtherTabInHomePageOnNext(BuildContext context, int index) {
-
     switch (index) {
       case 0:
         // Store
-        _goToStorePage(context: context);
+        _goToMediaSocialPage(context);
         break;
-
       // Media social
       case 1:
-        _goToMediaSocialPage(context: context);
+        _goToStorePage(context);
+        break;
+      case 2:
+        _goToJobsPage(context);
+        break;
+      case 3:
+        _goToPersonalPage(context);
         break;
     }
   }
 
-    void goToOtherTab({required BuildContext context, required int index}) {
-    _homeWithNavBarPresenter.goToOtherTab(context, index);
+  void _goToMediaSocialPage(BuildContext context) {
+    _presenter.goToMediaSocialPage(context);
   }
 
-
-  void _goToJobsPage({required BuildContext context}) {}
-
-  void _goToStorePage({required BuildContext context}) {
-    _homeWithNavBarPresenter.goToStorePage(context);
+  void goToOtherTab(BuildContext context, int index) {
+    _presenter.goToOtherTab(context, index);
   }
 
-  void _goToMediaSocialPage({required BuildContext context}) {
-    _homeWithNavBarPresenter.goToMediaSocialPage(context);
+  void _goToJobsPage(BuildContext context) {
+    _presenter.goToJobPage(context);
+  }
+
+  void _goToStorePage(BuildContext context) {
+    _presenter.goToStorePage(context);
+  }
+
+  void _goToPersonalPage(BuildContext context) {
+    _presenter.goToPersonal(context);
   }
 
   void _goToLanguagePage() {}

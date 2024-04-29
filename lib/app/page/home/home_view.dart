@@ -11,11 +11,9 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import '../../../data/repositories/data_users_repository.dart';
 
 class HomePage extends clean_architecture.View {
-  const HomePage({Key? key, required this.title, required this.child})
-      : super(key: key);
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
-  final Widget child;
 
   @override
   HomePageState createState() =>
@@ -31,6 +29,12 @@ class HomePageState
 
   int _currentIndex = 0;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   Widget homeScaffold({Widget? child}) {
     return Scaffold(
       key: globalKey,
@@ -42,18 +46,8 @@ class HomePageState
     const labelStyle = TextStyle(fontFamily: 'Roboto');
     return clean_architecture.ControlledWidgetBuilder<HomeController>(
         builder: (context, controller) {
-      return ScaffoldWithNavBar(
-        onTap: (index) {
-          controller.goToOtherTab(context: context, index: index);
-          
-          setState(() {
-            _currentIndex = controller.currentIndex;
-          });
-
-
-        },
-        currentIndex: _currentIndex,
-        child: widget.child,
+      return Center(
+        child: Text("JobPage"),
       );
     });
   }

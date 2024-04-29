@@ -89,6 +89,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
+    
   }
 
   @override
@@ -105,6 +107,7 @@ class _MyAppState extends State<MyApp> {
     // Use to setting singleton pattern
     ScreenSize.init(context);
     ConfigFontSize.init(screenWidth, screenHeight);
+    
 
     clean_architecture.FlutterCleanArchitecture.debugModeOn();
 

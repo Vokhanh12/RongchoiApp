@@ -87,11 +87,11 @@ class Routes {
   static const registerNamePage = '/register';
   static const homeNamePage = '/home';
   static const languageNamePage = '/language';
-  static const storeNamePage = '/store';
-  static const jobsNamePage = '/job';
-  static const mediaSocialNamePage = '/media-social';
+  static const storeNamePage = '$homeNamePage/store';
+  static const jobsNamePage = '$homeNamePage/job';
+  static const mediaSocialNamePage = '$homeNamePage/media-social';
+  static const personalNamePage = '$homeNamePage/personal';
   static const confirmRegisNamePage = '/confirm-registration';
-  static const personalNamePage = '/personal';
 
   /*
   static const homeNamedPage = '/home';

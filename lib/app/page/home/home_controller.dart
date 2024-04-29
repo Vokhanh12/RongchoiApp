@@ -31,88 +31,11 @@ class HomeController extends clean_architecture.Controller {
     _homePresenter.getUserOnComplete = _getUserOnComplete;
     _homePresenter.getUserOnError = _getUserOnError;
 
-    // Initialize [goToOtherTab]
-    _homePresenter.goToOtherTabInHomePageOnComplete =
-        _goToOtherTabInHomePageOnComplete;
-    _homePresenter.goToOtherTabInHomePageOnError =
-        _goToOtherTabInHomePageOnError;
-    _homePresenter.goToOtherTabInHomePageOnNext = _goToOtherTabInHomePageOnNext;
-
-    // Initialize [goToMediaSocial]
-    _homePresenter.goToMediaSocialPageOnComplete = _goToMediaSocialOnComplete;
-    _homePresenter.goToMediaSocialPageOnError = _goToMediaSocialOnError;
-    _homePresenter.goToMediaSocialPageOnNext = _goToMediaSocialOnNext;
-
-    // Initialize [goToStore]
-    _homePresenter.goToStorePageOnComplete = _goToStorePageOnComplete;
-    _homePresenter.goToStorePageOnError = _goToStorePageOnError;
-    _homePresenter.goToStorePageOnNext = _goToStorePageOnNext;
-
-    // Initialize [goToPersonalPage]
-    _homePresenter.goToPersonalPageOnComplete = _goToPersonalPageOnComplete;
-    _homePresenter.goToPersonalPageOnError = _goToPersonalPageOnError;
-    _homePresenter.goToPersonalPageOnNext = _goToPersonalPageOnNext;
-
-    // Initialize [goToJobPage]
-    _homePresenter.goToJobPageOnComplete = _goToJobPageOnComplete;
-    _homePresenter.goToJobPageOnError = _goToJobPageOnError;
-    _homePresenter.goToJobPageOnNext = _goToJobPageOnNext;
   }
 
   void getUser() => _homePresenter.getUser('test-uid');
   void getUserwithError() => _homePresenter.getUser('test-uid231243');
 
-  void _goToJobsPage(BuildContext context) {
-    _homePresenter.goToJobPage(context);
-  }
-
-  void _goToStorePage(BuildContext context) {
-    _homePresenter.goToStorePage(context);
-  }
-
-  void _goToPersonalPage(BuildContext context) {
-    _homePresenter.goToPersonal(context);
-  }
-
-  void goToOtherTab({required BuildContext context, required int index}) {
-    _homePresenter.goToOtherTab(context, index);
-  }
-
-  void _goToOtherTabInHomePageOnComplete() {}
-
-  void _goToOtherTabInHomePageOnError(e) {}
-
-  void _goToOtherTabInHomePageOnNext(BuildContext context, int index) {
-    // Make sure the language has been completely changed before displaying the message
-
-    // Update currentIndex before navigating
-    currentIndex = index;
-
-    print("Test: $currentIndex");
-
-    switch (index) {
-      case 0:
-        // Store
-        _goToMediaSocialPage(context);
-        break;
-      // Media social
-      case 1:
-        _goToStorePage(context);
-        break;
-      case 2:
-        _goToJobsPage(context);
-        break;
-      case 3:
-        _goToPersonalPage(context);
-        break;
-    }
-
-    refreshUI();
-  }
-
-  void _goToMediaSocialPage(BuildContext context) {
-    _homePresenter.goToMediaSocialPage(context);
-  }
 
   void buttonPressed() {
     _counter++;
@@ -155,31 +78,4 @@ class HomeController extends clean_architecture.Controller {
     refreshUI(); // Refreshes the UI manually
   }
 
-  void _goToLanguagePage() {}
-
-  void _goToSettingPage() {}
-
-  void _goToStorePageOnComplete() {}
-
-  void _goToStorePageOnError(e) {}
-
-  void _goToStorePageOnNext(bool status) {}
-
-  void _goToMediaSocialOnComplete() {}
-
-  void _goToMediaSocialOnError(e) {}
-
-  void _goToMediaSocialOnNext(bool status) {}
-
-  void _goToPersonalPageOnComplete() {}
-
-  void _goToPersonalPageOnError(e) {}
-
-  void _goToPersonalPageOnNext(bool status) {}
-
-  void _goToJobPageOnComplete() {}
-
-  void _goToJobPageOnError(e) {}
-
-  void _goToJobPageOnNext(bool status) {}
 }

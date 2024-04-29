@@ -6,6 +6,7 @@ import 'package:rongchoi_app/app/page/home%20with%20nav%20bar/home_with_nav_bar_
 import 'package:rongchoi_app/app/page/job/job_controller.dart';
 import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
 import 'package:rongchoi_app/app/widgets/scaffold_with_nav_bar.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 
 class HomeWithNavBarPage extends clean_architecture.View {
   const HomeWithNavBarPage({
@@ -22,13 +23,13 @@ class HomeWithNavBarPage extends clean_architecture.View {
 }
 
 class HomeWithNavBarPageResponsiveViewState extends clean_architecture
-    .ResponsiveViewState<HomeWithNavBarPage, JobController> {
+    .ResponsiveViewState<HomeWithNavBarPage, HomeWithNavBarController> {
   HomeWithNavBarPageResponsiveViewState()
       : super(
-          JobController(
-              // DataAuthenticationRepository(),
-              //DataNavigationRepository(),
-              ),
+          HomeWithNavBarController(
+            // DataAuthenticationRepository(),
+            DataNavigationRepository(),
+          ),
         );
 
   int _currentIndex = 0;
@@ -54,20 +55,15 @@ class HomeWithNavBarPageResponsiveViewState extends clean_architecture
     return clean_architecture.ControlledWidgetBuilder<HomeWithNavBarController>(
         builder: (context, controller) {
       return ScaffoldWithNavBar(
-        child: widget.child,
-        
         onTap: (index) {
-          
-
-          controller.goToOtherTab(context: context, index: index);
-
           setState(() {
             _currentIndex = index;
           });
 
+          controller.goToOtherTab(context, _currentIndex);
         },
-
         currentIndex: _currentIndex,
+        child: widget.child,
       );
     });
   }
