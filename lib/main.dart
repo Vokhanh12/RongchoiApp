@@ -51,7 +51,7 @@ void main() {
               DataAuthenticationRepository(), DataNavigationRepository())),
       ChangeNotifierProvider(
           create: (_) => HomeWithNavBarController(DataNavigationRepository())),
-      ChangeNotifierProvider(create: (_) => PersonalController()),
+      ChangeNotifierProvider(create: (_) => PersonalController(DataAuthenticationRepository(), DataNavigationRepository())),
       ChangeNotifierProvider(
           create: (_) => JobController()),
               ChangeNotifierProvider(

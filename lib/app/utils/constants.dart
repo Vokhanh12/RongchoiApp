@@ -88,7 +88,7 @@ class Routes {
   static const homeNamePage = '/home';
   static const languageNamePage = '/language';
   static const storeNamePage = '/store';
-  static const jobsNamePage = '/jobs';
+  static const jobsNamePage = '/job';
   static const mediaSocialNamePage = '/media-social';
   static const confirmRegisNamePage = '/confirm-registration';
   static const personalNamePage = '/personal';

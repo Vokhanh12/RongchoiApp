@@ -5,8 +5,6 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 
 class HomeController extends clean_architecture.Controller {
-
-  
   late int currentIndex;
 
   bool isLoading = false;
@@ -32,11 +30,6 @@ class HomeController extends clean_architecture.Controller {
     _homePresenter.getUserOnNext = _getUserOnNext;
     _homePresenter.getUserOnComplete = _getUserOnComplete;
     _homePresenter.getUserOnError = _getUserOnError;
-
-    // Initialize [logout]
-    _homePresenter.logoutOnNext = _logoutOnNext;
-    _homePresenter.logoutOnComplete = _logoutOnComplete;
-    _homePresenter.logoutOnError = _logoutOnError;
 
     // Initialize [goToOtherTab]
     _homePresenter.goToOtherTabInHomePageOnComplete =
@@ -69,20 +62,6 @@ class HomeController extends clean_architecture.Controller {
   void getUser() => _homePresenter.getUser('test-uid');
   void getUserwithError() => _homePresenter.getUser('test-uid231243');
 
-  void logout() async {
-    isLoading = true;
-
-    refreshUI();
-
-    Future.delayed(Duration(seconds: 2), () {
-      _homePresenter.logout();
-    });
-  }
-
-  void goToLoginPage() {
-    _homePresenter.goToLoginPage(context: getContext());
-  }
-
   void _goToJobsPage(BuildContext context) {
     _homePresenter.goToJobPage(context);
   }
@@ -95,7 +74,7 @@ class HomeController extends clean_architecture.Controller {
     _homePresenter.goToPersonal(context);
   }
 
-  void goToOtherTab({required BuildContext context, required int index}){
+  void goToOtherTab({required BuildContext context, required int index}) {
     _homePresenter.goToOtherTab(context, index);
   }
 
@@ -106,29 +85,23 @@ class HomeController extends clean_architecture.Controller {
   void _goToOtherTabInHomePageOnNext(BuildContext context, int index) {
     // Make sure the language has been completely changed before displaying the message
 
- // Update currentIndex before navigating
-  currentIndex = index;
+    // Update currentIndex before navigating
+    currentIndex = index;
 
-  print("Test: $currentIndex");
-
+    print("Test: $currentIndex");
 
     switch (index) {
       case 0:
         // Store
         _goToMediaSocialPage(context);
-
         break;
-
       // Media social
       case 1:
         _goToStorePage(context);
-
         break;
-
       case 2:
         _goToJobsPage(context);
         break;
-
       case 3:
         _goToPersonalPage(context);
         break;
@@ -180,25 +153,6 @@ class HomeController extends clean_architecture.Controller {
     print(user.toString());
     _user = user;
     refreshUI(); // Refreshes the UI manually
-  }
-
-  void _logoutOnComplete() {
-    print("logout retrieve");
-  }
-
-  void _logoutOnError(e) {
-    print('Could not retrieve logout.');
-    ScaffoldMessenger.of(getContext())
-        .showSnackBar(SnackBar(content: Text(e.message)));
-    _user = null;
-  }
-
-  void _logoutOnNext(bool status) {
-    dismissLoading();
-
-    if (status) {
-      goToLoginPage();
-    }
   }
 
   void _goToLanguagePage() {}

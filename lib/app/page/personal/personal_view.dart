@@ -5,6 +5,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/job/job_controller.dart';
 import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
 import 'package:rongchoi_app/app/page/personal/personal_controller.dart';
+import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
+import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
 
 class PersonalPage extends clean_architecture.View {
   const PersonalPage({
@@ -24,9 +26,9 @@ class PersonalPageResponsiveViewState extends clean_architecture
   PersonalPageResponsiveViewState()
       : super(
           PersonalController(
-              // DataAuthenticationRepository(),
-              //DataNavigationRepository(),
-              ),
+            DataNavigationRepository(),
+            DataAuthenticationRepository(),
+          ),
         );
 
   @override
@@ -47,10 +49,14 @@ class PersonalPageResponsiveViewState extends clean_architecture
   }
 
   Widget _buildJobsFormWidget() {
-    return clean_architecture.ControlledWidgetBuilder<JobController>(
+    return clean_architecture.ControlledWidgetBuilder<PersonalController>(
         builder: (context, controller) {
-      return const Center(
-        child: Text("PersonalPage"),
+      return Center(
+        child: TextButton(
+            onPressed: () {
+              controller.logout();
+            },
+            child: Text("Logout")),
       );
     });
   }

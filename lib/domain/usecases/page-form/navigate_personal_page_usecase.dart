@@ -17,7 +17,7 @@ class NavigatePersonalPageUseCase
     final StreamController controller = StreamController();
     try {
       // assuming you pass credentials here
-      await _navigationRepository.goToMediaSocialPage(params!.context);
+      await _navigationRepository.goToPersonalPage(params!.context);
       logger.finest('NavigateMediaSocialPageUseCase successful.');
       // triggers onComplete
       controller.close();

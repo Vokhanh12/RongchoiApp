@@ -27,17 +27,6 @@ class HomePresenter extends clean_architecture.Presenter {
   late Function getUserOnComplete;
   late Function getUserOnError;
 
-  // Check status Observer [LogoutUsecase]
-  late Function logoutOnNext;
-  late Function logoutOnComplete;
-  late Function logoutOnError;
-
-  // Observer Check status
-  late Function
-      goToLoginPageOnComplete; // alternatively `void goToLoginOnComplete();`
-  late Function goToLoginPageOnError;
-  late Function
-      goToLoginPageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status
   late Function
@@ -76,8 +65,7 @@ class HomePresenter extends clean_architecture.Presenter {
 
   // UseCase
   late final GetUserUseCase _getUserUseCase;
-  late final LogoutUseCase _logoutUseCase;
-  late final NavigateLoginPageUseCase _navLoginPageUseCase;
+
   late final NavigateStorePageUseCase _navStorePageUseCase;
   late final NavigateMediaSocialPageUseCase _navMediaSocialPageUseCase;
   late final NavigateOtherTabInHomePageUseCase _navOtherTabInHomePageUseCase;
@@ -87,8 +75,6 @@ class HomePresenter extends clean_architecture.Presenter {
   // Constructor
   HomePresenter(this._usersRepo, this._authRepo, this._navigationRepository) {
     _getUserUseCase = GetUserUseCase(_usersRepo);
-    _logoutUseCase = LogoutUseCase(_authRepo);
-    _navLoginPageUseCase = NavigateLoginPageUseCase(_navigationRepository);
     _navMediaSocialPageUseCase =
         NavigateMediaSocialPageUseCase(_navigationRepository);
     _navStorePageUseCase = NavigateStorePageUseCase(_navigationRepository);
@@ -133,24 +119,15 @@ class HomePresenter extends clean_architecture.Presenter {
     );
   }
 
-  void logout() {
-    _logoutUseCase.execute(
-      _LogoutUseCaseObserver(this),
-    );
-  }
 
-  void goToLoginPage({required BuildContext context}) {
-    _navLoginPageUseCase.execute(_NavigateLoginPageUseCaseObserver(this),
-        NavigateLoginPageUseCaseParams(context));
-  }
+
+
 
   @override
   void dispose() {
     _getUserUseCase.dispose();
 
-    _logoutUseCase.dispose();
 
-    _navLoginPageUseCase.dispose();
 
     _navOtherTabInHomePageUseCase.dispose();
 
@@ -184,54 +161,8 @@ class _GetUserUseCaseObserver
   }
 }
 
-class _LogoutUseCaseObserver
-    extends clean_architecture.Observer<LogoutUseCaseResponse> {
-  final HomePresenter presenter;
-  _LogoutUseCaseObserver(this.presenter);
-  @override
-  void onComplete() {
-    presenter.logoutOnComplete();
-  }
 
-  @override
-  void onError(e) {
-    presenter.logoutOnError(e);
-  }
 
-  @override
-  void onNext(response) {
-    presenter.logoutOnNext(response!.status);
-  }
-}
-
-// The [Observer] used to observe the `Stream` of the [NavigateLoginPageUseCase]
-class _NavigateLoginPageUseCaseObserver
-    implements clean_architecture.Observer<void> {
-  // The above presenter
-  // This is not optimal, but it is a workaround due to dart limitations. Dart does
-  // not support inner classes or anonymous classes.
-  final HomePresenter _homePresenter;
-
-  _NavigateLoginPageUseCaseObserver(this._homePresenter);
-
-  /// implement if the `Stream` emits a value
-  // in this case, unnecessary
-  void onNext(_) {}
-
-  /// Navigate Language is successful, trigger event in [RegisterController]
-  void onComplete() {
-    // any cleaning or preparation goes here
-    _homePresenter.goToLoginPageOnComplete();
-  }
-
-  /// Navigate Language is unsuccessful, trigger event in [RegisterController]
-  void onError(e) {
-    // any cleaning or preparation goes here
-    if (_homePresenter.goToLoginPageOnError != null) {
-      _homePresenter.goToLoginPageOnError(e);
-    }
-  }
-}
 
 // The [Observer] used to observe the `Stream` of the [NavigateLoginPageUseCase]
 class _NavStorePageUseCaseObserver

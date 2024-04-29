@@ -8,6 +8,7 @@ import 'package:rongchoi_app/app/page/job/job_view.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
 import 'package:rongchoi_app/app/page/media%20social/media_social_view.dart';
+import 'package:rongchoi_app/app/page/personal/personal_view.dart';
 import 'package:rongchoi_app/app/page/register/register_view.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 import 'package:rongchoi_app/app/page/store/store_view.dart';
@@ -49,8 +50,15 @@ class AppRouter {
       },
       routes: [
         GoRoute(
-          name: 'jobs',
-          path: '/jobs',
+          name: 'media-social',
+          path: '/media-social',
+          builder: (context, state) {
+            return const MediaSocialPage(title: 'Media Social Page');
+          },
+        ),
+        GoRoute(
+          name: 'job',
+          path: '/job',
           pageBuilder: (context, state) {
             return CustomTransitionPage(
               key: state.pageKey,
@@ -71,17 +79,32 @@ class AppRouter {
           },
         ),
         GoRoute(
+          name: 'personal',
+          path: '/personal',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: PersonalPage(title: 'PersonalPage'),
+              transitionsBuilder: (context, animation, secondaryAnimation,
+                      child) =>
+                  SlideTransition(
+                      position: animation.drive(
+                        Tween<Offset>(
+                          begin: Offset(0.75, 0),
+                          end: Offset.zero,
+                        ).chain(CurveTween(curve: Curves.easeIn)),
+                      ),
+                      // textDirection:
+                      //    leftToRight ? TextDirection.ltr : TextDirection.rtl,
+                      child: child),
+            );
+          },
+        ),
+        GoRoute(
           name: 'store',
           path: '/store',
           builder: (context, state) {
             return const StorePage(title: 'StorePage');
-          },
-        ),
-        GoRoute(
-          name: 'media-social',
-          path: '/media-social',
-          builder: (context, state) {
-            return const MediaSocialPage(title: 'Media Social Page');
           },
         ),
       ],

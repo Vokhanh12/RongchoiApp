@@ -8,6 +8,7 @@ import 'package:rongchoi_app/domain/usecases/auth/login_usecase.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/navigate_home_page_usecase.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/navigate_language_page_usecase.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/navigate_login_page_usecase.dart';
+import 'package:rongchoi_app/domain/usecases/page-form/navigate_other_tab_in_home_page_usecase.dart';
 import 'package:rongchoi_app/domain/usecases/page-form/navigate_register_page_usecase.dart';
 
 class LoginPresenter extends Presenter {
@@ -20,6 +21,7 @@ class LoginPresenter extends Presenter {
   late NavigateRegisterPageUseCase _navigateRegisterPageUseCase;
   late NavigateLanguagePageUseCase _navigateLanguagePageUseCase;
   late NavigateHomePageUseCase _navigateHomePageUseCase;
+  late final NavigateOtherTabInHomePageUseCase _navOtherTabInHomePageUseCase;
 
   // Observer Check status login
   late Function loginOnComplete; // alternatively `void loginOnComplete();`
@@ -27,14 +29,18 @@ class LoginPresenter extends Presenter {
   late Function loginOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToRegisterPage
-  late Function goToRegisterPageOnComplete; // alternatively `void goToRegisterPageOnComplete();`
+  late Function
+      goToRegisterPageOnComplete; // alternatively `void goToRegisterPageOnComplete();`
   late Function goToRegisterPageOnError;
-  late Function goToRegisterPageOnNext; // not needed in the case of a login presenter
+  late Function
+      goToRegisterPageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToLanguagePage
-  late Function goToLanguagePageOnComplete; // alternatively `void goToLanguagePageOnComplete();`
+  late Function
+      goToLanguagePageOnComplete; // alternatively `void goToLanguagePageOnComplete();`
   late Function goToLanguagePageOnError;
-  late Function goToLanguagePageOnNext; // not needed in the case of a login presenter
+  late Function
+      goToLanguagePageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToHomePage
   late Function
@@ -43,6 +49,14 @@ class LoginPresenter extends Presenter {
   late Function
       goToHomePageOnNext; // not needed in the case of a login presenter
   // dependency injection from controller
+
+  // Observer Check status
+  late Function
+      goToOtherTabInHomePageOnComplete; // alternatively `void goToLoginOnComplete();`
+  late Function goToOtherTabInHomePageOnError;
+  late Function
+      goToOtherTabInHomePageOnNext; // not needed in the case of a login presenter
+
   LoginPresenter(this._authenticationRepository, this._navigationRepository) {
     // Initialize the [UseCase] with the appropriate repository
     // Login UseCase
@@ -55,6 +69,9 @@ class LoginPresenter extends Presenter {
         NavigateLanguagePageUseCase(_navigationRepository);
     // Navigate Home UseCase
     _navigateHomePageUseCase = NavigateHomePageUseCase(_navigationRepository);
+
+    _navOtherTabInHomePageUseCase =
+        NavigateOtherTabInHomePageUseCase(_navigationRepository);
   }
 
   /// login function called by the controller
@@ -65,7 +82,12 @@ class LoginPresenter extends Presenter {
     );
   }
 
-  
+  // Function
+  void goToOtherTab(BuildContext context, int index) {
+    _navOtherTabInHomePageUseCase.execute(
+        _NavOtherTabInHomePageUseCaseObserver(this),
+        NavOtherTabInHomePageUseCaseParams(context, index));
+  }
 
   /// goToRegisterPage function called by the controller
   void goToRegisterPage({required BuildContext context}) {
@@ -205,6 +227,37 @@ class _NavigateHomePageUseCaseObserver implements Observer<void> {
     // any cleaning or preparation goes here
     if (_loginPresenter.goToLanguagePageOnError != null) {
       _loginPresenter.goToHomePageOnError(e);
+    }
+  }
+}
+
+// The [Observer] used to observe the `Stream` of the [NavigateLoginPageUseCase]
+class _NavOtherTabInHomePageUseCaseObserver
+    implements Observer<NavOtherTabInHomePageUseCaseResponse> {
+  // The above presenter
+  // This is not optimal, but it is a workaround due to dart limitations. Dart does
+  // not support inner classes or anonymous classes.
+  final LoginPresenter _presenter;
+
+  _NavOtherTabInHomePageUseCaseObserver(this._presenter);
+
+  /// implement if the `Stream` emits a value
+  // in this case, unnecessary
+  void onNext(response) {
+    _presenter.goToOtherTabInHomePageOnNext(response!.context, response!.index);
+  }
+
+  /// Navigate Language is successful, trigger event in [RegisterController]
+  void onComplete() {
+    // any cleaning or preparation goes here
+    _presenter.goToOtherTabInHomePageOnComplete();
+  }
+
+  /// Navigate Language is unsuccessful, trigger event in [RegisterController]
+  void onError(e) {
+    // any cleaning or preparation goes here
+    if (_presenter.goToOtherTabInHomePageOnError != null) {
+      _presenter.goToOtherTabInHomePageOnError(e);
     }
   }
 }
