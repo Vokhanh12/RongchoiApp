@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rongchoi_app/app/page/home%20with%20nav%20bar/home_with_nav_bar_view.dart';
 import 'package:rongchoi_app/app/widgets/scaffold_with_nav_bar.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';
@@ -11,9 +12,10 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
 import '../../../data/repositories/data_users_repository.dart';
 
 class HomePage extends clean_architecture.View {
-  const HomePage({Key? key, required this.title}) : super(key: key);
+  const HomePage({Key? key, required this.title, required this.child}) : super(key: key);
 
   final String title;
+  final Widget child;
 
   @override
   HomePageState createState() =>
@@ -46,9 +48,7 @@ class HomePageState
     const labelStyle = TextStyle(fontFamily: 'Roboto');
     return clean_architecture.ControlledWidgetBuilder<HomeController>(
         builder: (context, controller) {
-      return Center(
-        child: Text("JobPage"),
-      );
+      return HomeWithNavBarPage(title: "HomeWithNavPage", child: widget.child);
     });
   }
 

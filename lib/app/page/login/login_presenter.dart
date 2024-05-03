@@ -29,25 +29,19 @@ class LoginPresenter extends Presenter {
   late Function loginOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToRegisterPage
-  late Function
-      goToRegisterPageOnComplete; // alternatively `void goToRegisterPageOnComplete();`
+  late Function goToRegisterPageOnComplete; // alternatively `void goToRegisterPageOnComplete();`
   late Function goToRegisterPageOnError;
-  late Function
-      goToRegisterPageOnNext; // not needed in the case of a login presenter
+  late Function goToRegisterPageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToLanguagePage
-  late Function
-      goToLanguagePageOnComplete; // alternatively `void goToLanguagePageOnComplete();`
+  late Function goToLanguagePageOnComplete; // alternatively `void goToLanguagePageOnComplete();`
   late Function goToLanguagePageOnError;
-  late Function
-      goToLanguagePageOnNext; // not needed in the case of a login presenter
+  late Function goToLanguagePageOnNext; // not needed in the case of a login presenter
 
   // Observer Check status goToHomePage
-  late Function
-      goToHomePageOnComplete; // alternatively `void goToHomePageOnComplete();`
+  late Function goToHomePageOnComplete; // alternatively `void goToHomePageOnComplete();`
   late Function goToHomePageOnError;
-  late Function
-      goToHomePageOnNext; // not needed in the case of a login presenter
+  late Function goToHomePageOnNext; // not needed in the case of a login presenter
   // dependency injection from controller
 
   // Observer Check status

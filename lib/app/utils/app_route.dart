@@ -13,46 +13,49 @@ import 'package:rongchoi_app/app/page/register/register_view.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
 import 'package:rongchoi_app/app/page/store/store_view.dart';
 
-// AppRouter use Presenter
-class AppRouter {
+class AppRouter extends StatefulWidget {
+  const AppRouter({super.key});
+
+  @override
+  State<AppRouter> createState() => _AppRouterState();
+}
+
+class _AppRouterState extends State<AppRouter> {
   static final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>();
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-  static var Router =
-      GoRouter(initialLocation: "/", navigatorKey: _rootNavigatorKey, routes: [
-    GoRoute(
-      name:
-          'splash', // Optional, add name to your routes. Allows you navigate by name instead of path
-      path: '/',
-      pageBuilder: (_, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const SplashPage(title: 'Splash'),
-          transitionDuration: const Duration(seconds: 1),
-          transitionsBuilder: (_, a, __, c) =>
-              FadeTransition(opacity: a, child: c),
-        );
-      },
-    ),
-    GoRoute(
-        name:
-            'home', // Optional, add name to your routes. Allows you navigate by name instead of path
-        path: '/home',
-        pageBuilder: (_, state) {
-          return CustomTransitionPage(
-            key: state.pageKey,
-            child: const HomePage(title: "Home"),
-            transitionDuration: const Duration(seconds: 1),
-            transitionsBuilder: (_, a, __, c) =>
-                FadeTransition(opacity: a, child: c),
-          );
-        },
+  static late final GoRouter router;
+
+  @override
+  void initState() {
+    super.initState();
+    router = _buildRouter();
+  }
+
+  GoRouter _buildRouter() {
+    return GoRouter(
+        initialLocation: "/",
+        navigatorKey: _rootNavigatorKey,
         routes: [
+          GoRoute(
+            name:
+                'splash', // Optional, add name to your routes. Allows you navigate by name instead of path
+            path: '/',
+            pageBuilder: (_, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: const SplashPage(title: 'Splash'),
+                transitionDuration: const Duration(seconds: 1),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              );
+            },
+          ),
           ShellRoute(
             navigatorKey: _shellNavigatorKey,
             builder: (context, state, child) {
-              return HomeWithNavBarPage(title: "HomeWithNavPage", child: child);
+              return HomePage(title: "Home", child: child);
             },
             routes: [
               GoRoute(
@@ -74,7 +77,7 @@ class AppRouter {
                         SlideTransition(
                             position: animation.drive(
                               Tween<Offset>(
-                                begin: Offset(0.75, 0),
+                                begin: Offset(0, 0),
                                 end: Offset.zero,
                               ).chain(CurveTween(curve: Curves.easeIn)),
                             ),
@@ -115,64 +118,70 @@ class AppRouter {
               ),
             ],
           ),
-        ]),
-    GoRoute(
-      name: 'login',
-      path: '/login',
-      pageBuilder: (_, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const LoginPage(key: ValueKey('unique_key'), title: 'login'),
-          transitionDuration: const Duration(seconds: 1),
-          transitionsBuilder: (_, a, __, c) =>
-              FadeTransition(opacity: a, child: c),
-        );
-      },
-    ),
-    GoRoute(
-      name: 'language',
-      path: '/language',
-      pageBuilder: (_, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const LanguagePage(key: ValueKey('unique_key')),
-          transitionDuration: const Duration(seconds: 1),
-          transitionsBuilder: (_, a, __, c) =>
-              FadeTransition(opacity: a, child: c),
-        );
-      },
-    ),
-    GoRoute(
-      name: 'register',
-      path: '/register',
-      pageBuilder: (_, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const RegisterPage(
-            key: ValueKey('unique_key'),
-            title: 'Register',
+          GoRoute(
+            name: 'login',
+            path: '/login',
+            pageBuilder: (_, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: const LoginPage(
+                    key: ValueKey('unique_key'), title: 'login'),
+                transitionDuration: const Duration(seconds: 1),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              );
+            },
           ),
-          transitionDuration: const Duration(seconds: 1),
-          transitionsBuilder: (_, a, __, c) =>
-              FadeTransition(opacity: a, child: c),
-        );
-      },
-    ),
-    GoRoute(
-      name: 'confirm-registration', // Tên của tuyến đi
-      path: '/confirm-registration', // Đường dẫn của tuyến đi
+          GoRoute(
+            name: 'language',
+            path: '/language',
+            pageBuilder: (_, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: const LanguagePage(key: ValueKey('unique_key')),
+                transitionDuration: const Duration(seconds: 1),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              );
+            },
+          ),
+          GoRoute(
+            name: 'register',
+            path: '/register',
+            pageBuilder: (_, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: const RegisterPage(
+                  key: ValueKey('unique_key'),
+                  title: 'Register',
+                ),
+                transitionDuration: const Duration(seconds: 1),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              );
+            },
+          ),
+          GoRoute(
+            name: 'confirm-registration', // Tên của tuyến đi
+            path: '/confirm-registration', // Đường dẫn của tuyến đi
 
-      pageBuilder: (_, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const ConfirmRegistrationPage(
-            title: "confirm-registration",
+            pageBuilder: (_, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: const ConfirmRegistrationPage(
+                  title: "confirm-registration",
+                ),
+                transitionDuration: const Duration(seconds: 1),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              );
+            },
           ),
-          transitionDuration: const Duration(seconds: 1),
-          transitionsBuilder: (_, a, __, c) =>
-              FadeTransition(opacity: a, child: c),
-        );
-      },
-    ),
-  ]);
+        ]);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
 }

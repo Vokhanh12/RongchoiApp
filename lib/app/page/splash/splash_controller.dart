@@ -60,7 +60,7 @@ class SplashController extends clean_architecture.Controller {
 
   void authStatusOnNext(bool isAuth) {
     // In the home page, setting up the social media tab is the first page.
-    const HOME_PAGE = '/home/media-social';
+    const HOME_PAGE = '/home';
     const LOGIN_PAGE = '/login';
 
     String page = isAuth ? HOME_PAGE : LOGIN_PAGE;
