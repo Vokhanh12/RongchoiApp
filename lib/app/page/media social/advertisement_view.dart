@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/media%20social/advertisement_controller.dart';
 import 'package:rongchoi_app/app/utils/log.dart';
+import 'package:rongchoi_app/app/widgets/custom_text.dart';
 import 'package:rongchoi_app/shared/build_config/screen_size.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -61,10 +62,10 @@ class AdvertisementPageResponsiveViewState extends clean_architecture
               Container(
                 width: ScreenSize.screenWidth,
                 height: 100,
-                color: Colors.black,
+                color: Color.fromARGB(255, 255, 185, 46),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0,right: 8.0, bottom: 8.0, top: 15.0),
                 child: Row(
                   children: [
                     Expanded(child: searchBar),
@@ -74,7 +75,22 @@ class AdvertisementPageResponsiveViewState extends clean_architecture
               )
             ],
           ),
-          carouselSlider
+          carouselSlider,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                selectText,
+                showAllTextButton,
+              ],
+            ),
+          ),
+          iconsButton,
+
+          Align(
+            alignment: Alignment.topLeft,
+            child: popularHotText)
         ],
       );
     });
@@ -104,84 +120,146 @@ class AdvertisementPageResponsiveViewState extends clean_architecture
             brightness: true ? Brightness.dark : Brightness.light);
 
         return SearchAnchor(
-          viewHintText: "Bạn muốn tìm đồ ăn, uống... gì?",
+            viewHintText: "Bạn muốn tìm đồ ăn, uống... gì?",
             builder: (BuildContext context, SearchController controller) {
-          return SearchBar(
-            hintText: "Bạn muốn tìm kiếm?",
-            controller: controller,
-            padding: const MaterialStatePropertyAll<EdgeInsets>(
-                EdgeInsets.symmetric(horizontal: 16.0)),
-            onTap: () {
-              controller.openView();
+              return SearchBar(
+                hintText: "Bạn muốn tìm kiếm?",
+                controller: controller,
+                padding: const MaterialStatePropertyAll<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 16.0)),
+                onTap: () {
+                  controller.openView();
+                },
+                onChanged: (_) {
+                  controller.openView();
+                },
+                leading: const Icon(Icons.search),
+                trailing: <Widget>[
+                  Tooltip(
+                    message: 'Change brightness mode',
+                    child: IconButton(
+                      isSelected: true,
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.wb_sunny_outlined),
+                      selectedIcon: const Icon(Icons.brightness_2_outlined),
+                    ),
+                  )
+                ],
+              );
             },
-            onChanged: (_) {
-              controller.openView();
-            },
-            leading: const Icon(Icons.search),
-            trailing: <Widget>[
-              Tooltip(
-                message: 'Change brightness mode',
-                child: IconButton(
-                  isSelected: true,
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  icon: const Icon(Icons.wb_sunny_outlined),
-                  selectedIcon: const Icon(Icons.brightness_2_outlined),
-                ),
-              )
-            ],
-          );
-        }, suggestionsBuilder:
+            suggestionsBuilder:
                 (BuildContext context, SearchController controller) {
-          return List<ListTile>.generate(5, (int index) {
-            final String item = 'item $index';
-            return ListTile(
-              title: Text(item),
-              onTap: () {
-                setState(() {
-                  controller.closeView(item);
-                });
-              },
-            );
-          });
-        });
+              return List<ListTile>.generate(5, (int index) {
+                final String item = 'item $index';
+                return ListTile(
+                  title: Text(item),
+                  onTap: () {
+                    setState(() {
+                      controller.closeView(item);
+                    });
+                  },
+                );
+              });
+            });
       });
 
   Widget get carouselSlider {
     return CarouselSlider(
-     options: CarouselOptions(
-      height: 200,
-      aspectRatio: 16/9,
-      viewportFraction: 1,
-      initialPage: 0,
-      enableInfiniteScroll: true,
-      reverse: false,
-      autoPlay: true,
-      autoPlayInterval: Duration(seconds: 3),
-      autoPlayAnimationDuration: Duration(milliseconds: 800),
-      autoPlayCurve: Curves.easeOutQuart,
-      enlargeCenterPage: true,
-      enlargeFactor: 0,
-      scrollDirection: Axis.horizontal,
-   ),
+      options: CarouselOptions(
+        height: 200,
+        aspectRatio: 16 / 9,
+        viewportFraction: 1.0,
+        initialPage: 0,
+        enableInfiniteScroll: true,
+        reverse: false,
+        autoPlay: true,
+        autoPlayInterval: Duration(seconds: 3),
+        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayCurve: Curves.easeOutQuart,
+        enlargeCenterPage: true,
+        enlargeFactor: 0,
+        scrollDirection: Axis.horizontal,
+      ),
       items: [1, 2, 3, 4, 5].map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 0),
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                     margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(color: Colors.amber),
-                  child: Text(
-                    'text $i',
-                    style: TextStyle(fontSize: 16.0),
-                  )),
+            return Container(
+              width: ScreenSize.screenWidth,
+              decoration: const BoxDecoration(color: Colors.amber),
+              child: Center(
+                child: Text(
+                  'Banner $i',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              ),
             );
           },
         );
       }).toList(),
+    );
+  }
+
+  Widget get iconsButton {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            iconDrinkButton,
+            iconDrinkButton,
+            iconDrinkButton,
+            iconDrinkButton,
+            iconDrinkButton,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget get popularHotText{
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CustomText(text: "Thịnh hành nhất", fontSize: 16.0),
+      );
+  }
+
+  Widget get iconDrinkButton {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Icon(Icons.emoji_food_beverage, color: Colors.white),
+      style: ElevatedButton.styleFrom(
+        shape: CircleBorder(),
+        padding: EdgeInsets.all(20),
+        backgroundColor: Colors.blue, // <-- Button color
+        foregroundColor: Colors.red, // <-- Splash color
+      ),
+    );
+  }
+
+  Widget get iconDiningButton {
+    return ElevatedButton(
+      onPressed: () {},
+      child: const Icon(Icons.ramen_dining, color: Colors.white),
+      style: ElevatedButton.styleFrom(
+        shape: CircleBorder(),
+        padding: EdgeInsets.all(20),
+        backgroundColor: Colors.blue, // <-- Button color
+        foregroundColor: Colors.red, // <-- Splash color
+      ),
+    );
+  }
+
+  Widget get selectText {
+    return CustomText(text: "Lựa chọn", fontSize: 15);
+  }
+
+  Widget get showAllTextButton {
+    return TextButton(
+      onPressed: () {},
+      child: CustomText(text: "Hiển thị thêm", fontSize: 15),
     );
   }
 

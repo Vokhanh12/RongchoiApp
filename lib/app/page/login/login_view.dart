@@ -193,7 +193,7 @@ class LoginPageResponsiveViewState
         child: CustomSvgPicture(
           width: ScreenSize.screenWidth / 3.3,
           height: ScreenSize.screenHeight / 3.3,
-          url: 'assets/svg/logo-rongchoi-01.svg',
+          url: 'assets/svg/rong-choi-01.svg',
         ),
       );
 
