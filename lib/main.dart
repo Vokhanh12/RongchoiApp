@@ -12,8 +12,8 @@ import 'package:rongchoi_app/app/page/job/job_view.dart';
 import 'package:rongchoi_app/app/page/language/language_controller.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/language/cubit/language_cubit.dart';
-import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
-import 'package:rongchoi_app/app/page/media%20social/media_social_view.dart';
+import 'package:rongchoi_app/app/page/media%20social/advertisement_controller.dart';
+import 'package:rongchoi_app/app/page/media%20social/advertisement_view.dart';
 import 'package:rongchoi_app/app/page/personal/personal_controller.dart';
 import 'package:rongchoi_app/app/page/personal/personal_view.dart';
 import 'package:rongchoi_app/app/page/register/form_cubit.dart';
@@ -62,7 +62,7 @@ void main() {
           create: (_) => PersonalController(
               DataAuthenticationRepository(), DataNavigationRepository())),
       ChangeNotifierProvider(create: (_) => JobController()),
-      ChangeNotifierProvider(create: (_) => MediaSocialController()),
+      ChangeNotifierProvider(create: (_) => AdvertisementController()),
       ChangeNotifierProvider(create: (_) => JobController()),
       ChangeNotifierProvider(create: (_) => StoreController()),
       Provider(create: (_) => LanguageCubit()),
@@ -174,8 +174,9 @@ class _MyAppState extends State<MyApp> {
           ),
           GoRoute(
             path: Routes.homeNamePage,
-            redirect: (context, state) =>
-                state.path == Routes.homeNamePage ? Routes.mediaSocialNamePage : null,
+            redirect: (context, state) => state.path == Routes.homeNamePage
+                ? Routes.advertisementNamePage
+                : null,
           ),
           ShellRoute(
             navigatorKey: _shellNavigatorKey,
@@ -184,35 +185,16 @@ class _MyAppState extends State<MyApp> {
             },
             routes: [
               GoRoute(
-                name: 'media-social',
-                path: Routes.mediaSocialNamePage,
+                name: 'Advertisement',
+                path: Routes.advertisementNamePage,
                 pageBuilder: (context, state) {
-                  const INDEX = 0;
                   return CustomTransitionPage(
-                      key: state.pageKey,
-                      child: const MediaSocialPage(title: 'Media Social Page'),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return SlideTransition(
-                            position: animation.drive(
-                              Tween<Offset>(
-                                begin: () {
-                                  // Define your condition here
-                                  if (indexMenu < INDEX) {
-                                    indexMenu = INDEX;
-                                    return Offset(0.75, 0.0);
-                                  } else {
-                                    indexMenu = INDEX;
-                                    return Offset(-0.75, 0.0);
-                                  }
-                                }(),
-                                end: Offset.zero,
-                              ).chain(CurveTween(curve: Curves.easeIn)),
-                            ),
-                            // textDirection:
-                            //    leftToRight ? TextDirection.ltr : TextDirection.rtl,
-                            child: child);
-                      });
+                    key: state.pageKey,
+                    child: const AdvertisementPage(title: 'Advertisement'),
+                    transitionDuration: const Duration(seconds: 1),
+                    transitionsBuilder: (_, a, __, c) =>
+                        FadeTransition(opacity: a, child: c),
+                  );
                 },
               ),
               GoRoute(
@@ -233,10 +215,11 @@ class _MyAppState extends State<MyApp> {
                                   // Define your condition here
                                   if (indexMenu < INDEX) {
                                     indexMenu = INDEX;
-                                    return Offset(0.75, 0.0);
+                                       return Offset(-0.75, 0.0);
                                   } else {
                                     indexMenu = INDEX;
-                                    return Offset(-0.75, 0.0);
+                                 
+                                    return Offset(0.75, 0.0);
                                   }
                                 }(),
                                 end: Offset.zero,

@@ -4,7 +4,10 @@ import 'package:rongchoi_app/app/utils/constants.dart';
 
 class ScaffoldWithNavBar extends StatefulWidget {
   const ScaffoldWithNavBar(
-      {super.key, required this.child, required this.onTap, required this.currentIndex});
+      {super.key,
+      required this.child,
+      required this.onTap,
+      required this.currentIndex});
 
   final Widget child;
   final Function(int index) onTap;
@@ -15,7 +18,6 @@ class ScaffoldWithNavBar extends StatefulWidget {
 }
 
 class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
-
   final tabs = Resources.tabs;
 
   late List<BottomNavigationBarItem> bottomNavigationBarItems;
@@ -47,12 +49,13 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
     return Scaffold(
       body: SafeArea(child: widget.child),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         selectedLabelStyle: labelStyle,
         unselectedLabelStyle: labelStyle,
         selectedItemColor: const Color(0xFF434343),
-        selectedFontSize: 12,
+        selectedFontSize: 14,
         unselectedItemColor: const Color(0xFF838383),
-        showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         onTap: widget.onTap,
         currentIndex: widget.currentIndex,

@@ -62,7 +62,7 @@ class Resources {
        icon: Icon(Icons.home),
       activeIcon: Icon(Icons.home),
         name: 'MediaSocial',
-        initialLocation: Routes.mediaSocialNamePage),
+        initialLocation: Routes.advertisementNamePage),
     TabUtil.Tab(
         icon: Icon(Icons.explore_outlined),
       activeIcon: Icon(Icons.explore),
@@ -89,7 +89,7 @@ class Routes {
   static const languageNamePage = '/language';
   static const storeNamePage = '$homeNamePage/store';
   static const jobsNamePage = '$homeNamePage/job';
-  static const mediaSocialNamePage = '$homeNamePage/media-social';
+  static const advertisementNamePage = '$homeNamePage/advertisement';
   static const personalNamePage = '$homeNamePage/personal';
   static const confirmRegisNamePage = '/confirm-registration';
 

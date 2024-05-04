@@ -3,7 +3,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart'
     as clean_architecture;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rongchoi_app/app/page/job/job_controller.dart';
-import 'package:rongchoi_app/app/page/media%20social/media_social_controller.dart';
+import 'package:rongchoi_app/app/page/media%20social/advertisement_controller.dart';
 import 'package:rongchoi_app/app/page/personal/personal_controller.dart';
 import 'package:rongchoi_app/data/repositories/data_authentication_repository.dart';
 import 'package:rongchoi_app/data/repositories/data_navigation_repository.dart';

@@ -7,7 +7,7 @@ import 'package:rongchoi_app/app/page/home/home_view.dart';
 import 'package:rongchoi_app/app/page/job/job_view.dart';
 import 'package:rongchoi_app/app/page/language/language_view.dart';
 import 'package:rongchoi_app/app/page/login/login_view.dart';
-import 'package:rongchoi_app/app/page/media%20social/media_social_view.dart';
+import 'package:rongchoi_app/app/page/media%20social/advertisement_view.dart';
 import 'package:rongchoi_app/app/page/personal/personal_view.dart';
 import 'package:rongchoi_app/app/page/register/register_view.dart';
 import 'package:rongchoi_app/app/page/splash/splash_view.dart';
@@ -59,10 +59,10 @@ class _AppRouterState extends State<AppRouter> {
             },
             routes: [
               GoRoute(
-                name: 'media-social',
-                path: 'media-social',
+                name: 'Advertisement',
+                path: 'Advertisement',
                 builder: (context, state) {
-                  return MediaSocialPage(title: 'Media Social Page');
+                  return AdvertisementPage(title: 'Advertisement');
                 },
               ),
               GoRoute(

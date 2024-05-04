@@ -99,7 +99,7 @@ class DataNavigationRepository extends NavigationRepository {
 
   @override
   Future<void> goToMediaSocialPage(BuildContext context) async {
-    GoRouter.of(context).go(Routes.mediaSocialNamePage);
+    GoRouter.of(context).go(Routes.advertisementNamePage);
   }
 
   @override
